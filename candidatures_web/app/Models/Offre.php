@@ -13,7 +13,7 @@ class Offre extends Model
 
     public function candidatures()
     {
-        return $this->hasMany(Candidature::class, 'id');
+        return $this->hasMany(Candidature::class, 'offre', 'id');
     }
 }
 ?>

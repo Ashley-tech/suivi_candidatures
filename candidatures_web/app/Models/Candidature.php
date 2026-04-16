@@ -16,6 +16,7 @@ class Candidature extends Model
     protected $fillable = [
         'compte',
         'offre',
+        'cv',
         'statut',
         'date_candidature',
         'score_matching',

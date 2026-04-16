@@ -9,7 +9,7 @@ class CV extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['contenu','nom','date_upload','visible'];
+    protected $fillable = ['contenu','nom','compte','date_upload','visible'];
 
     public function compte()
     {
