@@ -17,6 +17,11 @@ class Compte extends Model
         return $this->hasMany(Candidature::class, 'compte', 'id');
     }
 
+    public function hashPwd($password)
+    {
+        return password_hash($password, PASSWORD_BCRYPT);
+    }
+
     public function cvs()
     {
         return $this->hasMany(CV::class, 'compte', 'id');
