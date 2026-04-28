@@ -16,6 +16,7 @@ return new class extends Migration
             $table->id();
             $table->binary('contenu')->nullable();
             $table->string('nom');
+            $table->string('mime_type')->nullable();
             $table->unsignedBigInteger('compte');
             $table->foreign('compte')->references('id')->on('compte');
             $table->dateTime('date_upload');

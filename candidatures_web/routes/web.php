@@ -6,6 +6,9 @@ use App\Models\Candidature;
 use App\Models\Offre;
 use App\Models\CV;
 use Illuminate\Http\Request;
+use App\Http\Controllers\CompteController;
+use App\Http\Controllers\CandidatureController;
+use App\Http\Controllers\OffreController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,22 +25,21 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get("/login", function () {
+    return view('login');
+});
+
+Route::get("/dashboard", function () {
+    return view('dashboard');
+});
+
 Route::get('/comptes', function () {
     return Compte::all();
 });
 
-Route::post('/comptes', function (Request $request) {
-    return Compte::create($request->all());
-});
+Route::post('/comptes', [CompteController::class, 'create']);
 
-Route::post('/login', function (Request $request) {
-    $compte = Compte::where('email', $request->email)->first();
-    if ($compte && password_verify($request->mdp, $compte->mdp_crypted)) {
-        return response()->json(['message' => 'Login successful', 'compte' => $compte], 200);
-    } else {
-        return response()->json(['message' => 'Invalid credentials'], 401);
-    }
-});
+Route::post('/login', [CompteController::class, 'login']);
 
 Route::get("/comptes/{id}", function ($id) {
     return Compte::find($id);
@@ -49,10 +51,6 @@ Route::get("/candidatures", function () {
 
 Route::get("/{compte}/candidatures", function ($compte) {
     return Candidature::where('compte', $compte)->get();
-});
-
-Route::get("/{compte}/cvs", function ($compte) {
-    return CV::where('compte', $compte)->get();
 });
 
 Route::get("/offres", function () {
