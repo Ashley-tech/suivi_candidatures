@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -13,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('cv', function (Blueprint $table) {
             $table->id();
-            $table->text('contenu')->nullable();
+            $table->binary('contenu')->nullable();
             $table->string('nom');
             $table->unsignedBigInteger('compte');
             $table->foreign('compte')->references('id')->on('compte');
@@ -21,6 +22,7 @@ return new class extends Migration
             $table->boolean('visible')->default(true);
             $table->timestamps();
         });
+        DB::statement("ALTER TABLE cv MODIFY contenu LONGBLOB");
     }
 
     /**
