@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('offre')->constrained('offre','id');
             $table->foreignId('cv')->constrained('cv','id');
 
-            $table->string('statut');
+            $table->string('statut')->default('En attente');
             $table->date('date_candidature');
             $table->decimal('score_matching', 5, 2)->nullable();
 
