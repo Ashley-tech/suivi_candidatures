@@ -15,12 +15,16 @@ class MailController extends Controller
 
         if (!$address || !$subject || !$content) {
             return response()->json([
-                'error' => 'Paramètres manquants'
+                'error' => 'Paramètres manquants',
+                'success' => false
             ], 400);
         }
 
         Mail::to($address)->send(new TestMail($subject, $content));
 
-        return "Mail envoyé";
+        return response()->json([
+            'message' => 'Mail envoyé',
+            'success' => true
+        ]);
     }
 }

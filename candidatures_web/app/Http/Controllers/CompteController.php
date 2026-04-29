@@ -8,7 +8,7 @@ use App\Models\Compte;
 class CompteController extends Controller
 {
     //
-    public function login($login,$mdp){
+    public function login(mixed $login, mixed $mdp){
         $compte = Compte::where('email', $login)->first();
         if ($compte && password_verify($mdp, $compte->mdp_crypted)) {
             return response()->json(['message' => 'Login successful', 'compte' => $compte], 200);
