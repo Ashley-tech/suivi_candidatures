@@ -10,8 +10,8 @@ class Candidature extends Model
     use HasFactory;
 
     protected $table = 'candidature';
-    public $incrementing = false;
-    public $timestamps = false;
+    public $incrementing = true;
+    public $timestamps = true;
 
     protected $fillable = [
         'compte',
@@ -34,6 +34,6 @@ class Candidature extends Model
 
     public function cv()
     {
-        return $this->belongsTo(CV::class, 'cv','id');
+        return $this->belongsTo(CV::class, 'cv');
     }
 }
