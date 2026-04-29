@@ -5,6 +5,12 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\CVController;
 use App\Models\CV;
+use App\Http\Controllers\CandidatureController;
+use App\Http\Controllers\OffreController;
+use App\Models\Compte;
+use App\Models\Candidature;
+use App\Models\Offre;
+use App\Http\Controllers\CompteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,9 +23,9 @@ use App\Models\CV;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+/*Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
-});
+});*/
 
 Route::post('/cv/upload', [CVController::class, 'enregistrerFile']);
 
@@ -39,4 +45,34 @@ Route::get("/{compte}/cvs", function ($compte) {
             'download_url' => url("/api/cvs/{$cv->id}/download")
         ];
     });
+});
+
+Route::patch("/candidature/{id}/statut", [CandidatureController::class, 'updateStatut']);
+
+Route::get('/comptes', function () {
+    return Compte::all();
+});
+
+Route::post('/comptes', [CompteController::class, 'create']);
+
+Route::post('/login', [CompteController::class, 'login']);
+
+Route::get("/comptes/{id}", function ($id) {
+    return Compte::find($id);
+});
+
+Route::get("/candidatures", function () {
+    return Candidature::all();
+});
+
+Route::get("/compte/{compte}/candidatures", function ($compte) {
+    return Candidature::where('compte', $compte)->get();
+});
+
+Route::get("/offres", function () {
+    return Offre::all();
+});
+
+Route::get("/offres/{id}", function ($id) {
+    return Offre::find($id);
 });

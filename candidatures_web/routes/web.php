@@ -1,14 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Models\Compte;
-use App\Models\Candidature;
-use App\Models\Offre;
-use App\Models\CV;
 use Illuminate\Http\Request;
-use App\Http\Controllers\CompteController;
-use App\Http\Controllers\CandidatureController;
-use App\Http\Controllers\OffreController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -33,30 +27,38 @@ Route::get("/dashboard", function () {
     return view('dashboard');
 });
 
-Route::get('/comptes', function () {
-    return Compte::all();
-});
-
-Route::post('/comptes', [CompteController::class, 'create']);
-
-Route::post('/login', [CompteController::class, 'login']);
-
-Route::get("/comptes/{id}", function ($id) {
-    return Compte::find($id);
-});
-
-Route::get("/candidatures", function () {
-    return Candidature::all();
-});
-
-Route::get("/{compte}/candidatures", function ($compte) {
-    return Candidature::where('compte', $compte)->get();
+Route::get("/signup", function () {
+    return view('signup');
 });
 
 Route::get("/offres", function () {
-    return Offre::all();
+    return view('offres');
 });
 
 Route::get("/offres/{id}", function ($id) {
-    return Offre::find($id);
+    return view('offre_details', ['offre_id' => $id]);
+});
+
+Route::get("/offres/form/new", function () {
+    return view('form_candidature');
+});
+
+Route::get("/compte/modify", function () {
+    return view('modify_compte');
+});
+
+Route::get("/forgot_password", function () {
+    return view('forgot');
+});
+
+Route::get("/cvs", function () {
+    return view('cvs');
+});
+
+Route::get("/{compte}/new_password", function ($compte) {
+    return view('new_password', ['compte_id' => $compte]);
+});
+
+Route::get("/cv/new", function () {
+    return view('form_cv');
 });
