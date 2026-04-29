@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CVController;
 use App\Models\CV;
 use App\Http\Controllers\CandidatureController;
-use App\Http\Controllers\OffreController;
+use App\Http\Controllers\MailController;
 use App\Models\Compte;
 use App\Models\Candidature;
 use App\Models\Offre;
@@ -76,3 +76,7 @@ Route::get("/offres", function () {
 Route::get("/offres/{id}", function ($id) {
     return Offre::find($id);
 });
+
+Route::get('/test-mail/{address}', [MailController::class, 'envoyerMail']);
+
+Route::post('/test-mail', [MailController::class, 'envoyerMail']);
