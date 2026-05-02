@@ -7,6 +7,10 @@ use App\Models\Compte;
 
 class CompteController extends Controller
 {
+    public function getAll() {
+        return Compte::all();
+    }
+
     public function login(Request $request){
         $request->validate([
             'email' => 'required|email',
@@ -49,9 +53,9 @@ class CompteController extends Controller
             'sexe' => 'nullable|string',
             'nom' => 'nullable|string',
             'prenom' => 'nullable|string',
-            'email' => 'nullable|email|unique:compte,email,'.$id,
+            'email' => 'nullable|email',
             'date_naissance' => 'nullable|date',
-            'mdp' => 'nullable|string|min:8',
+            'mdp' => 'nullable|string'/*+'|min:8'*/,  // Assurez-vous que 'mdp' est fourni si vous souhaitez le mettre à jour
             // Ajoutez les autres champs selon vos besoins
             'nationalite' => 'nullable|string',
             'titre' => 'nullable|string',
@@ -68,6 +72,32 @@ class CompteController extends Controller
             $validated['mdp_crypted'] = (new Compte())->hashPwd($validated['mdp']);
             //unset($validated['mdp']);
         }
+        if ($validated['email'] != $compte->email) {
+            $validated['email'] = $validated['email'] ?? $compte->email;
+        } else {
+            $validated['email'] = $compte->email;
+        }
+        $comptes = CompteController::getAll();
+        for ($i = 0; $i < count($comptes); $i++) {
+            if ($comptes[$i]->email == $validated['email'] && $comptes[$i]->id != $compte->id) {
+                return response()->json(['message' => 'Email already in use by another account','success' => false], 400);
+            }
+        }
+
+        /*$validated['sexe'] = $validated['sexe'] ?? $compte->sexe;
+        $validated['nom'] = $validated['nom'] ?? $compte->nom;
+        $validated['prenom'] = $validated['prenom'] ?? $compte->prenom;
+        $validated['email'] = $validated['email'] ?? $compte->email;
+        $validated['date_naissance'] = $validated['date_naissance'] ?? $compte->date_naissance;
+        $validated['nationalite'] = $validated['nationalite'] ?? $compte->nationalite;
+        $validated['titre'] = $validated['titre'] ?? $compte->titre;
+        $validated['adresse'] = $validated['adresse'] ?? $compte->adresse;
+        $validated['adresse_comp'] = $validated['adresse_comp'] ?? $compte->adresse_comp;
+        $validated['cp'] = $validated['cp'] ?? $compte->cp;
+        $validated['ville'] = $validated['ville'] ?? $compte->ville;
+        $validated['pays'] = $validated['pays'] ?? $compte->pays;
+        $validated['numero'] = $validated['numero'] ?? $compte->numero;
+        $validated['website'] = $validated['website'] ?? $compte->website;*/
 
         $compte->update($validated);
 

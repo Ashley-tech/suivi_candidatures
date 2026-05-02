@@ -53,7 +53,7 @@ Route::get('/comptes', function () {
     return Compte::all();
 });
 
-Route::post('/compte/{id}/update-pwd', [CompteController::class, 'updatePwd']);
+Route::patch('/compte/{id}/update-pwd', [CompteController::class, 'updatePwd']);
 
 Route::post('/comptes', [CompteController::class, 'create']);
 
@@ -82,3 +82,5 @@ Route::get("/offres/{id}", function ($id) {
 Route::get('/test-mail/{address}', [MailController::class, 'envoyerMail']);
 
 Route::post('/test-mail', [MailController::class, 'envoyerMail']);
+
+Route::patch("/compte/{id}", [CompteController::class, 'update']);
