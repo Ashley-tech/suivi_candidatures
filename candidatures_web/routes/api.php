@@ -53,6 +53,8 @@ Route::get('/comptes', function () {
     return Compte::all();
 });
 
+Route::post('/compte/{id}/update-pwd', [CompteController::class, 'updatePwd']);
+
 Route::post('/comptes', [CompteController::class, 'create']);
 
 Route::post('/login', [CompteController::class, 'login']);

@@ -7,13 +7,17 @@ use App\Models\Compte;
 
 class CompteController extends Controller
 {
-    //
-    public function login(mixed $login, mixed $mdp){
-        $compte = Compte::where('email', $login)->first();
-        if ($compte && password_verify($mdp, $compte->mdp_crypted)) {
-            return response()->json(['message' => 'Login successful', 'compte' => $compte], 200);
+    public function login(Request $request){
+        $request->validate([
+            'email' => 'required|email',
+            'mdp' => 'required|string',
+        ]);
+
+        $compte = Compte::where('email', $request->email)->first();
+        if ($compte && password_verify($request->mdp, $compte->mdp_crypted)) {
+            return response()->json(['message' => 'Login successful','success' => true, 'compte' => $compte], 200);
         } else {
-            return response()->json(['message' => 'Invalid credentials'], 401);
+            return response()->json(['message' => 'Invalid credentials','success' => false], 401);
         }
     }
 
@@ -21,7 +25,21 @@ class CompteController extends Controller
         $compte = Compte::findOrFail($id);
         $compte->delete();
 
-        return response()->json(['message' => 'Compte deleted successfully'], 200);
+        return response()->json(['message' => 'Compte deleted successfully','success' => true], 200);
+    }
+
+    public function updatePwd(int $id, Request $request) {
+        $compte = Compte::findOrFail($id);
+
+        $validated = $request->validate([
+            'mdp' => 'required|string',
+        ]);
+
+        $compte->mdp_crypted = (new Compte())->hashPwd($validated['mdp']);
+        $compte->mdp = $validated['mdp']; // Stockez le mot de passe en clair pour la réponse (optionnel, à ne pas faire en production)
+        $compte->save();
+
+        return response()->json(['message' => 'Password updated successfully','success' => true,"compte" => $compte], 200);
     }
 
     public function update(int $id, Request $request) {
@@ -53,7 +71,7 @@ class CompteController extends Controller
 
         $compte->update($validated);
 
-        return response()->json(['message' => 'Compte updated successfully', 'compte' => $compte], 200);
+        return response()->json(['message' => 'Compte updated successfully', 'compte' => $compte, 'success' => true], 200);
     }
 
     public function create(Request $request) {
@@ -63,7 +81,7 @@ class CompteController extends Controller
             'prenom' => 'required|string',
             'email' => 'required|email|unique:compte,email',
             'date_naissance' => 'nullable|date',
-            'mdp' => 'required|string|min:8',  // Assurez-vous que 'mdp' est fourni
+            'mdp' => 'required|string'/*+'|min:8'*/,  // Assurez-vous que 'mdp' est fourni
             // Ajoutez les autres champs selon vos besoins
             'nationalite' => 'nullable|string',
             'titre' => 'nullable|string',
@@ -79,6 +97,6 @@ class CompteController extends Controller
         $validated['mdp_crypted'] = (new Compte())->hashPwd($validated['mdp']);
         // unset($validated['mdp']);  // Supprimez le mot de passe en clair
 
-        return Compte::create($validated);
+        return response()->json(['message' => 'Compte created successfully', 'compte' => Compte::create($validated), 'success' => true], 201);
     }
 }
