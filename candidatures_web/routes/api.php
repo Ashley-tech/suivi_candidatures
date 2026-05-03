@@ -8,6 +8,7 @@ use App\Models\CV;
 use App\Http\Controllers\CandidatureController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\OffreController;
+use App\Http\Controllers\RedisController;
 use App\Models\Compte;
 use App\Models\Candidature;
 use App\Models\Offre;
@@ -97,3 +98,8 @@ Route::post("/candidatures", [CandidatureController::class, 'enregistrerCandidat
 Route::patch("/candidature/{id}/save-score", [CandidatureController::class, 'saveScore']);
 
 Route::delete("/candidature/{id}", [CandidatureController::class, 'deleteCandidature']);
+
+Route::get("/redis/keys", [RedisController::class, 'getAllKeys']);
+Route::get("/redis/{key}", [RedisController::class, 'getValue']);
+Route::delete("/redis/{key}", [RedisController::class, 'deleteKey']);
+Route::post("/redis", [RedisController::class, 'setKey']);
