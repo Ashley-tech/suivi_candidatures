@@ -7,10 +7,16 @@ use Illuminate\Support\Facades\Redis;
 
 class RedisController extends Controller
 {
-    public function setKey($key,$value,$ttl){
+    public function setKey(Request $request){
         $redis = app()->make('redis');
-        $redis->set($key, $value);
-        $redis->expire($key, $ttl);
+        $redis->set($request->key, $request->value);
+        $redis->expire($request->key, $request->ttl);
+    }
+
+    public function addNewKey(Request $request){
+        $redis = app()->make('redis');
+        $redis->setnx($request->key, $request->value);
+        $redis->expire($request->key, $request->ttl);
     }
 
     public function getAllKeys(){
@@ -18,13 +24,13 @@ class RedisController extends Controller
         return $redis->keys('*');
     }
 
-    public function getValue($key){
+    public function getValue(Request $request){
         $redis = app()->make('redis');
-        return $redis->get($key);
+        return $redis->get($request->key);
     }
 
-    public function deleteKey($key){
+    public function deleteKey(Request $request){
         $redis = app()->make('redis');
-        $redis->del($key);
+        $redis->del($request->key);
     }
 }

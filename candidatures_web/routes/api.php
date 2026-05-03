@@ -102,4 +102,5 @@ Route::delete("/candidature/{id}", [CandidatureController::class, 'deleteCandida
 Route::get("/redis/keys", [RedisController::class, 'getAllKeys']);
 Route::get("/redis/{key}", [RedisController::class, 'getValue']);
 Route::delete("/redis/{key}", [RedisController::class, 'deleteKey']);
-Route::post("/redis", [RedisController::class, 'setKey']);
+Route::patch("/redis", [RedisController::class, 'setKey']);
+Route::post("/redis", [RedisController::class, 'addNewKey']);
