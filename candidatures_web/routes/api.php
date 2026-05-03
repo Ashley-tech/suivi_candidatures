@@ -7,6 +7,7 @@ use App\Http\Controllers\CVController;
 use App\Models\CV;
 use App\Http\Controllers\CandidatureController;
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\OffreController;
 use App\Models\Compte;
 use App\Models\Candidature;
 use App\Models\Offre;
@@ -37,12 +38,12 @@ Route::get('/cv/{id}/download', function ($id) {
         ->header('Content-Disposition', 'attachment; filename="'.$cv->nom.'"');
 });
 
-Route::get("/{compte}/cvs", function ($compte) {
+Route::get("/compte/{compte}/cvs", function ($compte) {
     return CV::where('compte', $compte)->get()->map(function ($cv) {
         return [
             'id' => $cv->id,
             'nom' => $cv->nom,
-            'download_url' => url("/api/cvs/{$cv->id}/download")
+            'download_url' => url("http://{$_SERVER['HTTP_HOST']}/api/cv/{$cv->id}/download")
         ];
     });
 });
@@ -84,3 +85,9 @@ Route::get('/test-mail/{address}', [MailController::class, 'envoyerMail']);
 Route::post('/test-mail', [MailController::class, 'envoyerMail']);
 
 Route::patch("/compte/{id}", [CompteController::class, 'update']);
+
+Route::post("/offres", [OffreController::class, 'ajouterOffre']);
+
+Route::patch("/offres/{id}", [OffreController::class, 'updateOffre']);
+
+Route::delete("/offres/{id}", [OffreController::class, 'deleteOffre']);           

@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('offre', function (Blueprint $table) {
             $table->id();
             $table->string('titre');
-            $table->string('type');
-            $table->text('description');
-            $table->string('nom_entreprise');
+            $table->string('type')->nullable();
+            $table->text('description')->nullable();
+            $table->string('nom_entreprise')->nullable();
             $table->string('adresse_entreprise')->nullable();
             $table->string('adresse_comp_entreprise')->nullable();
             $table->string('cp_entreprise')->nullable();
