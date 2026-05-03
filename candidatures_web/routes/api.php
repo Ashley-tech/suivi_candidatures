@@ -100,7 +100,8 @@ Route::patch("/candidature/{id}/save-score", [CandidatureController::class, 'sav
 Route::delete("/candidature/{id}", [CandidatureController::class, 'deleteCandidature']);
 
 Route::get("/redis/keys", [RedisController::class, 'getAllKeys']);
+Route::get("/redis", [RedisController::class, 'getAllKeyValues']);
 Route::get("/redis/{key}", [RedisController::class, 'getValue']);
 Route::delete("/redis/{key}", [RedisController::class, 'deleteKey']);
-Route::patch("/redis", [RedisController::class, 'setKey']);
+Route::patch("/redis/{key}", [RedisController::class, 'setKey']);
 Route::post("/redis", [RedisController::class, 'addNewKey']);
