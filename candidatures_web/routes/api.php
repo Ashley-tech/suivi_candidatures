@@ -91,3 +91,9 @@ Route::post("/offres", [OffreController::class, 'ajouterOffre']);
 Route::patch("/offres/{id}", [OffreController::class, 'updateOffre']);
 
 Route::delete("/offres/{id}", [OffreController::class, 'deleteOffre']);           
+
+Route::post("/candidatures", [CandidatureController::class, 'enregistrerCandidature']);
+
+Route::patch("/candidature/{id}/save-score", [CandidatureController::class, 'saveScore']);
+
+Route::delete("/candidature/{id}", [CandidatureController::class, 'deleteCandidature']);
