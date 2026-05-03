@@ -2,32 +2,69 @@
 
 namespace App\Http\Controllers;
 use App\Models\CV;
+use App\Http\Controllers\CandidatureController;
 
 use Illuminate\Http\Request;
 
 use Smalot\PdfParser\Parser;
+use PhpOffice\PhpWord\IOFactory;
 
 class CVController extends Controller
 {
-    private function cleanText(mixed $text) {
-        $text = strtolower($text);
-        $text = preg_replace('/[^a-z0-9\s]/', '', $text);
 
-        $stopWords = ['le', 'la', 'les', 'de', 'du', 'des', 'un', 'une', 'et', 'ou'];
+    public function cvextracted(mixed $file) {
+        $mimeType = $file->getMimeType();
+        $filePath = $file->getRealPath();
 
-        $words = array_filter(explode(' ', $text), function ($word) use ($stopWords) {
-            return !in_array($word, $stopWords) && strlen($word) > 2;
-        });
+        $texte = '';
 
-        return $words;
-    }
+        // 🔹 PDF
+        if (str_contains($mimeType, 'pdf')) {
+            $parser = new Parser();
+            $pdf = $parser->parseFile($filePath);
+            $texte = $pdf->getText();
+        }
 
-    private function computeScore(mixed $cvWords, mixed $offreWords) {
-        $common = array_intersect($cvWords, $offreWords);
+        // 🔹 DOCX
+        elseif (
+            str_contains($mimeType, 'word') ||
+            str_contains($mimeType, 'officedocument')
+        ) {
+            $phpWord = IOFactory::load($filePath);
+            foreach ($phpWord->getSections() as $section) {
+                foreach ($section->getElements() as $element) {
+                    if (method_exists($element, 'getText')) {
+                        $texte .= $element->getText() . ' ';
+                    }
+                }
+            }
+        }
 
-        if (count($offreWords) === 0) return 0;
+        // 🔹 ODT
+        elseif (str_contains($mimeType, 'opendocument')) {
+            $zip = new \ZipArchive;
 
-        return round((count($common) / count($offreWords)) * 100, 2);
+            if ($zip->open($filePath) === TRUE) {
+                $content = $zip->getFromName('content.xml');
+                $zip->close();
+
+                $texte = strip_tags($content);
+            }
+        }
+
+        // 🔹 fallback (sécurité)
+        else {
+            return response()->json([
+                'message' => 'Format non supporté pour extraction'
+            ], 400);
+        }
+
+        // Nettoyage
+        $texte = strtolower($texte);
+        $texte = str_replace(["\n", "\r"], ' ', $texte);
+        $texte = preg_replace('/\s+/', ' ', $texte);
+
+        return $texte;
     }
 
     public function modifyFile(Request $request, int $id) {
@@ -44,7 +81,14 @@ class CVController extends Controller
             'contenu' => file_get_contents($file->getRealPath()),
             'mime_type' => $file->getMimeType(),
             'date_upload' => now(),
+            'texte_extrait' => $this->cvextracted($file),
         ]);
+
+        $candidatures = $cv->candidatures()->get();
+        foreach ($candidatures as $candidature) {
+            $candidature->score_matching = null; // reset score
+            $candidature->save();
+        }
 
         return response()->json([
             'message' => 'CV updated successfully',
@@ -53,28 +97,27 @@ class CVController extends Controller
     }
 
     public function enregistrerFile(Request $request) {
-        //dd('UPLOAD HIT');
+
         $request->validate([
-            'cv' => 'required|file|mimes:pdf,doc,docx|max:2048',  // Validation du fichier
-            'compte' => 'required|integer|exists:compte,id',  // ID du compte associé
+            'cv' => 'required|file|mimes:pdf,doc,docx,odt|max:2048',
+            'compte' => 'required|integer|exists:compte,id',
         ]);
 
         $file = $request->file('cv');
-        //$path = $file->store('cvs');
 
-        // Créer l'enregistrement en BDD
+        // Enregistrement
         $cv = CV::create([
             'nom' => $file->getClientOriginalName(),
-            'contenu' => file_get_contents($file->getRealPath()), // 👈 stocké en BDD
-            'mime_type' => $file->getMimeType(), // 👈 important
+            'contenu' => file_get_contents($file->getRealPath()),
+            'mime_type' => $file->getMimeType(),
             'compte' => $request->compte,
             'date_upload' => now(),
             'visible' => true,
+            'texte_extrait' => $this->cvextracted($file),
         ]);
 
         return response()->json([
             'message' => 'CV uploaded and saved successfully',
-            //'path' => $path,
             'cv_id' => $cv->id
         ], 200);
     }
@@ -85,17 +128,6 @@ class CVController extends Controller
         return response($cv->contenu)
             ->header('Content-Type', 'application/pdf') // adapter selon type
             ->header('Content-Disposition', 'attachment; filename="'.$cv->nom.'"');
-    }
-
-    private function extractTextFromCV(mixed $cv) {
-        $parser = new Parser();
-
-        try {
-            $pdf = $parser->parseContent($cv->contenu);
-            return strtolower($pdf->getText());
-        } catch (\Exception $e) {
-            return '';
-        }
     }
 
     public function delete(int $id) {
