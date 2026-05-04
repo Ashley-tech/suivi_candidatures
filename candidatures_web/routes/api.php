@@ -105,3 +105,5 @@ Route::get("/redis/{key}", [RedisController::class, 'getValue']);
 Route::delete("/redis/{key}", [RedisController::class, 'deleteKey']);
 Route::patch("/redis/{key}", [RedisController::class, 'setKey']);
 Route::post("/redis", [RedisController::class, 'addNewKey']);
+
+Route::post("/compte/find-by-email", [CompteController::class, 'findByEmail']);

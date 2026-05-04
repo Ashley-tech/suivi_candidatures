@@ -46,6 +46,15 @@ class CompteController extends Controller
         return response()->json(['message' => 'Password updated successfully','success' => true,'code' => 200, "compte" => $compte]);
     }
 
+    public function findByEmail(Request $request) {
+        $found = false;
+        $compte = Compte::where('email', $request->email)->first();
+        if ($compte) {
+            $found = true;
+        }
+        return response()->json(['found' => $found, 'compte' => $compte]);
+    }
+
     public function update(int $id, Request $request) {
         $compte = Compte::findOrFail($id);
 
