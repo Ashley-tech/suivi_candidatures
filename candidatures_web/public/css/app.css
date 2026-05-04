@@ -21,3 +21,7 @@ h2 {
     font-size: 36px;
     color:black;
 }
+
+.no_display {
+    display: none;
+}
