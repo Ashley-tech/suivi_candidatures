@@ -47,7 +47,7 @@ Route::get("/compte/modify", function () {
     return view('modify_compte');
 });
 
-Route::get("/forgot_password", function () {
+Route::get("/forgot-password", function () {
     return view('forgot');
 });
 
