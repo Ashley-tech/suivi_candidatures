@@ -1,4 +1,23 @@
 body {
-    font-family: 'Figtree', sans-serif;
-    margin: 0;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+button {
+    background-color: #ff0000;
+    color: #ffffff;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 36px;
+    cursor: pointer;
+}
+
+h1 {
+    font-size: 44px;
+    color:#ff0000;
+}
+
+h2 {
+    font-size: 36px;
+    color:black;
 }
