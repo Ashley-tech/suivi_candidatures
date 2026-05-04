@@ -23,6 +23,7 @@
             <input type="password" id="password" name="password" required><button style="font-size: 16px;" id="display-password">Afficher</button><button style="font-size: 16px;" id="forgot-password">Mot de passe oublié</button><br><br>
             <button type="submit" id="login" style="font-size: 20px;">Se connecter</button>
         </form>
+        <button id="inscription" style="font-size: 20px;">S'inscrire</button>
         <p style="color: #ff0000;" id="error-message">{{ $error ?? '' }}</p>
     </body>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -65,6 +66,9 @@
         });
         $("#forgot-password" ).on( "click", function( event ) {
             location.href = "/forgot-password";
+        });
+        $("#inscription" ).on( "click", function( event ) {
+            location.href = "/signup";
         });
         $("#display-password" ).on( "click", function( event ) {
             event.preventDefault();
