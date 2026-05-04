@@ -20,10 +20,9 @@
             <label for="email">Email :</label><br>
             <input type="email" id="email" name="email" required><br>
             <label for="password">Mot de passe :</label><br>
-            <input type="password" id="password" name="password" required><button style="font-size: 20px;" id="display-password">Afficher</button><br><br>
-            <button type="submit" id="login">Se connecter</button>
+            <input type="password" id="password" name="password" required><button style="font-size: 16px;" id="display-password">Afficher</button><button style="font-size: 16px;" id="forgot-password">Mot de passe oublié</button><br><br>
+            <button type="submit" id="login" style="font-size: 20px;">Se connecter</button>
         </form>
-        <button id="forgot-password">Mot de passe oublié</button>
         <p style="color: #ff0000;" id="error-message">{{ $error ?? '' }}</p>
     </body>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
