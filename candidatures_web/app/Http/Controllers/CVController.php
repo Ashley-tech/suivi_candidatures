@@ -30,11 +30,28 @@ class CVController extends Controller
             str_contains($mimeType, 'word') ||
             str_contains($mimeType, 'officedocument')
         ) {
-            $phpWord = IOFactory::load($filePath);
-            foreach ($phpWord->getSections() as $section) {
-                foreach ($section->getElements() as $element) {
-                    if (method_exists($element, 'getText')) {
-                        $texte .= $element->getText() . ' ';
+            try {
+                $phpWord = IOFactory::load($filePath);
+                foreach ($phpWord->getSections() as $section) {
+                    foreach ($section->getElements() as $element) {
+                        if (method_exists($element, 'getText')) {
+                            $texte .= $element->getText() . ' ';
+                        }
+                    }
+                }
+            } catch (\Throwable $e) {
+                $zip = new \ZipArchive;
+                if ($zip->open($filePath) === true) {
+                    $xml = $zip->getFromName('word/document.xml');
+                    $zip->close();
+
+                    if ($xml !== false) {
+                        libxml_use_internal_errors(true);
+                        $dom = new \DOMDocument();
+                        if ($dom->loadXML($xml)) {
+                            $texte = $dom->textContent;
+                        }
+                        libxml_clear_errors();
                     }
                 }
             }
@@ -99,7 +116,7 @@ class CVController extends Controller
     public function enregistrerFile(Request $request) {
 
         $request->validate([
-            'cv' => 'required|file|mimes:pdf,doc,docx,odt|max:2048',
+            'cv' => 'required|file|mimes:pdf,doc,docx,odt',
             'compte' => 'required|integer|exists:compte,id',
         ]);
 
