@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\CV;
 use App\Http\Controllers\CandidatureController;
+use App\Models\Candidature;
 
 use Illuminate\Http\Request;
 
@@ -149,8 +150,19 @@ class CVController extends Controller
 
     public function delete(int $id) {
         $cv = CV::findOrFail($id);
+
+        // Vérifier si le CV est utilisé dans des candidatures
+        $candidatures = Candidature::where('cv', $id)->count();
+        if ($candidatures > 0) {
+            //return response()->json(['message' => 'Impossible de supprimer le CV car il est utilisé dans ' . $candidatures . ' candidature(s).','success' => false], 400);
+            $candidatureController = new CandidatureController();
+            foreach (Candidature::where('cv', $id)->get() as $candidature) {
+                $candidatureController->delete($candidature->id);
+            }
+        }
+
         $cv->delete();
 
-        return response()->json(['message' => 'CV deleted successfully'], 200);
+        return response()->json(['message' => 'CV deleted successfully','success' => true], 200);
     }
 }

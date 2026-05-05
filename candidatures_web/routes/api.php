@@ -100,7 +100,9 @@ Route::post("/candidatures", [CandidatureController::class, 'enregistrerCandidat
 
 Route::patch("/candidature/{id}/save-score", [CandidatureController::class, 'saveScore']);
 
-Route::delete("/candidature/{id}", [CandidatureController::class, 'deleteCandidature']);
+Route::delete("/candidature/{id}", [CandidatureController::class, 'delete']);
+
+Route::delete("/cv/{id}", [CVController::class, 'delete']);
 
 Route::get("/redis/keys", [RedisController::class, 'getAllKeys']);
 Route::get("/redis", [RedisController::class, 'getAllKeyValues']);

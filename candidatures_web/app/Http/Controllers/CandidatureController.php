@@ -245,7 +245,7 @@ class CandidatureController extends Controller
         ]);
     }
 
-    public function deleteCandidature(int $id) {
+    public function delete(int $id) {
         $candidature = Candidature::findOrFail($id);
         $candidature->delete();
 
