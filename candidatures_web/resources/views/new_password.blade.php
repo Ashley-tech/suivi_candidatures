@@ -100,8 +100,8 @@
                 $("#error-message").text("Les mots de passe ne correspondent pas.");
                 return;
             }
-            if (mdp.length < 6) {
-                $("#error-message").text("Le mot de passe doit contenir au moins 6 caractères.");
+            if (mdp.length < 8) {
+                $("#error-message").text("Le mot de passe doit contenir au moins 8 caractères.");
                 return;
             }
 
