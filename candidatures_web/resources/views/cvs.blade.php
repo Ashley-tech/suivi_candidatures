@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Candidatures - Profil</title>
+        <title>Candidatures - CVs</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -63,12 +63,12 @@
                         let iconName = "";
                         if (cv.mime_type == "application/pdf") {
                             iconName = "pdf"
-                        } else if (cv.mime_type == "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
+                        } else {
                             iconName = "doc"
                         }
                         const cvElement = $(`
                             <div style="border: 1px solid #ccc; padding: 10px; border-radius: 5px;">
-                                <p><img src="/images/${iconName}.webp" alt="${iconName.toUpperCase()} icon" style="width: 20px; height: 30px; vertical-align: middle; margin-right: 10px;"> ${cv.nom}</p>
+                                <p><img src="/images/${iconName}.webp" alt="${iconName.toUpperCase()} icon" style="width: 23px; height: 30px; vertical-align: middle; margin-right: 10px;"> ${cv.nom}</p>
                                 <p><strong>Date d'upload :</strong> ${new Date(cv.date_upload).toLocaleDateString()}</p>
                                 <a href="${cv.download_url}" target="_blank">Télécharger</a>
                                 <button type="button" class="delete-cv" data-cv-id="${cv.id}" style="margin-left: 20px; color: white;font-size: 16px;">Supprimer</button>
