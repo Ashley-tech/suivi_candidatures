@@ -63,6 +63,9 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
     <script>
+        if (sessionStorage.getItem("login")) {
+            location.href = "/dashboard";
+        }
         $("#retour" ).on( "click", function( event ) {
             location.href = "/login";
         });

@@ -24,14 +24,18 @@
             <input type="password" id="mdp_confirmation" name="mdp_confirmation" required><button id="display-password-confirmation" style="font-size: 16px;" type="button">Afficher</button><br><br>
             <button type="submit" id="validate" style="font-size: 20px;">Changer le mot de passe</button>
         </form>
-        <button id="retour" style="font-size: 20px;">Retour à la connexion</button>
+        <button id="retour" style="font-size: 20px;">Retour</button>
         <p style="color: #ff0000;" id="error-message">{{ $error ?? '' }}</p>
     </body>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
     <script>
         $("#retour" ).on( "click", function( event ) {
-            location.href = "/login";
+            if (sessionStorage.getItem("login")) {
+                location.href = "/dashboard";
+            }else{
+                location.href = "/login";
+            }
         });
         const params = new URLSearchParams(window.location.search);
         $("#display-password" ).on( "click", function( event ) {
