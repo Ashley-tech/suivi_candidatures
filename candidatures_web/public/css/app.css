@@ -32,6 +32,7 @@ footer{
     padding: 10px;
     background-color: #ff0000;bottom: 0;left:0;right:0;position:absolute;height:50px;
     color: white;
+    position: fixed;
 }
 
 header {
@@ -43,9 +44,17 @@ header {
     top: 0;
     left: 0;
     right: 0;
-    position: absolute;
+    position: fixed;
     height: 80px;
     color: white;
+}
+
+.content {
+    flex: 1;
+    margin-top: 88px;
+    margin-bottom: 64px;
+    overflow: auto;
+    padding: 24px;
 }
 
 .nav_links {

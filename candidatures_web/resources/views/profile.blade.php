@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Candidatures - Accueil</title>
+        <title>Candidatures - Profil</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -105,7 +105,7 @@
             document.getElementById("nom").innerText = data.compte.nom;
             document.getElementById("email").innerText = data.compte.email;
             document.getElementById("date_naissance").innerText = data.compte.date_naissance;
-            for (let i = 0; i < data.compte.mdp.length - 2; i++) {
+            for (let i = 0; i < data.compte.mdp.length; i++) {
                 document.getElementById("mdp").innerText += "*";
             }
             document.getElementById("nationalite").innerText = data.compte.nationalite;
