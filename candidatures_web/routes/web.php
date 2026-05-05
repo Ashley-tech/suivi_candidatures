@@ -59,7 +59,7 @@ Route::get("/{compte}/new_password", function ($compte) {
     return view('new_password', ['compte_id' => $compte]);
 });
 
-Route::get("/cv/new", function () {
+Route::get("/profile/cvs/new", function () {
     return view('form_cv');
 });
 

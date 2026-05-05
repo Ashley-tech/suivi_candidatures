@@ -110,8 +110,10 @@ class CVController extends Controller
 
         return response()->json([
             'message' => 'CV updated successfully',
-            'cv_id' => $cv->id
-        ], 200);
+            'cv_id' => $cv->id,
+            'success' => true,
+            'code' => 200
+        ]);
     }
 
     public function enregistrerFile(Request $request) {
@@ -136,8 +138,10 @@ class CVController extends Controller
 
         return response()->json([
             'message' => 'CV uploaded and saved successfully',
-            'cv_id' => $cv->id
-        ], 200);
+            'cv_id' => $cv->id,
+            'success' => true,
+            'code' => 200
+        ]);
     }
 
     public function telecharger(int $id) {
@@ -163,6 +167,6 @@ class CVController extends Controller
 
         $cv->delete();
 
-        return response()->json(['message' => 'CV deleted successfully','success' => true], 200);
+        return response()->json(['message' => 'CV deleted successfully','success' => true,'code' => 200]);
     }
 }

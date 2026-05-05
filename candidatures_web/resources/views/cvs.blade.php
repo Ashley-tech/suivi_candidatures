@@ -91,7 +91,7 @@
             location.href = "/profile";
         });
         $("#add-cv").on("click", function() {
-            location.href = "/cv/new";
+            location.href = "/profile/cvs/new";
         });
         $("#home-link").on("click", function() {
             location.href = "/dashboard";
