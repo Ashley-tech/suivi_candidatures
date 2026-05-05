@@ -30,6 +30,7 @@
                 <input type="file" id="cv_file" name="cv_file" accept=".pdf,.doc,.docx,.odt" required><br><br>
                 <button type="submit" id="validate" style="font-size: 20px;">Ajouter le CV</button>
             </form>
+            <button id="retour" style="font-size: 20px;">Retour</button>
             <p id="error-message"></p>
         </section>
         <footer>
@@ -58,7 +59,10 @@
         }
         chargement();
         $("#retour" ).on( "click", function( event ) {
-            location.href = "/profile";
+            var confirmRetour = confirm("Êtes-vous sûr de vouloir retourner à la page précédente ? Les modifications non enregistrées seront perdues.");
+            if (confirmRetour) {
+                location.href = "/profile";
+            }
         });
         $("form").on("submit", async function(event) {
             event.preventDefault();
@@ -97,6 +101,12 @@
 
                 $("#error-message").css("color", "red");
                 $("#error-message").text("Erreur : " + error.message);
+            }
+        });
+        $("#home-link").on("click", function() {
+            var confirmHome = confirm("Êtes-vous sûr de vouloir retourner à l'accueil ? Les modifications non enregistrées seront perdues.");
+            if (confirmHome) {
+                location.href = "/dashboard";
             }
         });
     </script>
