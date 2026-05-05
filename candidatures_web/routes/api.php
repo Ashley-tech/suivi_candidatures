@@ -44,7 +44,10 @@ Route::get("/compte/{compte}/cvs", function ($compte) {
         return [
             'id' => $cv->id,
             'nom' => $cv->nom,
-            'download_url' => url("http://{$_SERVER['HTTP_HOST']}/api/cv/{$cv->id}/download")
+            'download_url' => url("http://{$_SERVER['HTTP_HOST']}/api/cv/{$cv->id}/download"),
+            'mime_type' => $cv->mime_type,
+            'date_upload' => $cv->date_upload,
+            'visible' => $cv->visible,
         ];
     });
 });
