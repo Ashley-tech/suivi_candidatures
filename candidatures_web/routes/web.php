@@ -43,7 +43,7 @@ Route::get("/offres/form/new", function () {
     return view('form_candidature');
 });
 
-Route::get("/compte/modify", function () {
+Route::get("/profile/edit", function () {
     return view('modify_compte');
 });
 
@@ -51,7 +51,7 @@ Route::get("/forgot-password", function () {
     return view('forgot');
 });
 
-Route::get("/cvs", function () {
+Route::get("/profile/cvs", function () {
     return view('cvs');
 });
 
