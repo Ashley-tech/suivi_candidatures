@@ -26,8 +26,7 @@
                 <h1>Suivi des candidatures</h1>
                 <h2 id="menu-title">Menu</h2>
                 <button style="width:40%;" id="candidatures-button">Vos candidatures</button>
-                <button style="width:40%;" id="cv-button">Vos CVs</button>
-                <button style="width:40%;" id="profile-button">Profil</button>
+                <button style="width:40%;" id="profile-button">Votre profil</button>
                 <button style="width:40%;" id="deconnect-button">Déconnexion</button>
             </div>
             <div id="confirm_deconnect" style="display: none; flex-direction: column; align-items: center; gap: 10px;">
