@@ -26,8 +26,8 @@
             <h2>Nouveau CV</h2>
             <form id="cv-form" method="POST" action="/api/cv/upload" enctype="multipart/form-data">
                 @csrf
-                <label for="cv_file">Fichier CV* :</label><br>
-                <input type="file" id="cv_file" name="cv_file" accept=".pdf,.doc,.docx" required><br><br>
+                <label for="cv_file">Fichier CV* (Extensions autorisées : .pdf, .doc, .docx, .odt) :</label><br>
+                <input type="file" id="cv_file" name="cv_file" accept=".pdf,.doc,.docx,.odt" required><br><br>
                 <button type="submit" id="validate" style="font-size: 20px;">Ajouter le CV</button>
             </form>
             <p id="error-message"></p>
@@ -70,6 +70,11 @@
                 const formData = new FormData();
                 formData.append("cv", file);
                 formData.append("compte", compte);
+                if (file.name.substring(file.name.lastIndexOf(".")).toLowerCase() != ".pdf" && file.name.substring(file.name.lastIndexOf(".")).toLowerCase() != ".docx" && file.name.substring(file.name.lastIndexOf(".")).toLowerCase() != ".doc" && file.name.substring(file.name.lastIndexOf(".")).toLowerCase() != ".odt") {
+                    $("#error-message").css("color", "red");
+                    $("#error-message").text("Format de fichier non supporté. Veuillez uploader un fichier au format PDF, DOC, DOCX ou ODT.");
+                    return;
+                }
 
                 const response = await fetch("/api/cv/upload", {
                     method: "POST",
@@ -86,7 +91,7 @@
 
                 $("#error-message").css("color", "green");
                 $("#error-message").text("CV uploadé avec succès !");
-                location.href = "/profile/cvs";
+                //location.href = "/profile/cvs";
             } catch (error) {
                 console.error(error);
 
