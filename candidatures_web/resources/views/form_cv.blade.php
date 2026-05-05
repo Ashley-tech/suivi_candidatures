@@ -91,7 +91,7 @@
 
                 $("#error-message").css("color", "green");
                 $("#error-message").text("CV uploadé avec succès !");
-                //location.href = "/profile/cvs";
+                location.href = "/profile/cvs";
             } catch (error) {
                 console.error(error);
 
