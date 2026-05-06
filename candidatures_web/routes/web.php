@@ -31,15 +31,19 @@ Route::get("/signup", function () {
     return view('signup');
 });
 
-Route::get("/offres", function () {
-    return view('offres');
+Route::get("/candidatures", function () {
+    return view('candidatures');
 });
 
-Route::get("/offres/{id}", function ($id) {
-    return view('offre_details', ['offre_id' => $id]);
+Route::get("/candidature/{id}", function ($id) {
+    return view('candidature_details', ['offre_id' => $id]);
 });
 
-Route::get("/offres/form/new", function () {
+Route::get("/candidature/{id}/modifier", function ($id) {
+    return view('modify_candidature', ['offre_id' => $id]);
+});
+
+Route::get("/candidatures/new", function () {
     return view('form_candidature');
 });
 

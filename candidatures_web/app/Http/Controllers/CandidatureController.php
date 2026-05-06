@@ -97,8 +97,10 @@ class CandidatureController extends Controller
         return response()->json([
             'message' => 'Candidature created successfully',
             'candidature' => $candidature,
-            'id' => $candidature->id
-        ], 200);
+            'id' => $candidature->id,
+            'success' => true,
+            'code' => 201
+        ]);
     }
 
     public function updateStatut(Request $request, int $candidatureId) {
@@ -112,8 +114,29 @@ class CandidatureController extends Controller
 
         return response()->json([
             'message' => 'Statut updated successfully',
-            'candidature' => $candidature
-        ], 200);
+            'candidature' => $candidature,
+            'success' => true,
+            'code' => 200
+        ]);
+    }
+
+    public function update(int $id, Request $request) {
+        $candidature = Candidature::findOrFail($id);
+
+        $request->validate([
+            'cv' => 'integer|exists:cv,id',
+            'statut' => 'string|max:255',
+            'date_candidature' => 'date',
+        ]);
+
+        $candidature->update($request->all());
+
+        return response()->json([
+            'message' => 'Candidature updated successfully',
+            'candidature' => $candidature,
+            'success' => true,
+            'code' => 200
+        ]);
     }
 
     private function extractTextFromCV(mixed $cv) {
@@ -211,7 +234,7 @@ class CandidatureController extends Controller
         $offre = $candidature->offre()->first();
 
         if (!$cv || !$offre) {
-            return response()->json(['message' => 'missing data'], 404);
+            return response()->json(['message' => 'missing data','success' => false,'code'=>404]);
         }
 
         // 1. TEXTES
@@ -241,7 +264,10 @@ class CandidatureController extends Controller
         $candidature->save();
 
         return response()->json([
-            'score' => $score
+            'score' => $score,
+            'base_score' => $baseScore,
+            'success' => true,
+            'code' => 200
         ]);
     }
 
@@ -251,7 +277,22 @@ class CandidatureController extends Controller
 
         return response()->json([
             'message' => 'Candidature deleted successfully',
-            'success' => true
-        ], 200);
+            'success' => true,
+            'code' => 200
+        ]);
+    }
+
+    public function getCandidature(int $id) {
+        $candidature = Candidature::findOrFail($id);
+
+        return response()->json([
+            'id' => $candidature->id,
+            'compte' => $candidature->compte,
+            'offre' => $candidature->offre,
+            'cv' => $candidature->cv,
+            'statut' => $candidature->statut,
+            'date_candidature' => $candidature->date_candidature,
+            'score_matching' => $candidature->score_matching,
+         ]);
     }
 }

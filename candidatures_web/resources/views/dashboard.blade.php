@@ -76,5 +76,8 @@
         $("#profile-button").on("click", function() {
             location.href = "/profile";
         });
+        $("#candidatures-button").on("click", function() {
+            location.href = "/candidatures";
+        });
     </script>
 </html>

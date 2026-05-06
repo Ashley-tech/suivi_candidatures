@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Candidatures - Nouvelle candidature</title>
+        <title>Candidatures - Modification de votre candidature</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -23,8 +23,8 @@
         </header>
         <section class="content">
             <h1>Suivi des candidatures</h1>
-            <h2>Nouvelle candidature</h2>
-            <button id="retour" style="margin-bottom: 20px; font-size: 23px;">Retour</button><br /><br />
+            <h2>Modification de votre candidature</h2>
+            <button id="retour" style="margin-bottom: 20px; font-size: 23px;">Retour</button><br />
                 <label for="type_offre">Type d'offre :</label><br>
                 <select id="type_offre" name="type_offre" style="font-size: 16px; padding: 5px; margin-bottom: 20px;">
                     <option value="">--Sélectionnez un type d'offre--</option>
@@ -75,7 +75,7 @@
                 <select id="cvs" name="cvs" style="font-size: 16px; padding: 5px; margin-bottom: 20px;" required>
                     <option value="">--Sélectionnez un CV--</option>
                 </select><br /><br />
-                <button id="validate" style="font-size: 20px;">Ajouter la candidature</button>
+                <button id="validate" style="font-size: 20px;">Modifier la candidature</button>
             <p style="color: #ff0000;" id="error-message">{{ $error ?? '' }}</p>
         </section>
         <footer>
@@ -86,6 +86,7 @@
     <script>
         let user = sessionStorage.getItem("login");
         let id = null;
+        let ido = null;
         async function chargement() {
             if (!user) {
                 location.href = "/login";
@@ -113,10 +114,35 @@
                     cvsSelect.appendChild(option);
                 }
             });
+            const response1 = await fetch("/api/candidature/{{$offre_id}}");
+            const candidatureData = await response1.json();
+            ido = candidatureData.offre;
+            const response2 = await fetch("/api/offres/"+ido);
+            const offreData = await response2.json();
+            $("#type_offre").val(offreData.type);
+            $("#titre").val(offreData.titre);
+            $("#description").val(offreData.description);
+            $("#entreprise").val(offreData.nom_entreprise);
+            $("#adresse").val(offreData.adresse_entreprise);
+            $("#adresse_comp").val(offreData.adresse_comp_entreprise);
+            $("#code_postal").val(offreData.cp_entreprise);
+            $("#ville").val(offreData.ville_entreprise);
+            $("#pays").val(offreData.pays_entreprise);
+            $("#date_candidature").val(candidatureData.date_candidature);
+            $("#statut").val(candidatureData.statut);
+            $("#nom_recruteur").val(offreData.nom_recruteur);
+            $("#prenom_recruteur").val(offreData.prenom_recruteur);
+            $("#email_recruteur").val(offreData.email_entreprise);
+            $("#tel_recruteur").val(offreData.tel_entreprise);
+            $("#periode").val(offreData.periode);
+            $("#salaire_min").val(offreData.salaire_min);
+            $("#salaire_max").val(offreData.salaire_max);
+            $("#date_publication").val(offreData.date_publication);
+            $("#cvs").val(candidatureData.cv);
         }
         chargement();
         $("#retour" ).on( "click", function( event ) {
-            location.href = "/candidatures";
+            location.href = "/candidature/{{$offre_id}}";
         });
         $("#home-link").on("click", function() {
             location.href = "/dashboard";
@@ -178,10 +204,9 @@
                 $("#error-message").text("La date de publication de l'offre doit être antérieure ou égale à la date de candidature.");
                 return;
             }
-            let ido = null;
             $.ajax({
-                url: "/api/offres",
-                method: "POST",
+                url: "/api/offres/"+ido,
+                method: "PATCH",
                 data: {
                     type: type,
                     titre: titre,
@@ -205,13 +230,10 @@
                 success: function(response) {
                     console.log("Réponse API login :", response);
                     if (response.success) {
-                        ido = response.offre_id;
                         $.ajax({
-                            url: "/api/candidatures",
-                            method: "POST",
+                            url: "/api/candidature/{{$offre_id}}",
+                            method: "PATCH",
                             data: {
-                                offre: ido,
-                                compte: id,
                                 date_candidature: date_candidature,
                                 statut: statut,
                                 cv: cv,
@@ -220,11 +242,11 @@
                             success: function(response) {
                                 console.log("Réponse API login :", response);
                                 if (response.success) {
-                                    $("#error-message").text("Candidature ajoutée avec succès ! Redirection vers la page de suivi des candidatures...");
+                                    $("#error-message").text("Candidature modifiée avec succès ! Redirection vers la page de suivi des candidatures...");
                                     $("#error-message").css("color", "green");
-                                    location.href = "/candidatures";
+                                    location.href = "/candidature/{{$offre_id}}";
                                 } else {
-                                    $("#error-message").text("Une erreur est survenue lors de l'ajout de la candidature. Veuillez réessayer.");
+                                    $("#error-message").text("Une erreur est survenue lors de la modification de la candidature. Veuillez réessayer.");
                                     return;
                                 }
                             },
@@ -235,7 +257,7 @@
                             }
                         });
                     } else {
-                        $("#error-message").text("Une erreur est survenue lors de l'ajout de l'offre. Veuillez réessayer.");
+                        $("#error-message").text("Une erreur est survenue lors de la modification de l'offre. Veuillez réessayer.");
                         return;
                     }
                 },

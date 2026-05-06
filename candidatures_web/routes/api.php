@@ -52,6 +52,7 @@ Route::get("/compte/{compte}/cvs", function ($compte) {
     });
 });
 
+Route::patch("/candidature/{id}", [CandidatureController::class, 'update']);
 Route::patch("/candidature/{id}/statut", [CandidatureController::class, 'updateStatut']);
 
 Route::get('/comptes', function () {
@@ -101,6 +102,8 @@ Route::post("/candidatures", [CandidatureController::class, 'enregistrerCandidat
 Route::patch("/candidature/{id}/save-score", [CandidatureController::class, 'saveScore']);
 
 Route::delete("/candidature/{id}", [CandidatureController::class, 'delete']);
+
+Route::get("/candidature/{id}", [CandidatureController::class, 'getCandidature']);
 
 Route::delete("/cv/{id}", [CVController::class, 'delete']);
 
