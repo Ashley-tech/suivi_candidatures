@@ -24,7 +24,9 @@ return new class extends Migration
             $table->boolean('visible')->default(true);
             $table->timestamps();
         });
-        DB::statement("ALTER TABLE cv MODIFY contenu LONGBLOB");
+        if (DB::getDriverName() !== 'sqlite') {
+            DB::statement('ALTER TABLE cv MODIFY contenu LONGBLOB');
+        }
     }
 
     /**
