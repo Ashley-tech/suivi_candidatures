@@ -107,6 +107,8 @@ Route::get("/candidature/{id}", [CandidatureController::class, 'getCandidature']
 
 Route::delete("/cv/{id}", [CVController::class, 'delete']);
 
+Route::delete("/compte/{id}", [CompteController::class, 'delete']);
+
 Route::get("/redis/keys", [RedisController::class, 'getAllKeys']);
 Route::get("/redis", [RedisController::class, 'getAllKeyValues']);
 Route::get("/redis/{key}", [RedisController::class, 'getValue']);
