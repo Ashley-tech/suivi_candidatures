@@ -29,6 +29,7 @@
                 <button style="width:40%;" id="candidatures-button">Vos candidatures</button>
                 <button style="width:40%;" id="profile-button">Votre profil</button>
                 <button style="width:40%;" id="deconnect-button">Déconnexion</button>
+                <h3 id="message-new"></h3>
             </div>
             <div id="confirm_deconnect" style="display: none; flex-direction: column; align-items: center; gap: 10px;">
                 <h1>Suivi des candidatures</h1>
@@ -59,6 +60,20 @@
             console.log("Réponse API get-by-email :", data);
             document.getElementById("user-name").innerHTML = data.compte.prenom + " " + data.compte.nom + document.getElementById("user-name").innerHTML;
             document.getElementById("menu-title").innerText = "Bienvenue, " + data.compte.prenom + " !";
+            const response0 = await fetch("/api/compte/"+data.compte.id+"/candidatures", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
+            const data0 = await response0.json();
+            console.log("Réponse API candidatures :", data0);
+            for (let i = 0 ; data0.length ; i++) {
+                if (data0[i].statut.toLowerCase().includes("contrat signé")) {
+                    document.getElementById("message-new").innerText = "Vous avez au moins une candidature, dont vous avez signé le contrat ! Félicitations ! Vous pouvez peut-être supprimer votre compte si vous n'en avez plus besoin, ou continuer à suivre vos autres candidatures.";
+                    break;
+                }
+            }
         }
         chargement();
         $("#deconnect-button").on("click", function() {
