@@ -121,12 +121,12 @@
                 const r = await fetch("/api/candidatures/");
                 const candidaturesData = await r.json();
                 const candidature = candidaturesData.find(c => c.id == "{{ $offre_id }}");
-                const response = await fetch("/api/candidatures/" + candidature.id, {
+                const response = await fetch("/api/candidature/" + candidature.id, {
                     method: "DELETE"
                 });
                 const data = await response.json();
                 if (data.success) {
-                    location.reload();
+                    location.href = "/candidatures";
                 } else {
                     alert("Erreur lors de la suppression de la candidature : " + (data.message || "Erreur inconnue"));
                 }

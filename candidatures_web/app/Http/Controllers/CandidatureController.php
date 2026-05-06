@@ -81,8 +81,9 @@ class CandidatureController extends Controller
         $request->validate([
             'compte' => 'required|integer|exists:compte,id',  // ID du compte associé
             'offre' => 'required|integer|exists:offre,id',    // ID de l'offre associée
-            'cv' => 'required|integer|exists:cv,id',          // ID du CV associé
-            'date' => 'date',                                  // Date de candidature (optionnelle)
+            'cv' => 'nullable|integer|exists:cv,id',          // ID du CV associé
+            'date' => 'nullable|date',                         // Date de candidature (optionnelle)
+            'statut' => 'nullable|string|max:255',            // Statut de la candidature (optionnel)
         ]);
 
         $candidature = Candidature::create([
@@ -90,6 +91,7 @@ class CandidatureController extends Controller
             'offre' => $request->offre,
             'cv' => $request->cv,
             'date_candidature' => $request->date ?? now(),
+            'statut' => $request->statut ?? null,
         ]);
 
         //$this->saveScore($candidature->id); //Optionnel si on ne veut pas tester le matching à chaque création de candidature
@@ -124,9 +126,9 @@ class CandidatureController extends Controller
         $candidature = Candidature::findOrFail($id);
 
         $request->validate([
-            'cv' => 'integer|exists:cv,id',
-            'statut' => 'string|max:255',
-            'date_candidature' => 'date',
+            'cv' => 'nullable|integer|exists:cv,id',
+            'statut' => 'nullable|string|max:255',
+            'date_candidature' => 'nullable|date',
         ]);
 
         $candidature->update($request->all());

@@ -147,6 +147,10 @@
             const token = $('input[name="_token"]').val();
             $("#error-message").text("");
 
+            if (cv == "") {
+                $("#error-message").text("Veuillez sélectionner un CV.");
+                return;
+            }
             if (code_postal != "" && !checkregex(/^\d{5}$/, code_postal)) {
                 $("#error-message").text("Le code postal doit être composé de 5 chiffres.");
                 return;

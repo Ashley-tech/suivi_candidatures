@@ -28,7 +28,7 @@ class OffreController extends Controller
             'periode' => 'nullable|string|max:255',
             'salaire_min' => 'nullable|numeric',
             'salaire_max' => 'nullable|numeric|gte:salaire_min',
-            'date_publication' => 'date',
+            'date_publication' => 'nullable|date',
         ]);
         if (!isset($request->titre)) {
             return response()->json(['message' => 'Le champ titre est requis', 'success' => false], 400);
@@ -99,7 +99,7 @@ class OffreController extends Controller
             'periode' => 'nullable|string|max:255',
             'salaire_min' => 'nullable|numeric',
             'salaire_max' => 'nullable|numeric|gte:salaire_min',
-            'date_publication' => 'date',
+            'date_publication' => 'nullable|date',
         ]);
 
         $offre->update($request->all());
