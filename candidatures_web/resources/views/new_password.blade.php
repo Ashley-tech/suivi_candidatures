@@ -14,18 +14,30 @@
         
     </head>
     <body>
-        <h1>Suivi des candidatures</h1><h2>Nouveau mot de passe</h2>
-        <p id="mail">Mail : {{ $email ?? '' }}</p>
-        <form method="PATCH" action="/api/compte/{{ $compte_id }}/update-pwd">
-            @csrf
-            <label for="mdp">Nouveau mot de passe* :</label><br>
-            <input type="password" id="mdp" name="mdp" required><button id="display-password" style="font-size: 16px;" type="button">Afficher</button><br>
-            <label for="mdp_confirmation">Confirmer le mot de passe* :</label><br>
-            <input type="password" id="mdp_confirmation" name="mdp_confirmation" required><button id="display-password-confirmation" style="font-size: 16px;" type="button">Afficher</button><br><br>
-            <button type="submit" id="validate" style="font-size: 20px;">Changer le mot de passe</button>
-        </form>
-        <button id="retour" style="font-size: 20px;">Retour</button>
-        <p style="color: #ff0000;" id="error-message">{{ $error ?? '' }}</p>
+        <header>
+            <nav>
+                <ul class="nav_links">
+                    <li><b>Suivi des candidatures</b></li>
+                </ul>
+            </nav>
+        </header>
+        <section class="content">
+            <h1>Suivi des candidatures</h1><h2>Nouveau mot de passe</h2>
+            <p id="mail">Mail : {{ $email ?? '' }}</p>
+            <form method="PATCH" action="/api/compte/{{ $compte_id }}/update-pwd">
+                @csrf
+                <label for="mdp">Nouveau mot de passe* :</label><br>
+                <input type="password" id="mdp" name="mdp" required><button id="display-password" style="font-size: 16px;" type="button">Afficher</button><br>
+                <label for="mdp_confirmation">Confirmer le mot de passe* :</label><br>
+                <input type="password" id="mdp_confirmation" name="mdp_confirmation" required><button id="display-password-confirmation" style="font-size: 16px;" type="button">Afficher</button><br><br>
+                <button type="submit" id="validate" style="font-size: 20px;">Changer le mot de passe</button>
+            </form>
+            <button id="retour" style="font-size: 20px;">Retour</button>
+            <p style="color: #ff0000;" id="error-message">{{ $error ?? '' }}</p>
+        </section>
+        <footer>
+            <p>&copy; 2026 Candidatures. Tous droits réservés.</p>
+        </footer>
     </body>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>

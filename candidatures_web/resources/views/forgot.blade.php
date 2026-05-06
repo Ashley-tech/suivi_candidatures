@@ -14,15 +14,27 @@
         
     </head>
     <body>
-        <h1>Suivi des candidatures</h1><h2>Mot de passe oublié ?</h2>
-        <form method="POST" action="/api/compte/find-by-email">
-            @csrf
-            <label for="email">Email* :</label><br>
-            <input type="email" id="email" name="email" required><br>
-            <button type="submit" id="login" style="font-size: 20px;">Envoyer un lien de réinitialisation</button>
-        </form>
-        <button id="retour" style="font-size: 20px;">Retour à la connexion</button>
-        <p style="color: #ff0000;" id="error-message">{{ $error ?? '' }}</p>
+        <header>
+            <nav>
+                <ul class="nav_links">
+                    <li><b>Suivi des candidatures</b></li>
+                </ul>
+            </nav>
+        </header>
+        <section class="content">
+            <h1>Suivi des candidatures</h1><h2>Mot de passe oublié ?</h2>
+            <form method="POST" action="/api/compte/find-by-email">
+                @csrf
+                <label for="email">Email* :</label><br>
+                <input type="email" id="email" name="email" required><br>
+                <button type="submit" id="login" style="font-size: 20px;">Envoyer un lien de réinitialisation</button>
+            </form>
+            <button id="retour" style="font-size: 20px;">Retour à la connexion</button>
+            <p style="color: #ff0000;" id="error-message">{{ $error ?? '' }}</p>
+        </section>
+        <footer>
+            <p>&copy; 2026 Candidatures. Tous droits réservés.</p>
+        </footer>
     </body>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>

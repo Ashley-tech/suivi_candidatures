@@ -14,51 +14,63 @@
         
     </head>
     <body>
-        <h1>Suivi des candidatures</h1><h2>Inscription</h2>
-        <button id="retour" style="font-size: 20px;">Retour à la connexion</button><br /><br />
-        <form method="POST" action="/api/comptes">
-            @csrf
-            <label for="email">Sexe :</label><br>
-            <select id="sexe" name="sexe">
-                <option value="" disabled selected>Sexe</option>
-                <option value="M">Homme</option>
-                <option value="F">Femme</option>
-            </select><br /><br />
-            <label for="nom">Nom* :</label><br>
-            <input type="text" id="nom" name="nom" required><br /><br />
-            <label for="prenom">Prénom* :</label><br>
-            <input type="text" id="prenom" name="prenom" required><br /><br />
-            <label for="email">Email* :</label><br>
-            <input type="email" id="email" name="email" required><br /><br />
-            <label for="email_confirmation">Reconfirmation email* :</label><br />
-            <input type="email" id="email_confirmation" name="email_confirmation" required><br /><br />
-            <label for="mdp">Mot de passe* :</label><br>
-            <input type="password" id="mdp" name="mdp" required><button id="display-password" style="font-size: 16px;" type="button">Afficher</button><br /><br />
-            <label for="mdp_confirmation">Confirmer le mot de passe* :</label><br>
-            <input type="password" id="mdp_confirmation" name="mdp_confirmation" required><button id="display-password-confirmation" style="font-size: 16px;" type="button">Afficher</button><br /><br />
-            <label for="date_naissance">Date de naissance :</label><br>
-            <input type="date" id="date_naissance" name="date_naissance"><br /><br />
-            <label for="nationalite">Nationalité :</label><br>
-            <input type="text" id="nationalite" name="nationalite"><br /><br />
-            <label for="titre">Votre situation actuelle :</label><br>
-            <input type="text" id="titre" name="titre"><br /><br />
-            <label for="address">Adresse :</label><br>
-            <input type="text" id="address" name="address"><br /><br />
-            <label for="address_complement">Complément d'adresse :</label><br>
-            <input type="text" id="address_complement" name="address_complement"><br /><br />
-            <label for="postal_code">Code postal :</label><br>
-            <input type="text" id="postal_code" name="postal_code"><br /><br />
-            <label for="city">Ville :</label><br>
-            <input type="text" id="city" name="city"><br /><br />
-            <label for="country">Pays :</label><br>
-            <input type="text" id="country" name="country"><br /><br />
-            <label for="phone">Téléphone :</label><br>
-            <input type="text" id="phone" name="phone"><br /><br />
-            <label for="website">Votre site web :</label><br>
-            <input type="text" id="website" name="website"><br /><br /><br />
-            <button type="submit" id="login" style="font-size: 20px;">S'inscrire</button>
-        </form>
-        <p style="color: #ff0000;" id="error-message">{{ $error ?? '' }}</p>
+        <header>
+            <nav>
+                <ul class="nav_links">
+                    <li><b>Suivi des candidatures</b></li>
+                </ul>
+            </nav>
+        </header>
+        <section class="content">
+            <h1>Suivi des candidatures</h1><h2>Inscription</h2>
+            <button id="retour" style="font-size: 20px;">Retour à la connexion</button><br /><br />
+            <form method="POST" action="/api/comptes">
+                @csrf
+                <label for="email">Sexe :</label><br>
+                <select id="sexe" name="sexe">
+                    <option value="" disabled selected>Sexe</option>
+                    <option value="M">Homme</option>
+                    <option value="F">Femme</option>
+                </select><br /><br />
+                <label for="nom">Nom* :</label><br>
+                <input type="text" id="nom" name="nom" required><br /><br />
+                <label for="prenom">Prénom* :</label><br>
+                <input type="text" id="prenom" name="prenom" required><br /><br />
+                <label for="email">Email* :</label><br>
+                <input type="email" id="email" name="email" required><br /><br />
+                <label for="email_confirmation">Reconfirmation email* :</label><br />
+                <input type="email" id="email_confirmation" name="email_confirmation" required><br /><br />
+                <label for="mdp">Mot de passe* :</label><br>
+                <input type="password" id="mdp" name="mdp" required><button id="display-password" style="font-size: 16px;" type="button">Afficher</button><br /><br />
+                <label for="mdp_confirmation">Confirmer le mot de passe* :</label><br>
+                <input type="password" id="mdp_confirmation" name="mdp_confirmation" required><button id="display-password-confirmation" style="font-size: 16px;" type="button">Afficher</button><br /><br />
+                <label for="date_naissance">Date de naissance :</label><br>
+                <input type="date" id="date_naissance" name="date_naissance"><br /><br />
+                <label for="nationalite">Nationalité :</label><br>
+                <input type="text" id="nationalite" name="nationalite"><br /><br />
+                <label for="titre">Votre situation actuelle :</label><br>
+                <input type="text" id="titre" name="titre"><br /><br />
+                <label for="address">Adresse :</label><br>
+                <input type="text" id="address" name="address"><br /><br />
+                <label for="address_complement">Complément d'adresse :</label><br>
+                <input type="text" id="address_complement" name="address_complement"><br /><br />
+                <label for="postal_code">Code postal :</label><br>
+                <input type="text" id="postal_code" name="postal_code"><br /><br />
+                <label for="city">Ville :</label><br>
+                <input type="text" id="city" name="city"><br /><br />
+                <label for="country">Pays :</label><br>
+                <input type="text" id="country" name="country"><br /><br />
+                <label for="phone">Téléphone :</label><br>
+                <input type="text" id="phone" name="phone"><br /><br />
+                <label for="website">Votre site web :</label><br>
+                <input type="text" id="website" name="website"><br /><br /><br />
+                <button type="submit" id="login" style="font-size: 20px;">S'inscrire</button>
+            </form>
+            <p style="color: #ff0000;" id="error-message">{{ $error ?? '' }}</p>
+        </section>
+        <footer>
+            <p>&copy; 2026 Candidatures. Tous droits réservés.</p>
+        </footer>
     </body>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
