@@ -98,7 +98,7 @@
         async function deleteCandidature(candidature) {
             var confirmDelete = confirm("Êtes-vous sûr de vouloir supprimer votre candidature de "+candidature.offre.titre+" ? Cette action est irréversible.");
             if (confirmDelete){
-                const response = await fetch("/api/candidatures/" + candidature.id, {
+                const response = await fetch("/api/candidature/" + candidature.id, {
                     method: "DELETE"
                 });
                 const data = await response.json();
