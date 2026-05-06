@@ -93,21 +93,6 @@ class CompteController extends Controller
             }
         }
 
-        /*$validated['sexe'] = $validated['sexe'] ?? $compte->sexe;
-        $validated['nom'] = $validated['nom'] ?? $compte->nom;
-        $validated['prenom'] = $validated['prenom'] ?? $compte->prenom;
-        $validated['email'] = $validated['email'] ?? $compte->email;
-        $validated['date_naissance'] = $validated['date_naissance'] ?? $compte->date_naissance;
-        $validated['nationalite'] = $validated['nationalite'] ?? $compte->nationalite;
-        $validated['titre'] = $validated['titre'] ?? $compte->titre;
-        $validated['adresse'] = $validated['adresse'] ?? $compte->adresse;
-        $validated['adresse_comp'] = $validated['adresse_comp'] ?? $compte->adresse_comp;
-        $validated['cp'] = $validated['cp'] ?? $compte->cp;
-        $validated['ville'] = $validated['ville'] ?? $compte->ville;
-        $validated['pays'] = $validated['pays'] ?? $compte->pays;
-        $validated['numero'] = $validated['numero'] ?? $compte->numero;
-        $validated['website'] = $validated['website'] ?? $compte->website;*/
-
         $compte->update($validated);
 
         return response()->json(['message' => 'Compte updated successfully', 'compte' => $compte, 'success' => true,'code' => 200]);
