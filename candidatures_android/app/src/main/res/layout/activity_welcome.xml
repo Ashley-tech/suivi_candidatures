@@ -22,20 +22,59 @@
         android:id="@+id/parag1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Cette application a pour but de suivre les candidatures que vous avez faites, et de vous aider à organiser votre recherche d'emploi."
         android:textColor="@color/black"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/parag2"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/logotext"
-        tools:layout_editor_absoluteY="251dp" />
+        app:layout_constraintTop_toBottomOf="@id/logotext" />
+
+    <TextView
+        android:id="@+id/parag2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="Vous pourrez aussi matcher vos candidatures avec les offres d'emploi que vous aurez notées."
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/parag3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/parag1"/>
+
+    <TextView
+        android:id="@+id/parag3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="Vous pouvez aussi mettre à jour votre profil et vos coordonnées, ainsi que le statut de vos candidatures à tout moment."
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/parag4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/parag2"/>
+
+    <TextView
+        android:id="@+id/parag4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="Bon courage pour votre recherche !"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/parag3"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/red"
+        app:layout_constraintTop_toBottomOf="@id/parag4"
         android:text="Continuer"
         android:textColor="@color/white"
+        android:onClick="suite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
