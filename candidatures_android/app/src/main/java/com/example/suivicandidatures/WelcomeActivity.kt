@@ -1,17 +1,23 @@
 package com.example.suivicandidatures
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 
-class WelcomeActivity : AppCompatActivity() {
+class WelcomeActivity : AppCompatActivity(), View.OnClickListener {
+    lateinit var continuer: Button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_welcome)
+        continuer = findViewById(R.id.button_continuer);
+        continuer.setOnClickListener(this);
     }
 
-    fun suite(view: View) {
-        
+    override fun onClick(p0: View?) {
+        startActivity(Intent(this, LoginActivity::class.java));
+        finish();
     }
 
 

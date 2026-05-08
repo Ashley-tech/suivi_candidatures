@@ -61,20 +61,19 @@
         android:textAlignment="center"
         android:text="Bon courage pour votre recherche !"
         android:textColor="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/button_continuer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/parag3"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/button_continuer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/red"
         app:layout_constraintTop_toBottomOf="@id/parag4"
         android:text="Continuer"
         android:textColor="@color/white"
-        android:onClick="suite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
