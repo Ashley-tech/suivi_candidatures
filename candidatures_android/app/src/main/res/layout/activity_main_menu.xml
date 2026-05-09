@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainMenuActivity">
+
+    <TextView
+        android:id="@+id/logotitlemenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Suivi des candidatures"
+        android:textColor="@color/red"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toTopOf="@+id/titlemenu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/titlemenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bienvenue !"
+        android:textColor="@color/black"
+        android:textSize="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/menu_to_candidatures_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/logotitlemenu" />
+
+    <Button
+        android:id="@+id/menu_to_candidatures_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/red"
+        android:text="Vos candidatures"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/titlemenu"
+        app:layout_constraintBottom_toTopOf="@+id/menu_to_profil_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/menu_to_profil_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Votre profil"
+        android:backgroundTint="@color/red"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/deconnect_button"
+        app:layout_constraintTop_toBottomOf="@id/menu_to_candidatures_button"
+        tools:layout_editor_absoluteY="431dp" />
+
+    <Button
+        android:id="@+id/deconnect_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/red"
+        android:text="Se déconnecter"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/menu_to_profil_button" />
+</androidx.constraintlayout.widget.ConstraintLayout>
