@@ -11,6 +11,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import org.apache.http.params.CoreConnectionPNames.CONNECTION_TIMEOUT
 import java.io.BufferedReader
@@ -32,6 +33,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     lateinit var forgot : Button;
     lateinit var mdp : EditText;
     lateinit var email : EditText;
+    lateinit var resultat : TextView;
     var passwordVisible = false;
     public val READ_TIMEOUT : Int = 15000
     public val CONNECTION_TIMEOUT : Int = 15000
@@ -48,6 +50,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         forgot.setOnClickListener(this);
         mdp = findViewById(R.id.pwd_input);
         email = findViewById(R.id.login_input);
+        resultat = findViewById(R.id.result_login)
     }
 
     fun regexCheck(re: Regex, str: String):Boolean{
@@ -70,11 +73,12 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
             R.id.oublieBtn -> {
-
+                i = Intent(this,ForgotActivity::class.java)
+                startActivity(i)
             }
             R.id.loginBtn -> {
                 if (mdp.text.toString() == "" || email.text.toString() == ""){
-                    Toast.makeText(this,"Tous les champs sont obligatoires !",Toast.LENGTH_SHORT).show()
+                    resultat.text = "Tous les champs sont obligatoires !"
                 } else {
                     val emailRegex = Regex("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")
                     AsyncConnect().execute(
@@ -184,11 +188,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                 val success = json.getBoolean("success")
                 val message = json.getString("message")
                 if (!success) {
-                    Toast.makeText(
-                        this@LoginActivity,
-                        "Echec de connexion : email et/ou mot de passe incorrect(s)",
-                        Toast.LENGTH_LONG
-                    ).show()
+                    resultat.text = "Email et/ou mot de passe incorrect(s)"
                 } else {
                     Toast.makeText(
                         this@LoginActivity,
@@ -202,6 +202,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                     "Erreur de parsing JSON",
                     Toast.LENGTH_LONG
                 ).show()
+                resultat.text = "Une erreur s'est produite"
             }
         }
     }
