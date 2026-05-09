@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">SuiviCandidatures</string>
+    <string-array name="sexe_list">
+        <item value="">Sexe :</item>
+        <item value="M">Homme</item>
+        <item value="F">Femme</item>
+    </string-array>
 </resources>
