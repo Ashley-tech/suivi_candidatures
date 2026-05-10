@@ -50,7 +50,7 @@ class MainMenuActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View) {
         when (v.getId()){
             R.id.menu_to_profil_button -> {
-
+                startActivity(Intent(this,ProfileActivity::class.java))
             }
             R.id.deconnect_button -> {
                 startActivity(Intent(this,ConfirmLogoutActivity::class.java))
