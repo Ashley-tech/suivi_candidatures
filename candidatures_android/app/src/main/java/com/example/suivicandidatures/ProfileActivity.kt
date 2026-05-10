@@ -93,7 +93,7 @@ class ProfileActivity : AppCompatActivity(), View.OnClickListener {
 
             }
             R.id.profile_to_form_button -> {
-
+                startActivity(Intent(this,ModifyProfileActivity::class.java))
             }
             else -> {
 
