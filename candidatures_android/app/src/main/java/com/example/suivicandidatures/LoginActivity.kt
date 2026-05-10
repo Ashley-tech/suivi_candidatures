@@ -195,6 +195,12 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                         "Connexion réussie",
                         Toast.LENGTH_LONG
                     ).show()
+                    val account = AccountManagement(this@LoginActivity)
+                    account.accountSessionManage(
+                        email.text.toString()
+                    )
+                    finish()
+                    startActivity(Intent(this@LoginActivity, MainMenuActivity::class.java))
                 }
             } catch (e: Exception) {
                 Toast.makeText(

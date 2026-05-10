@@ -16,7 +16,12 @@ class WelcomeActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onClick(p0: View?) {
-        startActivity(Intent(this, LoginActivity::class.java));
+        val account = AccountManagement(this)
+        if (account.isAccountLogin()) {
+            startActivity(Intent(this, MainMenuActivity::class.java))
+        } else {
+            startActivity(Intent(this, LoginActivity::class.java))
+        }
         finish();
     }
 

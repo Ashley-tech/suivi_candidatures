@@ -17,6 +17,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".ConfirmLogoutActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ConfirmDeleteAccountActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainMenuActivity"
             android:exported="false" />
         <activity
