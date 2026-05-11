@@ -1,6 +1,7 @@
 package com.example.suivicandidatures
 
 import android.app.ProgressDialog
+import android.content.Intent
 import android.net.Uri
 import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
@@ -12,6 +13,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
 import android.widget.Toast
+import android.window.OnBackInvokedDispatcher
 import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.BufferedWriter
@@ -35,6 +37,7 @@ class ModifyProfileActivity : AppCompatActivity(), View.OnClickListener {
     lateinit var nom:EditText;
     lateinit var mail:EditText;
     lateinit var adresse:EditText;
+    var old_mdp = ""
     lateinit var nationalite:EditText;
     lateinit var date_naissance:EditText;
     lateinit var texte : EditText;
@@ -42,8 +45,17 @@ class ModifyProfileActivity : AppCompatActivity(), View.OnClickListener {
     lateinit var cp_ville_pays:EditText;
     lateinit var tel:EditText;
     lateinit var sexe: Spinner
+    var id = 0
     var showPwd = false;
     var showReconfirmPwd = false;
+    var cp = ""
+    var ville = ""
+    var pays = ""
+    var a = ""
+    var ca = ""
+    var s = ""
+    var mp = ""
+    lateinit var am : AccountManagement
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_modify_profile)
@@ -69,17 +81,109 @@ class ModifyProfileActivity : AppCompatActivity(), View.OnClickListener {
         texte = findViewById(R.id.text_input_2)
         cp_ville_pays = findViewById(R.id.cp_ville_pays_input_2)
         website = findViewById(R.id.website_input_2)
-        var a = AccountManagement(this)
-        AsyncLoad().execute(a.getLogin())
+        am = AccountManagement(this)
+        AsyncLoad().execute(am.getLogin())
+    }
+
+    fun regexCheck(re: Regex, str: String):Boolean{
+        return re.matches(str)
     }
 
     override fun onClick(v: View) {
         when (v.getId()) {
             R.id.signup_valid_btn_2 -> {
-
+                if(nom.text.toString() == ""||prenom.text.toString()==""||mail.text.toString()==""){
+                    Toast.makeText(this,"Les champs avec * sont obligatoires",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(mdp.text.toString()!=mdp_reconfirm.text.toString()){
+                    Toast.makeText(this,"Les mots de passe ne correspondent pas.",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(mdp.text.toString() != "" && mdp.text.toString().length < 8){
+                    Toast.makeText(this,"Le mot de passe doit contenir au moins 8 caractères.",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                var regexD = Regex("^\\d{4}-\\d{2}-\\d{2}$")
+                if (date_naissance.text.toString() != ""&& !regexCheck(regexD,date_naissance.text.toString())){
+                    Toast.makeText(this,"Votre date de naissance ne respecte pas le format AAAA-MM-DD",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                var part_cha = adresse.text.toString().split("/")
+                if (adresse.text.toString() != "" && part_cha.size > 2){
+                    Toast.makeText(this,"Merci de respecter le format [Adresse]/[Complément] car il y a trop d'arguments : "+part_cha.size+" > 2",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (adresse.text.toString() != ""){
+                    a = part_cha[0]
+                    if (part_cha.size == 2){
+                        ca=part_cha[1]
+                    }else{
+                        ca=""
+                    }
+                } else{
+                    a=""
+                    ca=""
+                }
+                var part_champ = cp_ville_pays.text.toString().split('/')
+                if (cp_ville_pays.text.toString() != "" && part_champ.size > 3){
+                    Toast.makeText(this,"Merci de respecter le format [Code postal]/[Ville]/[Pays] car il y a trop d'arguments : "+part_champ.size+" > 3",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (cp_ville_pays.text.toString() != ""){
+                    cp = part_champ[0]
+                    if (part_champ.size >= 2) {
+                        ville = part_champ[1]
+                        if (part_champ.size == 3){
+                            pays = part_champ[2]
+                        } else{
+                            pays=""
+                        }
+                    } else {
+                        ville = ""
+                        pays=""
+                    }
+                    pays = part_champ[2]
+                } else {
+                    cp = ""
+                    ville=""
+                    pays = ""
+                }
+                var regexTel = Regex("^\\d{10}$")
+                var regexCp = Regex("^\\d{5}$")
+                if (cp != "" && !regexCheck(regexCp,cp)){
+                    Toast.makeText(this,"Le code postal doit être composé de 5 chiffres exactement",Toast.LENGTH_SHORT).show();
+                    return
+                }
+                if (tel.text.toString() != "" && !regexCheck(regexTel,tel.text.toString())){
+                    Toast.makeText(this,"Le numéro de téléphone doit être composé de 10 chiffres exactement",Toast.LENGTH_SHORT).show();
+                    return
+                }
+                var regex1Web = Regex("^(https?://)?([\\w-]+(\\.[\\w-]+)+)(/[\\w-]*)*/?$")
+                var regex2Web = Regex("^[\\w-]+(\\.[\\w-]+)+$")
+                var regex3Web = Regex("^(http?://)?([\\w-]+(\\.[\\w-]+)+)(/[\\w-]*)*/?$")
+                if (website.text.toString() != "" && (!regexCheck(regex1Web,website.text.toString()) || !regexCheck(regex2Web,website.text.toString()) || !regexCheck(regex3Web,website.text.toString()))){
+                    Toast.makeText(this,"L'URL du site Web n'est pas valide.'",Toast.LENGTH_SHORT).show();
+                    return
+                }
+                if (sexe.getSelectedItem().toString().contains("Homme")){
+                    s = "M"
+                } else if (sexe.getSelectedItem().toString().contains("Femme")){
+                    s="F"
+                }else {
+                    s = ""
+                }
+                if (mdp.text.toString() != ""){
+                    mp = mdp.text.toString()
+                } else {
+                    mp = old_mdp
+                }
+                Log.i("new_mdp",mp)
+                AsyncUpdateAccount().execute(s,nom.text.toString(),prenom.text.toString(),mail.text.toString(),date_naissance.text.toString(),mp,nationalite.text.toString(),texte.text.toString(),a,ca,cp,ville,pays,tel.text.toString(),website.text.toString())
             }
             R.id.signup_to_login_btn_2 -> {
                 finish()
+                startActivity(Intent(this,ProfileActivity::class.java))
             }
             R.id.display_mdp_2 -> {
                 if (showPwd) {
@@ -100,6 +204,12 @@ class ModifyProfileActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
+        startActivity(Intent(this,ProfileActivity::class.java))
     }
 
     private inner class AsyncLoad : AsyncTask<String, Void, String>() {
@@ -191,6 +301,9 @@ class ModifyProfileActivity : AppCompatActivity(), View.OnClickListener {
                 val compte = json.getJSONObject("compte")
                 val sexe = compte.getString("sexe")
                 if (found) {
+                    old_mdp = (compte.optString("mdp").takeIf { it != "null" } ?: "")
+                    Log.i("old_mdp",old_mdp)
+                    id=compte.optInt("id")
                     nom.setText((compte.optString("nom").takeIf { it != "null" } ?: ""))
                     prenom.setText((compte.optString("prenom").takeIf { it != "null" } ?: ""))
                     mail.setText((compte.optString("email").takeIf { it != "null" } ?: ""))
@@ -261,6 +374,137 @@ class ModifyProfileActivity : AppCompatActivity(), View.OnClickListener {
                     Toast.LENGTH_LONG
                 ).show()
                 finish()
+            }
+        }
+    }
+
+    private inner class AsyncUpdateAccount : AsyncTask<String, Void, String>() {
+        private val pdLoading = ProgressDialog(this@ModifyProfileActivity)
+        private var co: HttpURLConnection? = null
+        private var url: URL? = null
+        private var emailUser: String? = null
+        private var prenomA : String? = null
+        override fun onPreExecute() {
+            super.onPreExecute()
+
+            pdLoading.setMessage("Modification de vos informations...")
+            pdLoading.setCancelable(false)
+            pdLoading.show()
+        }
+
+        override fun doInBackground(vararg strings: String?): String {
+            try {
+                url = URL("http://10.0.2.2:8000/api/compte/"+id)
+            } catch (e: MalformedURLException) {
+                e.printStackTrace()
+                return "false"
+            }
+
+            try {
+                co = url!!.openConnection() as HttpURLConnection
+                co!!.readTimeout = 15000
+                co!!.connectTimeout = 15000
+                co!!.requestMethod = "PATCH"
+                co!!.setRequestProperty(
+                    "Content-Type",
+                    "application/x-www-form-urlencoded"
+                )
+
+                co!!.doInput = true
+                co!!.doOutput = true
+
+                prenomA = strings[2]
+                emailUser = strings[3]
+                val builder = Uri.Builder()
+                    .appendQueryParameter("sexe", strings[0])
+                    .appendQueryParameter("nom", strings[1])
+                    .appendQueryParameter("prenom", strings[2])
+                    .appendQueryParameter("email", strings[3])
+                    .appendQueryParameter("date_naissance", strings[4])
+                    .appendQueryParameter("mdp", strings[5])
+                    .appendQueryParameter("nationalite", strings[6])
+                    .appendQueryParameter("titre", strings[7])
+                    .appendQueryParameter("address", strings[8])
+                    .appendQueryParameter("address_comp", strings[9])
+                    .appendQueryParameter("cp", strings[10])
+                    .appendQueryParameter("ville", strings[11])
+                    .appendQueryParameter("pays", strings[12])
+                    .appendQueryParameter("numero", strings[13])
+                    .appendQueryParameter("website", strings[14])
+
+                val query = builder.build().encodedQuery
+
+                val os: OutputStream = co!!.outputStream
+
+                val writer = BufferedWriter(OutputStreamWriter(os, "UTF-8"))
+
+                writer.write(query)
+                writer.flush()
+                writer.close()
+
+                os.close()
+
+                co!!.connect()
+
+            } catch (e: IOException) {
+                e.printStackTrace()
+                return "Exception"
+            }
+            try {
+                val responseCode = co!!.responseCode
+                Log.d("HTTP_CODE", responseCode.toString())
+                return if (responseCode == HttpURLConnection.HTTP_OK) {
+                    val input: InputStream = co!!.inputStream
+                    val reader = BufferedReader(InputStreamReader(input))
+                    val result = StringBuilder()
+                    var line: String?
+                    while (reader.readLine().also { line = it } != null) {
+                        result.append(line)
+                    }
+                    result.toString()
+                } else {
+                    "Unsuccessful"
+                }
+            } catch (e: IOException) {
+                e.printStackTrace()
+                return "Exception"
+            } finally {
+                co?.disconnect()
+            }
+        }
+
+        override fun onPostExecute(result: String?) {
+            super.onPostExecute(result)
+            pdLoading.dismiss()
+
+            if (result == null) return
+
+            try {
+                val json = JSONObject(result)
+                val success = json.getBoolean("success")
+                Log.i("a","a")
+                if (success) {
+                    Log.i("a","b")
+                    Toast.makeText(this@ModifyProfileActivity,"Compte modifié avec succès !",Toast.LENGTH_LONG)
+                    if (mail.text.toString() != am.getLogin()){
+                        am.updateInfo(mail.text.toString())
+                    }
+                    finish()
+                    startActivity(Intent(this@ModifyProfileActivity,ProfileActivity::class.java))
+                } else {
+                    Log.i("b","a")
+                    Toast.makeText(
+                        this@ModifyProfileActivity,
+                        "Echec d'inscription",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            } catch (e: Exception) {
+                Toast.makeText(
+                    this@ModifyProfileActivity,
+                    "Erreur de parsing JSON",
+                    Toast.LENGTH_LONG
+                ).show()
             }
         }
     }

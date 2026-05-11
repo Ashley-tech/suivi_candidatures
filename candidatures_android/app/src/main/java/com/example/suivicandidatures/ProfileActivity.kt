@@ -94,6 +94,7 @@ class ProfileActivity : AppCompatActivity(), View.OnClickListener {
             }
             R.id.profile_to_form_button -> {
                 startActivity(Intent(this,ModifyProfileActivity::class.java))
+                finish()
             }
             else -> {
 
@@ -198,7 +199,7 @@ class ProfileActivity : AppCompatActivity(), View.OnClickListener {
                     nom.setText(nom.text.toString() + (compte.optString("nom").takeIf { it != "null" } ?: ""))
                     prenom.setText(prenom.text.toString() + (compte.optString("prenom").takeIf { it != "null" } ?: ""))
                     email.setText(email.text.toString()+ (compte.optString("email").takeIf { it != "null" } ?: ""))
-                    for (i in 0 until compte.getString("mdp").length){
+                    for (i in 0 until (compte.optString("mdp").takeIf { it != "null" } ?: "").length){
                         mdp.setText(mdp.text.toString() + "*")
                     }
                     date_naissance.setText(date_naissance.text.toString() + (compte.optString("date_naissance").takeIf { it != "null" } ?: ""))
