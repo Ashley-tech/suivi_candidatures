@@ -338,11 +338,15 @@ class ModifyProfileActivity : AppCompatActivity(), View.OnClickListener {
                 val json = JSONObject(result)
                 val found = json.getBoolean("found")
                 val compte = json.getJSONObject("compte")
-                val sexe = compte.getString("sexe")
                 if (found) {
                     old_mdp = (compte.optString("mdp").takeIf { it != "null" } ?: "")
                     Log.i("old_mdp",old_mdp)
                     id=compte.optInt("id")
+                    when (compte.getString("sexe")) {
+                        "M" -> sexe.setSelection(1)
+                        "F" -> sexe.setSelection(2)
+                        else -> sexe.setSelection(0)
+                    }
                     nom.setText((compte.optString("nom").takeIf { it != "null" } ?: ""))
                     prenom.setText((compte.optString("prenom").takeIf { it != "null" } ?: ""))
                     mail.setText((compte.optString("email").takeIf { it != "null" } ?: ""))
