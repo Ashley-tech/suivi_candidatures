@@ -30,6 +30,7 @@ class MainMenuActivity : AppCompatActivity(), View.OnClickListener {
     lateinit var deconnect : Button
     lateinit var title : TextView
     lateinit var login : String
+    var id = 0
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,7 +57,7 @@ class MainMenuActivity : AppCompatActivity(), View.OnClickListener {
                 startActivity(Intent(this,ConfirmLogoutActivity::class.java))
             }
             R.id.menu_to_candidatures_button -> {
-
+                startActivity(Intent(this,CandidaturesActivity::class.java).putExtra("id",id))
             }
             else -> {
 
@@ -154,6 +155,7 @@ class MainMenuActivity : AppCompatActivity(), View.OnClickListener {
                 val prenom = compte.getString("prenom")
                 if (found) {
                     title.setText("Bienvenue, "+prenom+" !")
+                    id = compte.getInt("id")
                 }else {
                     Toast.makeText(
                         this@MainMenuActivity,
