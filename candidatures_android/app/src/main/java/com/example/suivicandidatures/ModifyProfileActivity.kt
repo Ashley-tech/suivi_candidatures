@@ -45,6 +45,7 @@ class ModifyProfileActivity : AppCompatActivity(), View.OnClickListener {
     lateinit var cp_ville_pays:EditText;
     lateinit var tel:EditText;
     lateinit var sexe: Spinner
+    var old_mail = ""
     var id = 0
     var showPwd = false;
     var showReconfirmPwd = false;
@@ -83,6 +84,8 @@ class ModifyProfileActivity : AppCompatActivity(), View.OnClickListener {
         website = findViewById(R.id.website_input_2)
         am = AccountManagement(this)
         AsyncLoad().execute(am.getLogin())
+        old_mail = am.getLogin().toString()
+
     }
 
     fun regexCheck(re: Regex, str: String):Boolean{
@@ -179,7 +182,43 @@ class ModifyProfileActivity : AppCompatActivity(), View.OnClickListener {
                     mp = old_mdp
                 }
                 Log.i("new_mdp",mp)
-                AsyncUpdateAccount().execute(s,nom.text.toString(),prenom.text.toString(),mail.text.toString(),date_naissance.text.toString(),mp,nationalite.text.toString(),texte.text.toString(),a,ca,cp,ville,pays,tel.text.toString(),website.text.toString())
+                if (old_mail != mail.text.toString()) {
+                    AsyncCheckEmailUnique().execute(
+                        s,
+                        nom.text.toString(),
+                        prenom.text.toString(),
+                        mail.text.toString(),
+                        date_naissance.text.toString(),
+                        mp,
+                        nationalite.text.toString(),
+                        texte.text.toString(),
+                        a,
+                        ca,
+                        cp,
+                        ville,
+                        pays,
+                        tel.text.toString(),
+                        website.text.toString()
+                    )
+                } else {
+                    AsyncUpdateAccount().execute(
+                        s,
+                        nom.text.toString(),
+                        prenom.text.toString(),
+                        mail.text.toString(),
+                        date_naissance.text.toString(),
+                        mp,
+                        nationalite.text.toString(),
+                        texte.text.toString(),
+                        a,
+                        ca,
+                        cp,
+                        ville,
+                        pays,
+                        tel.text.toString(),
+                        website.text.toString()
+                    )
+                }
             }
             R.id.signup_to_login_btn_2 -> {
                 finish()
@@ -485,9 +524,12 @@ class ModifyProfileActivity : AppCompatActivity(), View.OnClickListener {
                 Log.i("a","a")
                 if (success) {
                     Log.i("a","b")
-                    Toast.makeText(this@ModifyProfileActivity,"Compte modifié avec succès !",Toast.LENGTH_LONG)
                     if (mail.text.toString() != am.getLogin()){
+                        Toast.makeText(this@ModifyProfileActivity,"Compte modifié avec succès ! Comme vous avez modifié votre adresse mail, vous allez recevoir un mail à cette nouvelle adresse mail.",Toast.LENGTH_LONG).show()
                         am.updateInfo(mail.text.toString())
+                        AsyncMailAuto().execute(mail.text.toString(),"Modification de votre adresse email","Bonjour,<br /><br />Votre compte vient de subir la modification de votre adresse mail.<br />Adresse mail : <s>"+old_mail+"</s>  "+mail.text.toString()+".<br /><br />Cordialement, <br />L'équipe de suivi des candidatures")
+                    } else {
+                        Toast.makeText(this@ModifyProfileActivity,"Compte modifié avec succès !",Toast.LENGTH_LONG).show()
                     }
                     finish()
                     startActivity(Intent(this@ModifyProfileActivity,ProfileActivity::class.java))
@@ -498,6 +540,242 @@ class ModifyProfileActivity : AppCompatActivity(), View.OnClickListener {
                         "Echec d'inscription",
                         Toast.LENGTH_LONG
                     ).show()
+                }
+            } catch (e: Exception) {
+                Toast.makeText(
+                    this@ModifyProfileActivity,
+                    "Erreur de parsing JSON",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
+    }
+
+    private inner class AsyncMailAuto : AsyncTask<String, Void, String>() {
+        private var co: HttpURLConnection? = null
+        private var url: URL? = null
+        override fun onPreExecute() {
+            super.onPreExecute()
+        }
+
+        override fun doInBackground(vararg strings: String?): String {
+            try {
+                url = URL("http://10.0.2.2:8000/api/test-mail")
+            } catch (e: MalformedURLException) {
+                e.printStackTrace()
+                return "false"
+            }
+
+            try {
+                co = url!!.openConnection() as HttpURLConnection
+                co!!.readTimeout = 15000
+                co!!.connectTimeout = 15000
+                co!!.requestMethod = "POST"
+                co!!.setRequestProperty(
+                    "Content-Type",
+                    "application/x-www-form-urlencoded"
+                )
+
+                co!!.doInput = true
+                co!!.doOutput = true
+
+                val builder = Uri.Builder()
+                    .appendQueryParameter("email", strings[0])
+                    .appendQueryParameter("subject", strings[1])
+                    .appendQueryParameter("content", strings[2])
+
+                val query = builder.build().encodedQuery
+
+                val os: OutputStream = co!!.outputStream
+
+                val writer = BufferedWriter(OutputStreamWriter(os, "UTF-8"))
+
+                writer.write(query)
+                writer.flush()
+                writer.close()
+
+                os.close()
+
+                co!!.connect()
+
+            } catch (e: IOException) {
+                e.printStackTrace()
+                return "Exception"
+            }
+            try {
+                val responseCode = co!!.responseCode
+                Log.d("HTTP_CODE", responseCode.toString())
+                return if (responseCode == HttpURLConnection.HTTP_OK) {
+                    val input: InputStream = co!!.inputStream
+                    val reader = BufferedReader(InputStreamReader(input))
+                    val result = StringBuilder()
+                    var line: String?
+                    while (reader.readLine().also { line = it } != null) {
+                        result.append(line)
+                    }
+                    result.toString()
+                } else {
+                    "Unsuccessful"
+                }
+            } catch (e: IOException) {
+                e.printStackTrace()
+                return "Exception"
+            } finally {
+                co?.disconnect()
+            }
+        }
+
+        override fun onPostExecute(result: String?) {
+            super.onPostExecute(result)
+
+            if (result == null) return
+            Log.d("message", result)
+            try {
+                val json = JSONObject(result)
+                val success = json.getBoolean("success")
+                if (success) {
+                    Toast.makeText(this@ModifyProfileActivity,"Mail automatique envoyé",Toast.LENGTH_SHORT)
+                } else {
+                    Toast.makeText(
+                        this@ModifyProfileActivity,
+                        "Echec d'envoi du mail",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            } catch (e: Exception) {
+                Toast.makeText(
+                    this@ModifyProfileActivity,
+                    "Erreur de parsing JSON",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
+    }
+
+    private inner class AsyncCheckEmailUnique : AsyncTask<String, Void, String>() {
+        private val pdLoading = ProgressDialog(this@ModifyProfileActivity)
+        private var co: HttpURLConnection? = null
+        private var url: URL? = null
+        private var sex: String? = null
+        private var n: String? = null
+        private var pr: String? = null
+        private var emailUser: String? = null
+        private var nation: String? = null
+        private var pwd: String? = null
+        private var adr: String? = null
+        private var adrc: String? = null
+        private var v: String? = null
+        private var code: String? = null
+        private var tel: String? = null
+        private var pa: String? = null
+        private var w: String? = null
+        private var dn: String? = null
+        private var title: String? = null
+        override fun onPreExecute() {
+            super.onPreExecute()
+
+            pdLoading.setMessage("Vérification email unique.")
+            pdLoading.setCancelable(false)
+            pdLoading.show()
+        }
+
+        override fun doInBackground(vararg strings: String?): String {
+            try {
+                url = URL("http://10.0.2.2:8000/api/compte/find-by-email")
+            } catch (e: MalformedURLException) {
+                e.printStackTrace()
+                return "false"
+            }
+
+            try {
+                co = url!!.openConnection() as HttpURLConnection
+                co!!.readTimeout = 15000
+                co!!.connectTimeout = 15000
+                co!!.requestMethod = "POST"
+                co!!.setRequestProperty(
+                    "Content-Type",
+                    "application/x-www-form-urlencoded"
+                )
+
+                co!!.doInput = true
+                co!!.doOutput = true
+                sex = strings[0]
+                n = strings[1]
+                pr = strings[2]
+                emailUser = strings[3]
+                pwd = strings[5]
+                dn = strings[4]
+                adr = strings[8]
+                title = strings[7]
+                adrc = strings[9]
+                nation = strings[6]
+                code = strings[10]
+                v = strings[11]
+                pa = strings[12]
+                tel = strings[13]
+                w = strings[14]
+
+                val builder = Uri.Builder()
+                    .appendQueryParameter("email", emailUser)
+
+                val query = builder.build().encodedQuery
+
+                val os: OutputStream = co!!.outputStream
+
+                val writer = BufferedWriter(OutputStreamWriter(os, "UTF-8"))
+
+                writer.write(query)
+                writer.flush()
+                writer.close()
+
+                os.close()
+
+                co!!.connect()
+
+            } catch (e: IOException) {
+                e.printStackTrace()
+                return "Exception"
+            }
+            try {
+                val responseCode = co!!.responseCode
+                Log.d("HTTP_CODE", responseCode.toString())
+                return if (responseCode == HttpURLConnection.HTTP_OK) {
+                    val input: InputStream = co!!.inputStream
+                    val reader = BufferedReader(InputStreamReader(input))
+                    val result = StringBuilder()
+                    var line: String?
+                    while (reader.readLine().also { line = it } != null) {
+                        result.append(line)
+                    }
+                    result.toString()
+                } else {
+                    "Unsuccessful"
+                }
+            } catch (e: IOException) {
+                e.printStackTrace()
+                return "Exception"
+            } finally {
+                co?.disconnect()
+            }
+        }
+
+        override fun onPostExecute(result: String?) {
+            super.onPostExecute(result)
+            pdLoading.dismiss()
+
+            if (result == null) return
+            Log.d("message", result)
+            try {
+                val json = JSONObject(result)
+                val found = json.getBoolean("found")
+                if (found) {
+                    Toast.makeText(
+                        this@ModifyProfileActivity,
+                        "Un compte avec cette adresse email existe déjà. Veuillez utiliser une adresse email différente.",
+                        Toast.LENGTH_LONG
+                    ).show()
+                } else {
+                    AsyncUpdateAccount().execute(sex,n,pr,emailUser,dn,pwd,nation,title,adr,adrc,code,v,pa,tel,w)
                 }
             } catch (e: Exception) {
                 Toast.makeText(

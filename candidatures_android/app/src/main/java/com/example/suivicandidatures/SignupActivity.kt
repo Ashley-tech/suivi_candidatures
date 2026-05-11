@@ -440,7 +440,7 @@ class SignupActivity : AppCompatActivity(), View.OnClickListener {
                 val json = JSONObject(result)
                 val success = json.getBoolean("success")
                 if (success) {
-                    Toast.makeText(this@SignupActivity,"Inscription réussie ! Vous allez recevoir un email de confirmation. Redirection vers la page de connexion...",Toast.LENGTH_LONG)
+                    Toast.makeText(this@SignupActivity,"Inscription réussie ! Vous allez recevoir un email de confirmation. Redirection vers la page de connexion...",Toast.LENGTH_LONG).show()
                     AsyncMailAuto().execute(emailUser,"Confirmation de votre inscription","Bonjour "+prenomA+",<br /><br />Votre compte a bien été créé sur le site de suivi des candidatures.<br /><br />Cordialement, <br />L'équipe de suivi des candidatures" );
                     finish();
                 } else {

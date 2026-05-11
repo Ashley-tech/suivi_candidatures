@@ -206,9 +206,21 @@
                 success: function(response) {
                     console.log("Réponse API modify compte :", response);
                     if (response.success) {
-                        $("#error-message").text("Compte modifié avec succès !");
                         $("#error-message").css("color", "green");
-                        sessionStorage.setItem("login", email);
+			if (user != email) {
+                            $("#error-message").text("Compte modifié avec succès ! Comme vous avez modifié votre adresse mail, vous allez recevoir un mail à cette nouvelle adresse mail.");
+                            sessionStorage.setItem("login", email);
+			    const response1 = fetch("/api/test-mail", {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    "X-CSRF-TOKEN": token
+                                },
+                                body: JSON.stringify({ email, subject: "Modification de votre adresse email", content: "Bonjour,<br /><br />Votre compte vient de subir la modification de votre adresse mail.<br />Adresse mail : <s>"+user+"</s>  "+email+".<br /><br />Cordialement, <br />L'équipe de suivi des candidatures" })
+                            });
+			} else {
+                            $("#error-message").text("Compte modifié avec succès !");
+                        }
                         location.href = "/profile";
                     } else {
                         $("#error-message").text("Une erreur est survenue lors de la modification du compte.");
