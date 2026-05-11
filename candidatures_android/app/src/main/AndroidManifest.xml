@@ -17,6 +17,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".ConfirmDeleteCVActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CVsActivity"
+            android:exported="false" />
+        <activity
             android:name=".ModifyProfileActivity"
             android:exported="false" />
         <activity

@@ -88,11 +88,10 @@ class ProfileActivity : AppCompatActivity(), View.OnClickListener {
                 startActivity(Intent(this, ConfirmLogoutActivity::class.java))
             }
             R.id.profile_to_confirm_da_button -> {
-                Log.i("id", id.toString())
                 startActivity(Intent(this,ConfirmDeleteAccountActivity::class.java).putExtra("id",id))
             }
             R.id.profile_to_cvs_button -> {
-
+                startActivity(Intent(this,CVsActivity::class.java).putExtra("id",id))
             }
             R.id.profile_to_form_button -> {
                 startActivity(Intent(this,ModifyProfileActivity::class.java))
