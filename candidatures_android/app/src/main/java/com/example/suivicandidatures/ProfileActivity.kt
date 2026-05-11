@@ -45,6 +45,7 @@ class ProfileActivity : AppCompatActivity(), View.OnClickListener {
     lateinit var numtel : TextView
     lateinit var web : TextView
     lateinit var date_creation : TextView
+    var id = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
@@ -87,7 +88,8 @@ class ProfileActivity : AppCompatActivity(), View.OnClickListener {
                 startActivity(Intent(this, ConfirmLogoutActivity::class.java))
             }
             R.id.profile_to_confirm_da_button -> {
-                startActivity(Intent(this,ConfirmDeleteAccountActivity::class.java))
+                Log.i("id", id.toString())
+                startActivity(Intent(this,ConfirmDeleteAccountActivity::class.java).putExtra("id",id))
             }
             R.id.profile_to_cvs_button -> {
 
@@ -191,6 +193,7 @@ class ProfileActivity : AppCompatActivity(), View.OnClickListener {
                 val compte = json.getJSONObject("compte")
                 val sexe = compte.getString("sexe")
                 if (found) {
+                    id = compte.getInt("id")
                     if (sexe == "M"){
                         sexe_text.setText(sexe_text.text.toString() + "Homme")
                     } else if (sexe == "F"){
