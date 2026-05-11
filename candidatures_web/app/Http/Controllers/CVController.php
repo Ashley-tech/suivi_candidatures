@@ -18,13 +18,20 @@ class CVController extends Controller
         $filePath = $file->getRealPath();
 
         $texte = '';
+try {
 
         // 🔹 PDF
         if (str_contains($mimeType, 'pdf')) {
+try{
             $parser = new Parser();
             $pdf = $parser->parseFile($filePath);
             $texte = $pdf->getText();
+} catch (\Throwable $e) {
+                // fallback SAFE (évite 500)
+                return "PDF_NON_LISIBLE";
+            }
         }
+
 
         // 🔹 DOCX
         elseif (
@@ -41,6 +48,7 @@ class CVController extends Controller
                     }
                 }
             } catch (\Throwable $e) {
+try{
                 $zip = new \ZipArchive;
                 if ($zip->open($filePath) === true) {
                     $xml = $zip->getFromName('word/document.xml');
@@ -55,11 +63,15 @@ class CVController extends Controller
                         libxml_clear_errors();
                     }
                 }
+} catch (\Throwable $e2) {
+                    return "DOCX_NON_LISIBLE";
+                }
             }
         }
 
         // 🔹 ODT
         elseif (str_contains($mimeType, 'opendocument')) {
+try{
             $zip = new \ZipArchive;
 
             if ($zip->open($filePath) === TRUE) {
@@ -67,6 +79,9 @@ class CVController extends Controller
                 $zip->close();
 
                 $texte = strip_tags($content);
+            }
+} catch (\Throwable $e) {
+                return "ODT_NON_LISIBLE";
             }
         }
 
@@ -83,6 +98,10 @@ class CVController extends Controller
         $texte = preg_replace('/\s+/', ' ', $texte);
 
         return $texte;
+    } catch (\Throwable $e) {
+        // ULTRA SAFE fallback final
+        return "ERREUR_EXTRACTION";
+    }
     }
 
     public function modifyFile(Request $request, int $id) {
@@ -99,7 +118,7 @@ class CVController extends Controller
             'contenu' => file_get_contents($file->getRealPath()),
             'mime_type' => $file->getMimeType(),
             'date_upload' => now(),
-            'texte_extrait' => $this->cvextracted($file),
+            'texte_extrait' => $this->cvextracted($file) ?? "",
         ]);
 
         $candidatures = $cv->candidatures()->get();

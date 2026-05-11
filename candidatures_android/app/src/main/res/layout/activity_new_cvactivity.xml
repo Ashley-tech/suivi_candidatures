@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NewCVActivity">
+
+    <TextView
+        android:id="@+id/logotitlenewcv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Suivi des candidatures"
+        android:textColor="@color/red"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toTopOf="@id/titlenewcv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/titlenewcv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Fichier CV* (Extensions autorisées : .pdf, .doc, .docx, .odt) :"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logotitlenewcv"
+        app:layout_constraintBottom_toTopOf="@id/select_file_button"/>
+
+    <Button
+        android:id="@+id/select_file_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/grey"
+        android:text="Choisir un fichier"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@id/result_cv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titlenewcv" />
+
+    <TextView
+        android:id="@+id/result_cv"
+        app:layout_constraintBottom_toTopOf="@id/message_cv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:text=""
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/select_file_button"
+        tools:layout_editor_absoluteY="498dp" />
+
+    <TextView
+        android:id="@+id/message_cv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textAlignment="center"
+        android:textColor="@color/red"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/add_cv_button"
+        app:layout_constraintTop_toBottomOf="@id/result_cv"
+        tools:layout_editor_absoluteY="541dp" />
+
+    <Button
+        android:id="@+id/add_cv_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Ajouter le CV"
+        android:backgroundTint="@color/red"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/message_cv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/new_cv_to_cv_button"/>
+
+    <Button
+        android:id="@+id/new_cv_to_cv_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Retour"
+        app:layout_constraintTop_toBottomOf="@id/message_cv"
+        app:layout_constraintStart_toEndOf="@id/add_cv_button"
+        android:backgroundTint="@color/red"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

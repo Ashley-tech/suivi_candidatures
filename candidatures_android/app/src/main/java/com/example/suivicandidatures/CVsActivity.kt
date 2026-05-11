@@ -68,7 +68,7 @@ class CVsActivity : AppCompatActivity(), View.OnClickListener {
                 finish()
             }
             R.id.cv_to_new_button -> {
-
+                startActivityForResult(Intent(this, NewCVActivity::class.java).putExtra("id",id), 1)
             }
             else -> {
 
