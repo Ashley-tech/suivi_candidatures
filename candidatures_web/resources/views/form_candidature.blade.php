@@ -54,7 +54,7 @@
                 <label for="date_candidature">Date de candidature :</label><br>
                 <input type="date" id="date_candidature" name="date_candidature" style="font-size: 16px; padding: 5px; margin-bottom: 20px;"><br /><br />
                 <label for="statut">Statut de la candidature :</label><br>
-                <input type="text" id="statut" name="statut" style="font-size: 16px; padding: 5px; margin-bottom: 20px;"><br /><br />
+                <input type="text" id="statut" name="statut" style="font-size: 16px; padding: 5px; margin-bottom: 20px;" placeholder="Statut (En atttente par défaut)"><br /><br />
                 <label for="nom_recruteur">Nom du recruteur :</label><br>
                 <input type="text" id="nom_recruteur" name="nom_recruteur" style="font-size: 16px; padding: 5px; margin-bottom: 20px;"><br /><br />
                 <label for="prenom_recruteur">Prénom du recruteur :</label><br>
@@ -146,7 +146,6 @@
             const cv = $("#cvs").val();
             const token = $('input[name="_token"]').val();
             $("#error-message").text("");
-
             if (cv == "") {
                 $("#error-message").text("Veuillez sélectionner un CV.");
                 return;
@@ -183,6 +182,12 @@
                 return;
             }
             let ido = null;
+            let s = ""
+            if (statut == "") {
+                s = "En attente";
+            } else {
+                s = statut
+            }
             $.ajax({
                 url: "/api/offres",
                 method: "POST",
@@ -203,6 +208,7 @@
                     periode: periode,
                     salaire_min: salaire_min,
                     salaire_max: salaire_max,
+                    statut: statut,
                     date_publication: date_publication,
                     _token: token
                 },

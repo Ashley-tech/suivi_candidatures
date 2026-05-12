@@ -91,7 +91,7 @@ class CandidatureController extends Controller
             'offre' => $request->offre,
             'cv' => $request->cv,
             'date_candidature' => $request->date ?? now(),
-            'statut' => $request->statut ?? null,
+            'statut' => $request->statut ?? "En attente",
         ]);
 
         //$this->saveScore($candidature->id); //Optionnel si on ne veut pas tester le matching à chaque création de candidature
