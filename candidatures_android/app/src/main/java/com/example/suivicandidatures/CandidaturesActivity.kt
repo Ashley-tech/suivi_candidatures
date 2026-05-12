@@ -314,7 +314,7 @@ class CandidaturesActivity : AppCompatActivity(), View.OnClickListener {
 
             deleteButton.setOnClickListener {
 
-                /*val intent = Intent(
+                val intent = Intent(
                     context,
                     ConfirmDeleteCandidatureActivity::class.java
                 )
@@ -323,9 +323,10 @@ class CandidaturesActivity : AppCompatActivity(), View.OnClickListener {
                     "id_candidature",
                     idCandidature.toInt()
                 )
+                intent.putExtra("id_offre",idOffre.toInt())
 
                 (context as AppCompatActivity)
-                    .startActivityForResult(intent, 1)*/
+                    .startActivityForResult(intent, 1)
             }
 
             return view
