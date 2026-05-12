@@ -6,4 +6,201 @@
     android:layout_height="match_parent"
     tools:context=".NewCandidatureActivity">
 
+    <TextView
+        android:id="@+id/logotitlenewcandidature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Suivi des candidatures"
+        android:textColor="@color/red"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toTopOf="@id/titlenewcandidature"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/titlenewcandidature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nouvelle candidature"
+        android:textColor="@color/black"
+        android:textSize="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/logotitlenewcandidature"
+        app:layout_constraintBottom_toTopOf="@id/type_candidature_spinner"/>
+
+    <Spinner
+        android:id="@+id/type_candidature_spinner"
+        android:layout_width="0dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginStart="6dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/titlenewcandidature"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/titre_candidature_input" />
+
+    <EditText
+        android:id="@+id/titre_candidature_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="Titre de l'offre* :"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/type_candidature_spinner"
+        app:layout_constraintEnd_toStartOf="@id/details_input"
+        app:layout_constraintBottom_toTopOf="@id/nom_entreprise_input"/>
+
+    <EditText
+        android:id="@+id/details_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:gravity="top|start"
+        android:hint="Description de l'offre"
+        android:inputType="textMultiLine"
+        android:maxLines="10"
+        android:minLines="5"
+        app:layout_constraintTop_toBottomOf="@id/type_candidature_spinner"
+        app:layout_constraintStart_toEndOf="@id/titre_candidature_input"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/adresse_entreprise_input"/>
+
+    <EditText
+        android:id="@+id/nom_entreprise_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="Entreprise :"
+        app:layout_constraintTop_toBottomOf="@id/titre_candidature_input"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/details_input"/>
+
+    <EditText
+        android:id="@+id/adresse_entreprise_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="[Adresse]/[Complément]"
+        android:inputType="text"
+        app:layout_constraintEnd_toStartOf="@+id/cp_ville_pays_entreprise_input"
+        app:layout_constraintTop_toBottomOf="@id/details_input" />
+
+    <EditText
+        android:id="@+id/cp_ville_pays_entreprise_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="[Code]/[Ville]/[Pays]"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/details_input" />
+
+    <EditText
+        android:id="@+id/date_candidature_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="date"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="343dp" />
+
+    <EditText
+        android:id="@+id/editTextText6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Name"
+        tools:layout_editor_absoluteX="184dp"
+        tools:layout_editor_absoluteY="411dp" />
+
+    <EditText
+        android:id="@+id/editTextTextEmailAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        tools:layout_editor_absoluteX="6dp"
+        tools:layout_editor_absoluteY="471dp" />
+
+    <EditText
+        android:id="@+id/editTextText7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Name"
+        tools:layout_editor_absoluteX="10dp"
+        tools:layout_editor_absoluteY="471dp" />
+
+    <EditText
+        android:id="@+id/editTextText8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Name"
+        tools:layout_editor_absoluteX="181dp"
+        tools:layout_editor_absoluteY="459dp" />
+
+    <EditText
+        android:id="@+id/editTextNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        tools:layout_editor_absoluteY="519dp" />
+
+    <EditText
+        android:id="@+id/editTextNumber2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        tools:layout_editor_absoluteX="173dp"
+        tools:layout_editor_absoluteY="515dp" />
+
+    <EditText
+        android:id="@+id/editTextDate2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="date"
+        tools:layout_editor_absoluteX="14dp"
+        tools:layout_editor_absoluteY="589dp" />
+
+    <Spinner
+        android:id="@+id/spinner2"
+        android:layout_width="409dp"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="645dp" />
+
+    <Button
+        android:id="@+id/add_candidature_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/red"
+        android:text="Ajouter la candidature"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toStartOf="@id/new_to_candidature_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/new_to_candidature_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/red"
+        android:text="Retour"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/add_candidature_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteY="677dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

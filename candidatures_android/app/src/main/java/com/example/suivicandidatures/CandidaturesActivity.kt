@@ -59,10 +59,13 @@ class CandidaturesActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View){
         when (v.getId()){
             R.id.candidatures_to_new_button -> {
-
+                startActivityForResult(Intent(this,NewCandidatureActivity::class.java),1)
             }
             R.id.candidatures_to_menu_button -> {
                 finish()
+            }
+            else -> {
+
             }
         }
     }
