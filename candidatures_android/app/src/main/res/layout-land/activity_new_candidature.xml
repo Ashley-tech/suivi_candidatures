@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".NewCandidatureActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
         android:id="@+id/logotitlenewcandidature"
@@ -28,213 +26,190 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/logotitlenewcandidature"
-        app:layout_constraintBottom_toTopOf="@id/type_candidature_spinner"/>
+        app:layout_constraintBottom_toTopOf="@id/titre_candidature_input"/>
 
     <Spinner
         android:id="@+id/type_candidature_spinner"
-        android:layout_width="0dp"
+        android:layout_width="208dp"
         android:layout_height="47dp"
         android:entries="@array/type_candidature_list"
         app:layout_constraintBottom_toTopOf="@id/details_input"
         app:layout_constraintEnd_toStartOf="@id/titre_candidature_input"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/titlenewcandidature"
-        android:layout_marginStart="6dp"
-        android:layout_marginEnd="6dp"/>
+        app:layout_constraintTop_toBottomOf="@id/titlenewcandidature" />
 
     <EditText
         android:id="@+id/titre_candidature_input"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="6dp"
         android:ems="10"
         android:inputType="text"
         android:hint="Titre de l'offre* :"
         app:layout_constraintStart_toEndOf="@id/type_candidature_spinner"
         app:layout_constraintTop_toBottomOf="@id/titlenewcandidature"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/nom_entreprise_input"
         app:layout_constraintBottom_toTopOf="@id/details_input"/>
+
+    <EditText
+        android:id="@+id/nom_entreprise_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Entreprise :"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@id/adresse_entreprise_input"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/titre_candidature_input"
+        app:layout_constraintTop_toBottomOf="@id/titlenewcandidature" />
 
     <EditText
         android:id="@+id/details_input"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:layout_marginStart="6dp"
-        android:layout_marginEnd="6dp"
         android:gravity="top|start"
         android:hint="Description de l'offre"
+        android:layout_margin="5dp"
         android:inputType="textMultiLine"
         android:maxLines="10"
         android:minLines="5"
+        app:layout_constraintHorizontal_weight="2"
         app:layout_constraintTop_toBottomOf="@id/titre_candidature_input"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/nom_entreprise_input"/>
-
-    <EditText
-        android:id="@+id/nom_entreprise_input"
-        android:layout_width="0dp"
-        android:layout_marginStart="6dp"
-        android:layout_marginEnd="6dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="text"
-        android:hint="Entreprise :"
-        app:layout_constraintBottom_toTopOf="@id/cp_ville_pays_entreprise_input"
-        app:layout_constraintTop_toBottomOf="@id/details_input"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/adresse_entreprise_input"/>
+        app:layout_constraintEnd_toStartOf="@id/adresse_entreprise_input"
+        app:layout_constraintBottom_toTopOf="@id/date_candidature_input"/>
 
     <EditText
         android:id="@+id/adresse_entreprise_input"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="6dp"
         android:ems="10"
         android:hint="[Adresse]/[Complément]"
+        app:layout_constraintHorizontal_weight="1"
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/nom_entreprise_input"
-        app:layout_constraintTop_toBottomOf="@id/details_input"
-        app:layout_constraintBottom_toTopOf="@id/date_candidature_input"/>
+        app:layout_constraintStart_toEndOf="@id/details_input"
+        app:layout_constraintTop_toBottomOf="@id/nom_entreprise_input"
+        app:layout_constraintBottom_toTopOf="@id/cp_ville_pays_entreprise_input"/>
 
     <EditText
         android:id="@+id/cp_ville_pays_entreprise_input"
         android:layout_width="0dp"
+        app:layout_constraintHorizontal_weight="1"
         android:layout_height="wrap_content"
-        android:layout_marginStart="6dp"
-        android:layout_marginEnd="6dp"
         android:ems="10"
         android:hint="[Code]/[Ville]/[Pays]"
         android:inputType="text"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nom_entreprise_input"
-        app:layout_constraintEnd_toStartOf="@id/date_candidature_input"
-        app:layout_constraintBottom_toTopOf="@id/nom_prenom_recruteur_input"/>
-
-    <EditText
-        android:id="@+id/date_candidature_input"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:layout_marginStart="6dp"
-        android:hint="Date de candidature"
-        android:inputType="date"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/cp_ville_pays_entreprise_input"
+        app:layout_constraintStart_toEndOf="@id/details_input"
         app:layout_constraintTop_toBottomOf="@+id/adresse_entreprise_input"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/email_recruteur_input"/>
 
     <EditText
-        android:id="@+id/nom_prenom_recruteur_input"
-        android:layout_width="0dp"
+        android:id="@+id/date_candidature_input"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="6dp"
-        android:layout_marginEnd="6dp"
+        android:ems="10"
+        android:hint="Date de candidature"
+        android:inputType="date"
+        app:layout_constraintEnd_toStartOf="@id/nom_prenom_recruteur_input"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/details_input"
+        app:layout_constraintBottom_toTopOf="@id/tel_recruteur_input"/>
+
+    <EditText
+        android:id="@+id/nom_prenom_recruteur_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:ems="10"
         android:hint="[Nom]/[Prénom du recruteur]"
         android:inputType="text"
-        app:layout_constraintBottom_toTopOf="@+id/tel_recruteur_input"
+        app:layout_constraintBottom_toTopOf="@+id/periode_input"
         app:layout_constraintEnd_toStartOf="@id/email_recruteur_input"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cp_ville_pays_entreprise_input" />
+        app:layout_constraintStart_toEndOf="@id/date_candidature_input"
+        app:layout_constraintTop_toBottomOf="@+id/details_input" />
 
     <EditText
         android:id="@+id/email_recruteur_input"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="6dp"
         android:ems="10"
         android:hint="E-mail du recruteur"
         android:inputType="textEmailAddress"
-        app:layout_constraintBottom_toTopOf="@+id/periode_input"
+        app:layout_constraintBottom_toTopOf="@+id/salaire_min_input"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/nom_prenom_recruteur_input"
-        app:layout_constraintTop_toBottomOf="@+id/date_candidature_input" />
+        app:layout_constraintTop_toBottomOf="@+id/cp_ville_pays_entreprise_input" />
 
     <EditText
         android:id="@+id/tel_recruteur_input"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Téléphone du recruteur :"
         android:inputType="text"
-        android:layout_marginStart="6dp"
-        android:layout_marginEnd="6dp"
         app:layout_constraintEnd_toStartOf="@id/periode_input"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/nom_prenom_recruteur_input"
-        app:layout_constraintBottom_toTopOf="@id/salaire_min_input"
-        tools:layout_editor_absoluteY="471dp" />
+        app:layout_constraintTop_toBottomOf="@id/date_candidature_input"
+        app:layout_constraintBottom_toTopOf="@id/salaire_max_input"
+         />
 
     <EditText
         android:id="@+id/periode_input"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Période :"
-        android:layout_marginStart="6dp"
         android:inputType="text"
         app:layout_constraintStart_toEndOf="@id/tel_recruteur_input"
-        app:layout_constraintBottom_toTopOf="@id/salaire_max_input"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/email_recruteur_input"
-        tools:layout_editor_absoluteY="459dp" />
+        app:layout_constraintBottom_toTopOf="@id/date_publication_input"
+        app:layout_constraintEnd_toStartOf="@id/salaire_min_input"
+        app:layout_constraintTop_toBottomOf="@id/nom_prenom_recruteur_input" />
 
     <EditText
         android:id="@+id/salaire_min_input"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Salaire min :"
-        android:layout_marginEnd="6dp"
-        android:layout_marginStart="6dp"
         android:inputType="number"
-        app:layout_constraintEnd_toStartOf="@id/salaire_max_input"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/date_publication_input"
-        app:layout_constraintTop_toBottomOf="@id/tel_recruteur_input"
-        tools:layout_editor_absoluteY="519dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/periode_input"
+        app:layout_constraintBottom_toTopOf="@id/cvs_spinner"
+        app:layout_constraintTop_toBottomOf="@id/email_recruteur_input" />
 
     <EditText
         android:id="@+id/salaire_max_input"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Salaire max :"
-        android:layout_marginStart="6dp"
         android:inputType="number"
-        app:layout_constraintStart_toEndOf="@id/salaire_min_input"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/periode_input"
-        app:layout_constraintBottom_toTopOf="@id/cvs_spinner"
-        tools:layout_editor_absoluteY="515dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/date_publication_input"
+        app:layout_constraintTop_toBottomOf="@id/tel_recruteur_input"
+        app:layout_constraintBottom_toTopOf="@id/add_candidature_button" />
 
     <EditText
         android:id="@+id/date_publication_input"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="6dp"
-        android:layout_marginEnd="6dp"
         android:ems="10"
         android:hint="Date de publication :"
         android:inputType="date"
         app:layout_constraintBottom_toTopOf="@id/add_candidature_button"
-        app:layout_constraintTop_toBottomOf="@id/salaire_min_input"
+        app:layout_constraintTop_toBottomOf="@id/periode_input"
         app:layout_constraintEnd_toStartOf="@id/cvs_spinner"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="589dp" />
+        app:layout_constraintStart_toEndOf="@id/salaire_max_input" />
 
     <Spinner
         android:id="@+id/cvs_spinner"
-        android:layout_width="0dp"
-        android:layout_height="49dp"
-        android:layout_marginStart="6dp"
+        android:layout_width="195dp"
+        android:layout_height="45dp"
         app:layout_constraintBottom_toTopOf="@id/new_to_candidature_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/date_publication_input"
-        app:layout_constraintTop_toBottomOf="@+id/salaire_max_input" />
+        app:layout_constraintTop_toBottomOf="@+id/salaire_min_input" />
 
     <Button
         android:id="@+id/add_candidature_button"
@@ -258,7 +233,6 @@
         app:layout_constraintTop_toBottomOf="@id/cvs_spinner"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/add_candidature_button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteY="677dp" />
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

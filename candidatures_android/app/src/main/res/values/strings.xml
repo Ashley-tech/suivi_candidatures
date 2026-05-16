@@ -5,4 +5,13 @@
         <item value="M">Homme</item>
         <item value="F">Femme</item>
     </string-array>
+    <string-array name="type_candidature_list">
+        <item value="">--Sélectionnez un type d\'offre</item>
+        <item value="Alternance">Alternance</item>
+        <item value="Stage">Stage</item>
+        <item value="CDI">CDI</item>
+        <item value="CDD">CDD</item>
+        <item value="Freelance">Freelance</item>
+        <item value="Autre">Autre</item>
+    </string-array>
 </resources>
