@@ -12,6 +12,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import org.json.JSONArray
 import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.BufferedWriter
@@ -61,6 +62,103 @@ class MainMenuActivity : AppCompatActivity(), View.OnClickListener {
             }
             else -> {
 
+            }
+        }
+    }
+
+    private inner class AsyncLoadCandidatures : AsyncTask<Void, Void, String>() {
+        private var co: HttpURLConnection? = null
+        private var url: URL? = null
+
+        override fun onPreExecute() {
+            super.onPreExecute()
+        }
+
+        override fun doInBackground(vararg params: Void?): String {
+            return try {
+                url = URL("http://10.0.2.2:8000/api/compte/$id/candidatures")
+
+                co = url!!.openConnection() as HttpURLConnection
+                co!!.readTimeout = 15000
+                co!!.connectTimeout = 15000
+                co!!.requestMethod = "GET"
+                co!!.setRequestProperty(
+                    "Content-Type",
+                    "application/json"
+                )
+                co!!.doInput = true
+                co!!.connect()
+
+                val responseCode = co!!.responseCode
+                Log.d("HTTP_CODE",responseCode.toString())
+
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+                    val input: InputStream = co!!.inputStream
+                    val reader = BufferedReader(InputStreamReader(input))
+                    val result = StringBuilder()
+                    var line: String?
+
+                    while (reader.readLine().also {line = it} != null) {
+                        result.append(line)
+                    }
+                    result.toString()
+                } else {
+                    "Unsuccessful"
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                "Exception"
+            } finally {
+                co?.disconnect()
+            }
+        }
+
+        override fun onPostExecute(result: String?) {
+            super.onPostExecute(result)
+
+            if (result == null) return
+
+            Log.d("CANDIDATURES_RESULT", result)
+
+            try {
+                val jsonArray = JSONArray(result)
+                val list = ArrayList<HashMap<String, String>>()
+
+                /*
+                 * Vérification contrat signé
+                 */
+
+                var contratSigne = false
+
+                for (i in 0 until jsonArray.length()) {
+                    val candidature = jsonArray.getJSONObject(i)
+                    val map = HashMap<String, String>()
+                    map["id"] = candidature.getInt("id").toString()
+                    map["offre"] = candidature.getInt("offre").toString()
+                    map["date"] = candidature.optString("date_candidature").takeIf {it != "null"} ?: ""
+                    map["statut"] = candidature.optString("statut").takeIf {it != "null" } ?: ""
+
+                    /*
+                     * Contrat signé détecté
+                     */
+
+                    if (map["statut"]!!.lowercase().trim() == "contrat signé") {
+                        contratSigne = true
+                    }
+
+                    list.add(map)
+                }
+
+                /*
+                 * Toast contrat signé
+                 */
+
+                if (contratSigne) {
+                    Toast.makeText(this@MainMenuActivity,"Vous avez au moins une candidature, dont vous avez signé le contrat ! Félicitations ! \uD83C\uDF89 Vous pouvez peut-être supprimer votre compte (Rubrique \"Votre profil\") si vous n'en avez plus besoin, ou continuer à suivre vos autres candidatures.",Toast.LENGTH_LONG).show()
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                Toast.makeText(this@MainMenuActivity,"Erreur de parsing JSON",Toast.LENGTH_LONG).show()
             }
         }
     }
@@ -156,6 +254,7 @@ class MainMenuActivity : AppCompatActivity(), View.OnClickListener {
                 if (found) {
                     title.setText("Bienvenue, "+prenom+" !")
                     id = compte.getInt("id")
+                    AsyncLoadCandidatures().execute()
                 }else {
                     Toast.makeText(
                         this@MainMenuActivity,
