@@ -1,6 +1,7 @@
 package com.example.suivicandidatures
 
 import android.app.ProgressDialog
+import android.content.Intent
 import android.net.Uri
 import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
@@ -29,6 +30,7 @@ class ConfirmDeleteCandidatureActivity : AppCompatActivity(), View.OnClickListen
     lateinit var extras : Bundle
     var id = 0
     var offre = 0
+    var previousActivity = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_confirm_delete_candidature)
@@ -40,6 +42,7 @@ class ConfirmDeleteCandidatureActivity : AppCompatActivity(), View.OnClickListen
         extras = intent.extras!!
         id = extras.getInt("id_candidature")
         offre = extras.getInt("id_offre")
+        previousActivity = extras.getString("previous_activity").toString()
         AsyncLoad().execute()
     }
 
@@ -202,8 +205,19 @@ class ConfirmDeleteCandidatureActivity : AppCompatActivity(), View.OnClickListen
                         "Candidature supprimé avec succès",
                         Toast.LENGTH_LONG
                     ).show()
-                    setResult(RESULT_OK)
-                    finish()
+                    if (previousActivity == "InfoCandidatureActivity") {
+                        val intent = Intent(
+                            this@ConfirmDeleteCandidatureActivity,
+                            CandidaturesActivity::class.java
+                        )
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+                        setResult(RESULT_OK)
+                        startActivity(intent)
+                        finish()
+                    } else {
+                        setResult(RESULT_OK)
+                        finish()
+                    }
                 } else {
                     Toast.makeText(
                         this@ConfirmDeleteCandidatureActivity,

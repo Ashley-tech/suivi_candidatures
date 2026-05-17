@@ -103,61 +103,6 @@ class CandidaturesActivity : AppCompatActivity(), View.OnClickListener {
             try {
 
                 /*
-                 * Récupération du compte via email
-                 */
-
-                /*url = URL("http://10.0.2.2:8000/api/compte/find-by-email")
-
-                co = url!!.openConnection() as HttpURLConnection
-                co!!.readTimeout = 15000
-                co!!.connectTimeout = 15000
-                co!!.requestMethod = "POST"
-                co!!.setRequestProperty(
-                    "Content-Type",
-                    "application/json"
-                )
-
-                co!!.doInput = true
-                co!!.doOutput = true
-
-                val jsonObject = JSONObject()
-                jsonObject.put("email", user)
-
-                val outputStream = co!!.outputStream
-                val writer = BufferedWriter(OutputStreamWriter(outputStream, "UTF-8"))
-
-                writer.write(jsonObject.toString())
-
-                writer.flush()
-                writer.close()
-                outputStream.close()
-
-                co!!.connect()
-
-                val responseCode = co!!.responseCode
-
-                if (responseCode != HttpURLConnection.HTTP_OK) {
-                    return "Erreur compte"
-                }
-
-                val input: InputStream = co!!.inputStream
-                val reader = BufferedReader(InputStreamReader(input))
-
-                val result = StringBuilder()
-
-                var line: String?
-
-                while (reader.readLine().also { line = it } != null) {
-                    result.append(line)
-                }
-
-                val compteObject = JSONObject(result.toString())
-
-                val compte = compteObject.getJSONObject("compte")
-
-                id = compte.getInt("id")*/
-
-                /*
                  * Récupération des candidatures
                  */
 
@@ -278,24 +223,15 @@ class CandidaturesActivity : AppCompatActivity(), View.OnClickListener {
             convertView: View?,
             parent: ViewGroup?
         ): View {
+            val view = LayoutInflater.from(context).inflate(R.layout.item_candidature, parent, false)
 
-            val view = LayoutInflater.from(context)
-                .inflate(R.layout.item_candidature, parent, false)
+            val item01 = view.findViewById<TextView>(R.id.itemcandidatures01)
+            val item02 = view.findViewById<TextView>(R.id.itemcandidatures02)
+            val item03 = view.findViewById<TextView>(R.id.itemcandidatures03)
 
-            val item01 =
-                view.findViewById<TextView>(R.id.itemcandidatures01)
+            val infoButton = view.findViewById<Button>(R.id.candidatures_to_info_button)
 
-            val item02 =
-                view.findViewById<TextView>(R.id.itemcandidatures02)
-
-            val item03 =
-                view.findViewById<TextView>(R.id.itemcandidatures03)
-
-            val infoButton =
-                view.findViewById<Button>(R.id.candidatures_to_info_button)
-
-            val deleteButton =
-                view.findViewById<Button>(R.id.delete_candidatures_button)
+            val deleteButton = view.findViewById<Button>(R.id.delete_candidatures_button)
 
             val item = list[position]
 
@@ -311,18 +247,10 @@ class CandidaturesActivity : AppCompatActivity(), View.OnClickListener {
              */
 
             infoButton.setOnClickListener {
-
-                /*val intent = Intent(
-                    context,
-                    CandidatureInfoActivity::class.java
-                )
-
-                intent.putExtra(
-                    "id_candidature",
-                    idCandidature.toInt()
-                )
-
-                context.startActivity(intent)*/
+                val intent = Intent(context,InfoCandidatureActivity::class.java)
+                intent.putExtra("id_candidature",idCandidature.toInt())
+                intent.putExtra("id_offre",idOffre.toInt())
+                (context as AppCompatActivity).startActivityForResult(intent, 1)
             }
 
             /*
@@ -341,9 +269,9 @@ class CandidaturesActivity : AppCompatActivity(), View.OnClickListener {
                     idCandidature.toInt()
                 )
                 intent.putExtra("id_offre",idOffre.toInt())
+                intent.putExtra("previous_activity", "CandidaturesActivity")
 
-                (context as AppCompatActivity)
-                    .startActivityForResult(intent, 1)
+                (context as AppCompatActivity).startActivityForResult(intent, 1)
             }
 
             return view

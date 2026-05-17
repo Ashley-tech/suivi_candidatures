@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".InfoCandidatureActivity">
+
+    <TextView
+        android:id="@+id/logotitleinfocandidature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Suivi des candidatures"
+        android:textColor="@color/red"
+        android:textSize="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/titleinfocandidature"/>
+
+    <TextView
+        android:id="@+id/titleinfocandidature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Détails de votre candidature pour l'offre"
+        android:textColor="@color/black"
+        android:textSize="15dp"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/logotitleinfocandidature"
+        app:layout_constraintBottom_toTopOf="@id/type_text"
+        tools:layout_editor_absoluteY="48dp" />
+
+    <TextView
+        android:id="@+id/type_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Type de contrat :"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titleinfocandidature"
+        app:layout_constraintBottom_toTopOf="@id/details_text"
+        tools:layout_editor_absoluteX="44dp"
+        tools:layout_editor_absoluteY="98dp" />
+
+    <TextView
+        android:id="@+id/details_text"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:overScrollMode="always"
+        android:text=""
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/localisation_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/type_text" />
+
+    <TextView
+        android:id="@+id/entreprise_text"
+        android:layout_width="0dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginEnd="6dp"
+        android:layout_height="wrap_content"
+        android:text="Entreprise :"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@id/recruteur_text"
+        app:layout_constraintEnd_toStartOf="@id/localisation_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/details_text" />
+
+    <TextView
+        android:id="@+id/localisation_text"
+        android:layout_width="0dp"
+        android:layout_marginStart="6dp"
+        android:layout_height="wrap_content"
+        android:text="Adresse :"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/entreprise_text"
+        app:layout_constraintBottom_toTopOf="@id/contact_recruteur"
+        app:layout_constraintTop_toBottomOf="@id/details_text"
+        tools:layout_editor_absoluteX="191dp"
+        tools:layout_editor_absoluteY="165dp" />
+
+    <TextView
+        android:id="@+id/recruteur_text"
+        android:layout_width="0dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginEnd="6dp"
+        android:layout_height="wrap_content"
+        android:text="Nom du recruteur :"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/periode_text"
+        app:layout_constraintEnd_toStartOf="@+id/contact_recruteur"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/entreprise_text"/>
+
+    <TextView
+        android:id="@+id/contact_recruteur"
+        android:layout_width="0dp"
+        android:layout_marginStart="6dp"
+        android:layout_height="wrap_content"
+        android:text="Contact du recruteur :"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/salaire_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/recruteur_text"
+        app:layout_constraintTop_toBottomOf="@id/localisation_text" />
+
+    <TextView
+        android:id="@+id/periode_text"
+        android:layout_width="0dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginEnd="6dp"
+        android:layout_height="wrap_content"
+        android:text="Période :"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/publication_text"
+        app:layout_constraintEnd_toStartOf="@+id/salaire_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recruteur_text"/>
+
+    <TextView
+        android:id="@+id/salaire_text"
+        android:layout_width="0dp"
+        android:layout_marginStart="6dp"
+        android:layout_height="wrap_content"
+        android:text="Salaire :"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/statut_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/contact_recruteur"
+        app:layout_constraintStart_toEndOf="@id/periode_text"/>
+
+    <TextView
+        android:id="@+id/publication_text"
+        android:layout_width="0dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginEnd="6dp"
+        android:layout_height="wrap_content"
+        android:text="Date de publication :"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toStartOf="@+id/statut_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/periode_text"
+        app:layout_constraintBottom_toTopOf="@id/candidature_text"
+        tools:layout_editor_absoluteY="343dp" />
+
+    <TextView
+        android:id="@+id/statut_text"
+        android:layout_width="0dp"
+        android:layout_marginStart="6dp"
+        android:layout_height="wrap_content"
+        android:text="Statut :"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/publication_text"
+        app:layout_constraintTop_toBottomOf="@id/salaire_text"
+        app:layout_constraintBottom_toTopOf="@id/score_matching_text"
+        tools:layout_editor_absoluteY="358dp" />
+
+    <TextView
+        android:id="@+id/candidature_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Date de candidature :"
+        android:layout_marginStart="6dp"
+        android:layout_marginEnd="6dp"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toStartOf="@+id/score_matching_text"
+        app:layout_constraintTop_toBottomOf="@id/publication_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/info_to_modify_candidature_button"
+        tools:layout_editor_absoluteY="425dp" />
+
+    <TextView
+        android:id="@+id/score_matching_text"
+        android:layout_width="0dp"
+        android:layout_marginStart="6dp"
+        android:layout_height="wrap_content"
+        android:text="Score :"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/candidature_text"
+        app:layout_constraintBottom_toTopOf="@id/info_to_delete_button"
+        app:layout_constraintTop_toBottomOf="@id/statut_text"
+        tools:layout_editor_absoluteY="450dp" />
+
+    <Button
+        android:id="@+id/info_to_modify_candidature_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/red"
+        android:text="Modifier l'offre"
+        app:layout_constraintTop_toBottomOf="@id/candidature_text"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/calculate_matching_score_button"
+        app:layout_constraintEnd_toStartOf="@+id/info_to_delete_button"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/info_to_delete_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Supprimer votre candidature"
+        android:backgroundTint="@color/red"
+        app:layout_constraintTop_toBottomOf="@id/score_matching_text"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/info_to_candidatures_button"
+        app:layout_constraintStart_toEndOf="@id/info_to_modify_candidature_button"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/calculate_matching_score_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/red"
+        android:text="(Re)calduler le score de matching"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/info_to_modify_candidature_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/info_to_candidatures_button"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/info_to_candidatures_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Retour"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/calculate_matching_score_button"
+        app:layout_constraintTop_toBottomOf="@id/info_to_delete_button"
+        android:backgroundTint="@color/red"
+        android:textColor="@color/white"
+        tools:layout_editor_absoluteX="270dp"
+        tools:layout_editor_absoluteY="634dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
