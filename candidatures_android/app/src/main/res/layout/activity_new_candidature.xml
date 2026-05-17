@@ -65,8 +65,8 @@
         android:gravity="top|start"
         android:hint="Description de l'offre"
         android:inputType="textMultiLine"
-        android:maxLines="10"
-        android:minLines="5"
+        android:maxLines="5"
+        android:minLines="3"
         app:layout_constraintTop_toBottomOf="@id/titre_candidature_input"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -124,47 +124,47 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/cp_ville_pays_entreprise_input"
         app:layout_constraintTop_toBottomOf="@+id/adresse_entreprise_input"
-        app:layout_constraintBottom_toTopOf="@id/email_recruteur_input"/>
+        app:layout_constraintBottom_toTopOf="@id/nom_prenom_recruteur_input"/>
+
+    <EditText
+        android:id="@+id/statut_input"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_marginEnd="6dp"
+        android:ems="10"
+        android:hint="Statut"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/email_tel_recruteur_input"
+        app:layout_constraintEnd_toStartOf="@id/nom_prenom_recruteur_input"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cp_ville_pays_entreprise_input" />
 
     <EditText
         android:id="@+id/nom_prenom_recruteur_input"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="6dp"
-        android:layout_marginEnd="6dp"
         android:ems="10"
         android:hint="[Nom]/[Prénom du recruteur]"
-        android:inputType="text"
-        app:layout_constraintBottom_toTopOf="@+id/tel_recruteur_input"
-        app:layout_constraintEnd_toStartOf="@id/email_recruteur_input"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cp_ville_pays_entreprise_input" />
-
-    <EditText
-        android:id="@+id/email_recruteur_input"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="6dp"
-        android:ems="10"
-        android:hint="E-mail du recruteur"
         android:inputType="textEmailAddress"
         app:layout_constraintBottom_toTopOf="@+id/periode_input"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/nom_prenom_recruteur_input"
+        app:layout_constraintStart_toEndOf="@id/statut_input"
         app:layout_constraintTop_toBottomOf="@+id/date_candidature_input" />
 
     <EditText
-        android:id="@+id/tel_recruteur_input"
+        android:id="@+id/email_tel_recruteur_input"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Téléphone du recruteur :"
+        android:hint="[Email]/[Téléphone du recruteur]"
         android:inputType="text"
         android:layout_marginStart="6dp"
         android:layout_marginEnd="6dp"
         app:layout_constraintEnd_toStartOf="@id/periode_input"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/nom_prenom_recruteur_input"
+        app:layout_constraintTop_toBottomOf="@id/statut_input"
         app:layout_constraintBottom_toTopOf="@id/salaire_min_input"
         tools:layout_editor_absoluteY="471dp" />
 
@@ -176,10 +176,10 @@
         android:hint="Période :"
         android:layout_marginStart="6dp"
         android:inputType="text"
-        app:layout_constraintStart_toEndOf="@id/tel_recruteur_input"
+        app:layout_constraintStart_toEndOf="@id/email_tel_recruteur_input"
         app:layout_constraintBottom_toTopOf="@id/salaire_max_input"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/email_recruteur_input"
+        app:layout_constraintTop_toBottomOf="@id/nom_prenom_recruteur_input"
         tools:layout_editor_absoluteY="459dp" />
 
     <EditText
@@ -194,7 +194,7 @@
         app:layout_constraintEnd_toStartOf="@id/salaire_max_input"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@id/date_publication_input"
-        app:layout_constraintTop_toBottomOf="@id/tel_recruteur_input"
+        app:layout_constraintTop_toBottomOf="@id/email_tel_recruteur_input"
         tools:layout_editor_absoluteY="519dp" />
 
     <EditText

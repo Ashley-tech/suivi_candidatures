@@ -55,6 +55,20 @@ class CandidaturesActivity : AppCompatActivity(), View.OnClickListener {
         Log.i("id",id.toString())
         AsyncLoadCandidatures().execute()
     }
+    override fun onActivityResult(
+        requestCode: Int,
+        resultCode: Int,
+        data: Intent?
+    ) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+
+            Log.i("REFRESH", "Rechargement des candidatures")
+
+            AsyncLoadCandidatures().execute()
+        }
+    }
 
     override fun onClick(v: View){
         when (v.getId()){
