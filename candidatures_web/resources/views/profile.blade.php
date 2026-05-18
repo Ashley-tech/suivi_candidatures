@@ -99,8 +99,10 @@
         </footer>
     </body>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
     <script>
-        let user = sessionStorage.getItem("login");
+        //let user = sessionStorage.getItem("login");
+        let user = Cookies.get("login")
         async function chargement() {
             if (!user) {
                 location.href = "/login";
@@ -148,7 +150,8 @@
             location.href = "/profile/cvs";
         });
         $("#deconnect").on("click", function() {
-            sessionStorage.removeItem("login");
+            //sessionStorage.removeItem("login");
+            Cookies.remove("login");
             location.href = "/login";
         });
         $("#delete-account").on("click", async function() {
@@ -202,7 +205,8 @@
             const deleteData = await deleteResponse.json();
             console.log("Réponse API delete compte :", deleteData);
             if (deleteData.success) {
-                sessionStorage.removeItem("login");
+                //sessionStorage.removeItem("login");
+                Cookies.remove("login");
                 location.href = "/login";
             } else {
                 alert("Une erreur est survenue lors de la suppression du compte. Veuillez réessayer.");

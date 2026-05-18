@@ -43,8 +43,10 @@
         </footer>
     </body>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
     <script>
-        let user = sessionStorage.getItem("login");
+        //let user = sessionStorage.getItem("login");
+        let user = Cookies.get("login")
         async function chargement() {
             if (!user) {
                 location.href = "/login";
@@ -81,7 +83,8 @@
             document.getElementById("confirm_deconnect").style.display = "flex";
         });
         $("#deconnect").on("click", function() {
-            sessionStorage.removeItem("login");
+            //sessionStorage.removeItem("login");
+            Cookies.remove("login");
             location.href = "/login";
         });
         $("#non").on("click", function() {

@@ -24,8 +24,8 @@
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
     <script>
         $("#continuer" ).on( "click", function( event ) {
-            //if (!Cookies.get("login")) {
-            if (!sessionStorage.getItem("login")) {
+            if (!Cookies.get("login")) {
+            //if (!sessionStorage.getItem("login")) {
                 location.href = "/login";
             }else{
                 location.href = "/dashboard";

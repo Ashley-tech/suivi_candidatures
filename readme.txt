@@ -25,3 +25,6 @@ dans php.ini, penser à augmenter upload_max_filesize (2M -> 10M) et post_max_si
 Et redémarrer le serveur du projet web
 
 Attention, les CV en PDF se modifient légèrement en les insérant via l'application Android et les textes risquent de ne pas être extraits.
+
+Possibilité de jouer avec sessionStorage ou Cookies (js-cookie). Il faudra commenter un des 2 pour jouer avec l'autre.
+L'inconvénient est que le cookie est vide lors de l'ouverture d'un nouvel onglet

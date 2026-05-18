@@ -41,7 +41,8 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
     <script>
-        if (sessionStorage.getItem("login")) {
+        //if (sessionStorage.getItem("login")) {
+        if (Cookies.get("login")){
             location.href = "/dashboard";
         }
         $("form").on("submit", function(event) {
@@ -66,7 +67,8 @@
                     if (response.success) {
                         $("#error-message").text("Compte connecté avec succès !");
                         $("#error-message").css("color", "green");
-                        sessionStorage.setItem("login", email);
+                        //sessionStorage.setItem("login", email);
+                        Cookies.set("login",email);
                         location.href = "/dashboard";
                     } else {
                         $("#error-message").text("Email ou mot de passe incorrect.");

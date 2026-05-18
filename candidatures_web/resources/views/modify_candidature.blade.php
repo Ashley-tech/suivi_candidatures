@@ -83,8 +83,10 @@
         </footer>
     </body>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
     <script>
-        let user = sessionStorage.getItem("login");
+        //let user = sessionStorage.getItem("login");
+        let user = Cookies.get("login")
         let id = null;
         let ido = null;
         async function chargement() {
