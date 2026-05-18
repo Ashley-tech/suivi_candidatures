@@ -8,6 +8,7 @@ Outils requis :
 Créer .env puis copier tout le contenu de .env.example ou bien, modifier .env.example pour le renommer en .env
 Dans MySQL, créer une base de données et l'appeler "db_candidatures"
 
+composer install (nécessair pour installer tous les composants et ainsi faire marcher l'application web)
 php artisan generate:key (Parfois nécessaire)
 Refaire le cache : php artisan route:cache
 Afficher la liste des routes existants : php artisan route:liste
