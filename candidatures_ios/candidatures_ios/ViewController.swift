@@ -15,5 +15,13 @@ class ViewController: UIViewController {
     }
 
 
+    @IBAction func continuerVersSuite(_ sender: Any) {
+        print("BUTTON CLICKED")
+
+        print("NAV:", navigationController as Any)
+        
+        let vc = storyboard?.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+        navigationController?.setViewControllers([vc], animated: true)
+    }
 }
 
