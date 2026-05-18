@@ -221,7 +221,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/red"
-        android:text="(Re)calduler le score de matching"
+        android:text="Calduler le score de matching"
         android:textColor="@color/white"
         app:layout_constraintTop_toBottomOf="@id/info_to_modify_candidature_button"
         app:layout_constraintBottom_toBottomOf="parent"

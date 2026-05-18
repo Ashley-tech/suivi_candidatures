@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ConfirmMatchScoreActivity">
+
+    <TextView
+        android:id="@+id/logotitleconfirmmatch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Suivi des candidatures"
+        android:textColor="@color/red"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toTopOf="@id/titleconfirmmatch"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/titleconfirmmatch"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Êtes-vous sûr de vouloir recalculer le score de matching ? Cette action écrasera l'ancien score."
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/match_cv_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logotitleconfirmmatch" />
+
+    <Button
+        android:id="@+id/match_cv_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Oui"
+        android:backgroundTint="@color/red"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/no_match_cv_button"
+        app:layout_constraintTop_toBottomOf="@id/titleconfirmmatch"
+        tools:layout_editor_absoluteY="431dp" />
+
+    <Button
+        android:id="@+id/no_match_cv_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/red"
+        android:text="Non"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/match_cv_button" />
+</androidx.constraintlayout.widget.ConstraintLayout>

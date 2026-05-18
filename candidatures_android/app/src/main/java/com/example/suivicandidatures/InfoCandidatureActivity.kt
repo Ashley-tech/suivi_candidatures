@@ -40,6 +40,7 @@ class InfoCandidatureActivity : AppCompatActivity(), View.OnClickListener {
     lateinit var titre : TextView
     var c = 0
     var offre = 0
+    var score: Double? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_info_candidature)
@@ -75,7 +76,7 @@ class InfoCandidatureActivity : AppCompatActivity(), View.OnClickListener {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == 1 && resultCode == RESULT_OK) {
-
+            AsyncLoadOffer().execute()
         }
     }
 
@@ -98,7 +99,14 @@ class InfoCandidatureActivity : AppCompatActivity(), View.OnClickListener {
 
             }
             R.id.calculate_matching_score_button -> {
-
+                if (score == null){
+                    AsyncMatchScore().execute()
+                } else {
+                    val intent = Intent(this,ConfirmMatchScoreActivity::class.java)
+                    intent.putExtra("id_candidature",c)
+                    intent.putExtra("old_score", score)
+                    startActivityForResult(intent,1)
+                }
             }
             R.id.info_to_candidatures_button -> {
                 setResult(RESULT_OK)
@@ -181,9 +189,9 @@ class InfoCandidatureActivity : AppCompatActivity(), View.OnClickListener {
 
             try {
                 var j = JSONObject(result)
-                type.setText(type.text.toString()+" "+(j.optString("type").takeIf { it != "null" } ?: ""))
-                titre.setText(titre.text.toString()+" de "+(j.optString("titre").takeIf { it != "null" } ?: ""))
-                entreprise.setText(entreprise.text.toString()+" "+(j.optString("nom_entreprise").takeIf { it != "null" } ?: ""))
+                type.setText("Type de contrat : "+(j.optString("type").takeIf { it != "null" } ?: ""))
+                titre.setText("Détails de votre candidature pour l'offre de "+(j.optString("titre").takeIf { it != "null" } ?: ""))
+                entreprise.setText("Entreprise "+(j.optString("nom_entreprise").takeIf { it != "null" } ?: ""))
                 var l = ""
                 if ((j.optString("adresse_entreprise").takeIf { it != "null" } ?: "") !=""){
                     l = (j.optString("adresse_entreprise").takeIf { it != "null" } ?: "")
@@ -293,17 +301,17 @@ class InfoCandidatureActivity : AppCompatActivity(), View.OnClickListener {
                         }
                     }
                 }
-                localisation.setText(localisation.text.toString() + " "+l)
-                periode.setText(periode.text.toString() + " "+ (j.optString("periode").takeIf { it != "null" } ?: ""))
-                date_publication.setText(date_publication.text.toString() + " "+(j.optString("date_publication").takeIf { it != "null" } ?: ""))
+                localisation.setText("Adresse : "+l)
+                periode.setText("Période : "+ (j.optString("periode").takeIf { it != "null" } ?: ""))
+                date_publication.setText("Date de publication : "+(j.optString("date_publication").takeIf { it != "null" } ?: ""))
                 if ((j.optString("salaire_min").takeIf { it != "null" } ?: "") != "" && (j.optString("salaire_max").takeIf { it != "null" } ?: "") != ""){
-                    salaire.setText(salaire.text.toString() + " Entre "+j.getString("salaire_min")+" € et "+j.getString("salaire_max")+" € par an")
+                    salaire.setText("Salaire : Entre "+j.getString("salaire_min")+" € et "+j.getString("salaire_max")+" € par an")
                 } else if ((j.optString("salaire_min").takeIf { it != "null" } ?: "") == "" && (j.optString("salaire_max").takeIf { it != "null" } ?: "") != "") {
-                    salaire.setText(salaire.text.toString() + " "+j.getString("salaire_max")+" €/an (Maximum)")
+                    salaire.setText("Salaire : "+j.getString("salaire_max")+" €/an (Maximum)")
                 } else if ((j.optString("salaire_min").takeIf { it != "null" } ?: "") != "" && (j.optString("salaire_max").takeIf { it != "null" } ?: "") == "") {
-                    salaire.setText(salaire.text.toString() + " "+j.getString("salaire_min")+" €/an (Minimum)")
+                    salaire.setText("Salaire : "+j.getString("salaire_min")+" €/an (Minimum)")
                 }
-                recruteur.setText(recruteur.text.toString()+" "+(j.optString("prenom_recruteur").takeIf { it != "null" } ?: "")+" "+(j.optString("nom_recruteur").takeIf { it != "null" } ?: "").uppercase())
+                recruteur.setText("Nom du recruteur : "+(j.optString("prenom_recruteur").takeIf { it != "null" } ?: "")+" "+(j.optString("nom_recruteur").takeIf { it != "null" } ?: "").uppercase())
                 details.setText((j.optString("description").takeIf { it != "null" } ?: ""))
             } catch (e: Exception) {
 
@@ -393,11 +401,112 @@ class InfoCandidatureActivity : AppCompatActivity(), View.OnClickListener {
 
             try {
                 var j = JSONObject(result)
-                statut.setText(statut.text.toString()+ " "+(j.optString("statut").takeIf { it != "null" } ?: ""))
-                if ((j.optString("score_matching").takeIf { it != "null" } ?: "") != "") {
-                    score_m.setText(score_m.text.toString() + " " + j.getString("score_matching")+ " %")
+                statut.setText("Statut : "+(j.optString("statut").takeIf { it != "null" } ?: ""))
+
+                val scoreString = j.optString("score_matching").takeIf { it != "null" } ?: ""
+                if (scoreString.isNotEmpty()) {
+                    score_m.setText("Score : " + j.getString("score_matching")+ " %")
+                    score = scoreString.toDouble()
+                    matcher.setText("Recalduler le score de matching")
                 }
-                date_candidature.setText(date_candidature.text.toString() + " "+(j.optString("date_candidature").takeIf { it != "null" } ?: ""))
+                date_candidature.setText("Date de candidature : "+(j.optString("date_candidature").takeIf { it != "null" } ?: ""))
+                Log.i("score",score.toString())
+            } catch (e: Exception) {
+                e.printStackTrace()
+
+                Toast.makeText(
+                    this@InfoCandidatureActivity,
+                    "Erreur de parsing JSON",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
+    }
+
+    private inner class AsyncMatchScore : AsyncTask<Void, Void, String>() {
+        private val pdLoading = ProgressDialog(this@InfoCandidatureActivity)
+        private var co: HttpURLConnection? = null
+        private var url: URL? = null
+
+        override fun onPreExecute() {
+            super.onPreExecute()
+
+            pdLoading.setMessage("Matching de la candidature...")
+            pdLoading.setCancelable(false)
+            pdLoading.show()
+        }
+
+        override fun doInBackground(vararg params: Void?): String {
+            try {
+
+                /*
+                 * Récupération des candidatures
+                 */
+
+                url = URL("http://10.0.2.2:8000/api/candidature/$c/save-score")
+
+                co = url!!.openConnection() as HttpURLConnection
+
+                co!!.readTimeout = 15000
+                co!!.connectTimeout = 15000
+                co!!.requestMethod = "PATCH"
+
+                co!!.setRequestProperty(
+                    "Content-Type",
+                    "application/json"
+                )
+
+                co!!.doInput = true
+
+                co!!.connect()
+
+                val responseCode2 = co!!.responseCode
+
+                if (responseCode2 == HttpURLConnection.HTTP_OK) {
+
+                    val input2: InputStream = co!!.inputStream
+                    val reader2 = BufferedReader(InputStreamReader(input2))
+
+                    val result2 = StringBuilder()
+
+                    var line2: String?
+
+                    while (reader2.readLine().also { line2 = it } != null) {
+                        result2.append(line2)
+                    }
+
+                    return result2.toString()
+
+                } else {
+                    return "Unsuccessful"
+                }
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+                return "Exception"
+            } finally {
+                co?.disconnect()
+            }
+        }
+
+        override fun onPostExecute(result: String?) {
+            super.onPostExecute(result)
+
+            pdLoading.dismiss()
+
+            if (result == null) return
+
+            var j = JSONObject(result)
+
+            try {
+                score_m.setText("Score : " + j.getString("score")+ " %")
+                score = j.getString("score").toDouble()
+                matcher.setText("Recalduler le score de matching")
+                Toast.makeText(
+                    this@InfoCandidatureActivity,
+                    "Score de matching calculé avec succès : "+j.getString("score")+" %",
+                    Toast.LENGTH_LONG
+                ).show()
             } catch (e: Exception) {
                 e.printStackTrace()
 
