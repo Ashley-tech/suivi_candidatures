@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/logotitlemodifycandidature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Suivi des candidatures"
+        android:textColor="@color/red"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toTopOf="@id/titlemodifycandidature"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/titlemodifycandidature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Modification de la candidature"
+        android:textColor="@color/black"
+        android:textSize="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/logotitlemodifycandidature"
+        app:layout_constraintBottom_toTopOf="@id/titre_candidature_input_2"/>
+
+    <Spinner
+        android:id="@+id/type_candidature_spinner_2"
+        android:layout_width="208dp"
+        android:layout_height="0dp"
+        app:layout_constraintVertical_weight="1"
+        android:entries="@array/type_candidature_list"
+        app:layout_constraintBottom_toTopOf="@id/details_input_2"
+        app:layout_constraintEnd_toStartOf="@id/titre_candidature_input_2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titlemodifycandidature" />
+
+    <EditText
+        android:id="@+id/titre_candidature_input_2"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="Titre de l'offre* :"
+        app:layout_constraintVertical_weight="1"
+        app:layout_constraintStart_toEndOf="@id/type_candidature_spinner_2"
+        app:layout_constraintTop_toBottomOf="@id/titlemodifycandidature"
+        app:layout_constraintEnd_toStartOf="@id/nom_entreprise_input_2"
+        app:layout_constraintBottom_toTopOf="@id/details_input_2"/>
+
+    <EditText
+        android:id="@+id/nom_entreprise_input_2"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:ems="10"
+        android:hint="Entreprise :"
+        app:layout_constraintVertical_weight="1"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@id/adresse_entreprise_input_2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/titre_candidature_input_2"
+        app:layout_constraintTop_toBottomOf="@id/titlemodifycandidature" />
+
+    <EditText
+        android:id="@+id/details_input_2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:ems="10"
+        android:gravity="top|start"
+        android:hint="Description de l'offre"
+        app:layout_constraintVertical_weight="2"
+        android:layout_margin="5dp"
+        android:inputType="textMultiLine"
+        android:maxLines="2"
+        android:minLines="4"
+        app:layout_constraintHorizontal_weight="2"
+        app:layout_constraintTop_toBottomOf="@id/titre_candidature_input_2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/adresse_entreprise_input_2"
+        app:layout_constraintBottom_toTopOf="@id/date_candidature_input_2"/>
+
+    <EditText
+        android:id="@+id/adresse_entreprise_input_2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:ems="10"
+        android:hint="[Adresse]/[Complément]"
+        app:layout_constraintHorizontal_weight="1"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_weight="1"
+        app:layout_constraintStart_toEndOf="@id/details_input_2"
+        app:layout_constraintTop_toBottomOf="@id/nom_entreprise_input_2"
+        app:layout_constraintBottom_toTopOf="@id/cp_ville_pays_entreprise_input_2"/>
+
+    <EditText
+        android:id="@+id/cp_ville_pays_entreprise_input_2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintHorizontal_weight="1"
+        android:ems="10"
+        android:hint="[Code]/[Ville]/[Pays]"
+        app:layout_constraintVertical_weight="1"
+        android:inputType="text"
+        app:layout_constraintStart_toEndOf="@id/details_input_2"
+        app:layout_constraintTop_toBottomOf="@+id/adresse_entreprise_input_2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/nom_prenom_recruteur_input_2"/>
+
+    <EditText
+        android:id="@+id/date_candidature_input_2"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:ems="10"
+        android:hint="Date de candidature"
+        app:layout_constraintVertical_weight="1"
+        android:inputType="date"
+        app:layout_constraintEnd_toStartOf="@id/statut_input_2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/details_input_2"
+        app:layout_constraintBottom_toTopOf="@id/email_tel_recruteur_input_2"/>
+
+    <EditText
+        android:id="@+id/statut_input_2"
+        android:layout_width="wrap_content"
+        app:layout_constraintVertical_weight="1"
+        android:layout_height="0dp"
+        android:ems="10"
+        android:hint="Statut :"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/periode_input_2"
+        app:layout_constraintEnd_toStartOf="@id/nom_prenom_recruteur_input_2"
+        app:layout_constraintStart_toEndOf="@id/date_candidature_input_2"
+        app:layout_constraintTop_toBottomOf="@+id/details_input_2" />
+
+    <EditText
+        android:id="@+id/nom_prenom_recruteur_input_2"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:ems="10"
+        android:hint="[Nom]/[Prénom du recruteur]"
+        app:layout_constraintVertical_weight="1"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/salaire_min_input_2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/statut_input_2"
+        app:layout_constraintTop_toBottomOf="@+id/cp_ville_pays_entreprise_input_2" />
+
+    <EditText
+        android:id="@+id/email_tel_recruteur_input_2"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:ems="10"
+        android:hint="[E-mail]/[Téléphone du recruteur] :"
+        app:layout_constraintVertical_weight="1"
+        android:inputType="text"
+        app:layout_constraintEnd_toStartOf="@id/periode_input_2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/date_candidature_input_2"
+        app:layout_constraintBottom_toTopOf="@id/salaire_max_input_2"
+        />
+
+    <EditText
+        android:id="@+id/periode_input_2"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:ems="10"
+        app:layout_constraintVertical_weight="1"
+        android:hint="Période :"
+        android:inputType="text"
+        app:layout_constraintStart_toEndOf="@id/email_tel_recruteur_input_2"
+        app:layout_constraintBottom_toTopOf="@id/date_publication_input_2"
+        app:layout_constraintEnd_toStartOf="@id/salaire_min_input_2"
+        app:layout_constraintTop_toBottomOf="@id/statut_input_2" />
+
+    <EditText
+        android:id="@+id/salaire_min_input_2"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:ems="10"
+        android:hint="Salaire min :"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_weight="1"
+        app:layout_constraintStart_toEndOf="@id/periode_input_2"
+        app:layout_constraintBottom_toTopOf="@id/cvs_spinner_2"
+        app:layout_constraintTop_toBottomOf="@id/nom_prenom_recruteur_input_2" />
+
+    <EditText
+        android:id="@+id/salaire_max_input_2"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:ems="10"
+        android:hint="Salaire max :"
+        android:inputType="number"
+        app:layout_constraintVertical_weight="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/date_publication_input_2"
+        app:layout_constraintTop_toBottomOf="@id/email_tel_recruteur_input_2"
+        app:layout_constraintBottom_toTopOf="@id/modify_candidature_button" />
+
+    <EditText
+        android:id="@+id/date_publication_input_2"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:ems="10"
+        android:hint="Date de publication :"
+        app:layout_constraintVertical_weight="1"
+        android:inputType="date"
+        app:layout_constraintBottom_toTopOf="@id/modify_candidature_button"
+        app:layout_constraintTop_toBottomOf="@id/periode_input_2"
+        app:layout_constraintEnd_toStartOf="@id/cvs_spinner_2"
+        app:layout_constraintStart_toEndOf="@id/salaire_max_input_2" />
+
+    <Spinner
+        android:id="@+id/cvs_spinner_2"
+        android:layout_width="195dp"
+        android:layout_height="0dp"
+        app:layout_constraintVertical_weight="1"
+        app:layout_constraintBottom_toTopOf="@id/modify_to_candidature_info_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/date_publication_input_2"
+        app:layout_constraintTop_toBottomOf="@+id/salaire_min_input_2" />
+
+    <Button
+        android:id="@+id/modify_candidature_button"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:backgroundTint="@color/red"
+        android:text="Modifier la candidature"
+        app:layout_constraintVertical_weight="1"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/date_publication_input_2"
+        app:layout_constraintEnd_toStartOf="@id/modify_to_candidature_info_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/modify_to_candidature_info_button"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:backgroundTint="@color/red"
+        android:text="Retour"
+        android:textColor="@color/white"
+        app:layout_constraintVertical_weight="1"
+        app:layout_constraintTop_toBottomOf="@id/cvs_spinner_2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/modify_candidature_button"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

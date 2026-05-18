@@ -96,7 +96,10 @@ class InfoCandidatureActivity : AppCompatActivity(), View.OnClickListener {
                 startActivity(intent)
             }
             R.id.info_to_modify_candidature_button -> {
-
+                var intent = Intent(this, ModifyCandidatureActivity::class.java)
+                intent.putExtra("id_candidature", c)
+                intent.putExtra("id_offre", offre)
+                startActivityForResult(intent,1)
             }
             R.id.calculate_matching_score_button -> {
                 if (score == null){
@@ -312,7 +315,7 @@ class InfoCandidatureActivity : AppCompatActivity(), View.OnClickListener {
                     salaire.setText("Salaire : "+j.getString("salaire_min")+" €/an (Minimum)")
                 }
                 recruteur.setText("Nom du recruteur : "+(j.optString("prenom_recruteur").takeIf { it != "null" } ?: "")+" "+(j.optString("nom_recruteur").takeIf { it != "null" } ?: "").uppercase())
-                details.setText((j.optString("description").takeIf { it != "null" } ?: ""))
+                details.setText((j.optString("description").takeIf { it != "null" } ?: "(Offre non détaillée)"))
             } catch (e: Exception) {
 
                 e.printStackTrace()
