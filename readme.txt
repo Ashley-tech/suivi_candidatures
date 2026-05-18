@@ -2,9 +2,11 @@
 
 Outils requis :
 -XAMPP : puis démarer ls serveurs Apache et MySQL (ne pas modifier les ports par défaut de MySQL)
--Android Studio pour tester l'application Android
+-Android Studio (version >= 2022.3.1 pour plus d'assurance) pour tester l'application Android
+-XCode pour tester l'application iOS (nécessite donc un Mac)
 
 Créer .env puis copier tout le contenu de .env.example ou bien, modifier .env.example pour le renommer en .env
+Dans MySQL, créer une base de données et l'appeler "db_candidatures"
 
 Refaire le cache : php artisan route:cache
 Afficher la liste des routes existants : php artisan route:liste
