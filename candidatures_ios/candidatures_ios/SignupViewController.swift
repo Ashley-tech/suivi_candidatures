@@ -25,6 +25,7 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     @IBOutlet weak var nationaliteField: UITextField!
     @IBOutlet weak var birthP: UIDatePicker!
     let items = ["Sexe","Homme","Femme"]
+    let baseURL = Bundle.main.object(forInfoDictionaryKey: "API_BASE_URL") as? String ?? ""
     var sex_selected: String = ""
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +37,9 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         mdpr.isSecureTextEntry = true
         birthP.datePickerMode = .date
         birthP.preferredDatePickerStyle = .compact
+
     }
+    
     @IBAction func displayPwd(_ sender: Any) {
         let existingText = mdp.text
         let isSecure = !mdp.isSecureTextEntry

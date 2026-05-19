@@ -1,0 +1,8 @@
+//
+//  Config.xcconfig
+//  candidatures_ios
+//
+//  Created by Ashley Rakotoarisoa on 19/05/2026.
+//
+
+API_BASE_URL = http:/$()/192.168.1.25:8000

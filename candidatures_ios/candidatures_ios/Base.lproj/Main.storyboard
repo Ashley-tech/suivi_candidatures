@@ -16,24 +16,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Suivi des candidatures" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gNk-XD-lOU">
-                                <rect key="frame" x="62" y="138" width="291" height="36"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <color key="textColor" systemColor="systemRedColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="20" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jlb-zS-CXx">
-                                <rect key="frame" x="57" y="232" width="296" height="312"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <mutableString key="text">Cette application a pour but de suivre les candidatures que vous avez faites, et de vous aider à organiser votre recherche d'emploi.  Vous pourrez aussi matcher vos candidatures avec les offres d'emploi que vous aurez notées.  Vous pouvez aussi mettre à jour votre profil et vos coordonnées, ainsi que le statut de vos candidatures à tout moment.  Bon courage pour votre recherche !</mutableString>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o4E-9K-lGO">
-                                <rect key="frame" x="126" y="616" width="159" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o4E-9K-lGO">
+                                <rect key="frame" x="126" y="616" width="138" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="PcP-BM-lwp"/>
+                                </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Continuer">
                                     <color key="baseBackgroundColor" systemColor="systemRedColor"/>
@@ -42,15 +29,43 @@
                                     <action selector="continuerVersSuite:" destination="BYZ-38-t0r" eventType="touchUpInside" id="QPN-AU-mKM"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="20" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jlb-zS-CXx">
+                                <rect key="frame" x="38" y="232" width="314" height="312"/>
+                                <string key="text">Cette application a pour but de suivre les candidatures que vous avez faites, et de vous aider à organiser votre recherche d'emploi.  Vous pourrez aussi matcher vos candidatures avec les offres d'emploi que vous aurez notées.  Vous pouvez aussi mettre à jour votre profil et vos coordonnées, ainsi que le statut de vos candidatures à tout moment.  Bon courage pour votre recherche !</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Suivi des candidatures" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gNk-XD-lOU">
+                                <rect key="frame" x="62" y="138" width="290" height="36"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="36" id="IYs-kf-pp6"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <color key="textColor" systemColor="systemRedColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="gNk-XD-lOU" firstAttribute="trailing" secondItem="jlb-zS-CXx" secondAttribute="trailing" id="CPm-MA-7oZ"/>
+                            <constraint firstItem="gNk-XD-lOU" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="46" id="HGO-md-dIF"/>
+                            <constraint firstItem="o4E-9K-lGO" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="126" id="JaW-ZV-hEB"/>
+                            <constraint firstItem="gNk-XD-lOU" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="62" id="Lxr-Kr-Lbb"/>
+                            <constraint firstItem="gNk-XD-lOU" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="NwY-Ax-QDY"/>
+                            <constraint firstItem="o4E-9K-lGO" firstAttribute="top" secondItem="jlb-zS-CXx" secondAttribute="bottom" constant="72" id="RzE-NP-48L"/>
+                            <constraint firstItem="jlb-zS-CXx" firstAttribute="top" secondItem="gNk-XD-lOU" secondAttribute="bottom" constant="58" id="hXY-m1-vk4"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="o4E-9K-lGO" secondAttribute="bottom" constant="211" id="hpg-CV-t3b"/>
+                            <constraint firstItem="jlb-zS-CXx" firstAttribute="centerX" secondItem="o4E-9K-lGO" secondAttribute="centerX" id="j4n-CW-uOg"/>
+                            <constraint firstItem="jlb-zS-CXx" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="38" id="t0F-Xr-HHS"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="eTC-6U-Ucl"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1041" y="-41"/>
+            <point key="canvasLocation" x="1039.1304347826087" y="-42.1875"/>
         </scene>
         <!--Forgot View Controller-->
         <scene sceneID="8HV-gC-LAc">
@@ -186,8 +201,8 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n44-4s-LCW">
-                                <rect key="frame" x="20" y="717" width="374" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n44-4s-LCW">
+                                <rect key="frame" x="20" y="717" width="374" height="56"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
