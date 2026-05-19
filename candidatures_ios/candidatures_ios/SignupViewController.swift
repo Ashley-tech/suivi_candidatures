@@ -100,16 +100,67 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UIPickerView
 
     @IBAction func validerInscription(_ sender: Any) {
         message_result.text = ""
+        let formatter = DateFormatter()
+        
+        formatter.dateFormat = "yyyy-MM-dd"
+        
+        let formattedDate = formatter.string(from: birthP.date)
+        
+        print(formattedDate)
+        
         if (fnF.text?.isEmpty ?? true)
-        || (lnF.text?.isEmpty ?? true)
-        || (mailF.text?.isEmpty ?? true)
-        || (mailRec.text?.isEmpty ?? true)
-        || (mdp.text?.isEmpty ?? true)
-        || (mdpr.text?.isEmpty ?? true) {
-
+            || (lnF.text?.isEmpty ?? true)
+            || (mailF.text?.isEmpty ?? true)
+            || (mailRec.text?.isEmpty ?? true)
+            || (mdp.text?.isEmpty ?? true)
+            || (mdpr.text?.isEmpty ?? true) {
+            
             message_result.text = "Les champs avec * sont obligatoires"
             message_result.textColor = UIColor.red
             return
         }
+        
+        guard mailF.text == mailRec.text else {
+            message_result.text = "Les 2 adresses mails saisis sont différents"
+            message_result.textColor = .red
+            return
+        }
+        guard mdp.text == mdpr.text else {
+            message_result.text = "Les 2 mots de passe saisis sont différents"
+            message_result.textColor = .red
+            return
+        }
+        guard mdp.text?.count ?? 0 >= 8 else {
+            message_result.text = "Le mot de passe ne contient pas au moins 8 caractères"
+            message_result.textColor = .red
+            return
+        }
+        var part_champ = adresseComplete.text?.components(separatedBy: "/")
+        guard part_champ?.count ?? 0 <= 2 else {
+            message_result.text = "Merci de respecter le format [Adresse]/[Complément] car il y a trop d'arguments : \(String(describing: part_champ?.count)) > 2"
+            message_result.textColor = .red
+            return
+        }
+        var adresse = ""
+        var comp = ""
+        if part_champ?.count == 2 {
+            comp = part_champ?[1] ?? ""
+            adresse = part_champ?[0] ?? ""
+        } else if part_champ?.count == 1 {
+            adresse = part_champ?[0] ?? ""
+            comp = ""
+        } else {
+            adresse = ""
+            comp = ""
+        }
+        part_champ = cvp.text?.components(separatedBy: "/")
+        guard part_champ?.count ?? 0 <= 3 else {
+            message_result.text = "Merci de respecter le format [Code postal]/[Ville]/[Pays] car il y a trop d'arguments : \(String(describing: part_champ?.count)) > 3"
+            message_result.textColor = .red
+            return
+        }
+        var cp = ""
+        var ville = ""
+        var pays = ""
     }
 }
