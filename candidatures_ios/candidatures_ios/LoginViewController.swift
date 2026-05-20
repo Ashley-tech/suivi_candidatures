@@ -48,7 +48,7 @@ class LoginViewController: UIViewController {
         let regexMail = #"^[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$"#
         guard regexCheck(regexMail, email)
         else {
-            message_result.text = "Votre mail ne respecte pas la norme classique"
+            message_result.text = "Votre mail que vous avez saisine respecte pas la norme classique"
             message_result.textColor = .red
             return
         }

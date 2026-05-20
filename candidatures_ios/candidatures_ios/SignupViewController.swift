@@ -40,6 +40,10 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UIPickerView
 
     }
     
+    func regexCheck(_ regex: String, _ str: String) -> Bool {
+        return str.range(of: regex, options: .regularExpression) != nil
+    }
+    
     @IBAction func displayPwd(_ sender: Any) {
         let existingText = mdp.text
         let isSecure = !mdp.isSecureTextEntry
@@ -125,6 +129,12 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UIPickerView
             message_result.textColor = .red
             return
         }
+        let regexMail = #"^[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$"#
+        guard regexCheck(regexMail, mailF.text ?? "") else {
+            message_result.text = "Votre mail que vous avez saisine respecte pas la norme classique"
+            message_result.textColor = .red
+            return
+        }
         guard mdp.text == mdpr.text else {
             message_result.text = "Les 2 mots de passe saisis sont différents"
             message_result.textColor = .red
@@ -162,5 +172,50 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         var cp = ""
         var ville = ""
         var pays = ""
+        let regexTel = #"^\d{10}$"#
+        let regexCp = #"^\d{5}$"#
+        let regex1Web = #"^(https?://)?([\w-]+(\.[\w-]+)+)(/[\w-]*)*/?$"#
+        let regex2Web = #"^[\w-]+(\.[\w-]+)+$"#
+        let regex3Web = #"^(https?://)?([\w-]+(\.[\w-]+)+)(/[\w-]*)*/?$"#
+        switch part_champ?.count {
+            case 3:
+                cp = part_champ![0]
+                ville = part_champ![1]
+                pays = part_champ![2]
+                break
+            case 2:
+                cp = part_champ![0]
+                ville = part_champ![1]
+                pays = ""
+                break
+            case 1:
+                cp = part_champ![0]
+                ville = ""
+                pays = ""
+                break
+            default:
+                cp = ""; ville=""; pays = "";
+        }
+        if cp != ""{
+            guard regexCheck(regexCp, cp) else {
+                message_result.text = "Le code postal que vous avez saisi doit contenir exactment 5 chiffres"
+                message_result.textColor = .red
+                return
+            }
+        }
+        if telT.text != "" {
+            guard regexCheck(regexTel, telT.text ?? "") else {
+                message_result.text = "Le numéro de téléphone que vous avez saisi doit contenir exactment 10 chiffres"
+                message_result.textColor = .red
+                return
+            }
+        }
+        if webF.text != "" {
+            if (!regexCheck(regex1Web, webF.text!) && !regexCheck(regex2Web, webF.text!) && !regexCheck(regex3Web, webF.text!)) {
+                message_result.text = "L'adresse web saisi doit commencer par http:// https:// ou www."
+                message_result.textColor = .red
+                return
+            }
+        }
     }
 }

@@ -23,7 +23,9 @@ class ForgotViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-
+    func regexCheck(_ regex: String, _ str: String) -> Bool {
+        return str.range(of: regex, options: .regularExpression) != nil
+    }
     @IBAction func checkEmail(_ sender: Any) {
         message_result.text = ""
         guard let email = mailReinit.text, !email.isEmpty else {
