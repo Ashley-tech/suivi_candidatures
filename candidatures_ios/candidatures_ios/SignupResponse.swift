@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SignupResponse {
+struct SignupResponse: Decodable {
     let message: String,
          compte: Compte,
         success: Bool,

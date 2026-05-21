@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct MailResponse {
+struct MailResponse:Decodable {
     var message: String,
+        error: String,
     success: Bool
 }

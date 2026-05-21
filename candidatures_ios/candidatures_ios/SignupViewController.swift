@@ -217,5 +217,112 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UIPickerView
                 return
             }
         }
+        
+        var url = URL(string: baseURL+"/api/comptes")!
+
+        var request = URLRequest(url: url)
+
+        request.httpMethod = "POST"
+
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        // Corps JSON
+        var body: [String: String] = [
+            "sexe":sex_selected,
+            "nom":lnF.text!,
+            "prenom":fnF.text!,
+            "email":mailF.text!,
+            "date_naissance":formattedDate,
+            "mdp":mdp.text!,
+            "nationalite":nationaliteField.text!,
+            "titre":titreSA.text!,
+            "adresse":adresse,
+            "adresse_comp":comp,
+            "cp":cp,
+            "ville":ville,
+            "pays":pays,
+            "numero":telT.text!,
+            "website":webF.text!
+        ]
+
+        request.httpBody = try? JSONSerialization.data(withJSONObject: body)
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+
+            DispatchQueue.main.async {
+
+                if let error = error {
+                    self.message_result.text = error.localizedDescription
+                    self.message_result.textColor = .red
+                    return
+                }
+
+                guard let data = data else {
+                    self.message_result.text = "Aucune réponse serveur"
+                    self.message_result.textColor = .red
+                    return
+                }
+
+                do {
+                    let decoded = try JSONDecoder().decode(SignupResponse.self, from: data)
+                    print(decoded)
+
+                    DispatchQueue.main.async {
+                        if decoded.success == true {
+                            self.message_result.text = "Inscription réussie ! Vous allez recevoir un email de confirmation."
+                            self.message_result.textColor = .green
+                            url = URL(string: self.baseURL + "/api/test-mail")!
+
+                            var mailRequest = URLRequest(url: url)
+                            mailRequest.httpMethod = "POST"
+                            mailRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+                            let mailBody: [String: String] = [
+                                "email": self.mailF.text!,
+                                "subject": "Confirmation de votre inscription",
+                                "content": """
+                                Bonjour \(self.fnF.text ?? ""),<br /><br />
+                                Votre compte a bien été créé sur le site de suivi des candidatures.<br /><br />
+                                Cordialement,<br />
+                                L'équipe de suivi des candidatures
+                                """
+                            ]
+
+                            mailRequest.httpBody = try? JSONSerialization.data(withJSONObject: mailBody)
+
+                            URLSession.shared.dataTask(with: mailRequest) { data, response, error in
+
+                                DispatchQueue.main.async {
+
+                                    if let error = error {
+                                        print("MAIL ERROR:", error.localizedDescription)
+                                        return
+                                    }
+
+                                    print("Mail envoyé ✔️")
+                                }
+
+                            }.resume()
+                            
+                            
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                                self.message_result.text = "Inscription réussie."
+                                self.navigationController?.popViewController(animated: true)
+                            }
+                        } else {
+                            self.message_result.text = "Nous n'avons pas pu vous inscrire. Veuillez réessayer ultérieurement"
+                            self.message_result.textColor = .red
+                        }
+                    }
+
+                } catch {
+                    DispatchQueue.main.async {
+                        self.message_result.text = "Erreur parsing JSON"
+                        self.message_result.textColor = .red
+                    }
+                }
+            }
+
+        }.resume()
     }
 }
