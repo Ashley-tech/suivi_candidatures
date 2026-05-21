@@ -9,6 +9,8 @@ import UIKit
 
 class MenuViewController: UIViewController {
 
+    @IBOutlet weak var welcomet: UILabel!
+    @IBOutlet weak var messager: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
 
