@@ -48,7 +48,11 @@ class CompteController extends Controller
 
     public function findByEmail(Request $request) {
         $found = false;
-        $compte = Compte::where('email', $request->email)->first();
+        //$compte = Compte::where('email', $request->email)->first();
+        $email = $request->input('email');
+        $compte = Compte::where('email', $email)->first();
+        //dd($request->input('email'));
+        //dd($compte);
         if ($compte) {
             $found = true;
         }

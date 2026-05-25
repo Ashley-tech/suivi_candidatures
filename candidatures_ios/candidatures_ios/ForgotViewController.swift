@@ -44,7 +44,7 @@ class ForgotViewController: UIViewController {
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
             // Corps JSON
-            let body: [String: String] = [
+            var body: [String: String] = [
                 "email": email
             ]
 
@@ -72,8 +72,36 @@ class ForgotViewController: UIViewController {
 
                         DispatchQueue.main.async {
                             if decoded.found {
-                                self.message_result.text = "Compte trouvé: \(decoded.compte?.email ?? "")"
+                                self.message_result.text = "Email trouvé ! Un mail va vous être envoyé avec les instructions pour réinitialiser votre mot de passe. Vous serz obligé de basculer sur le site web pour changer votre mot de passe."
                                 self.message_result.textColor = .green
+                                url = URL(string: self.baseURL + "/api/test-mail")!
+
+                                var mailRequest = URLRequest(url: url)
+                                mailRequest.httpMethod = "POST"
+                                mailRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+                                let mailBody: [String: String] = [
+                                    "email": self.mailReinit.text!,
+                                    "subject": "Réinitialisation de votre mot de pase",
+                                    "content": "Bonjour,<br /><br />Voici le <a href='http://127.0.0.1:8000/\(decoded.compte!.id)/new_password'>lien</a> pour réinitialiser votre mot de passe.<br /><br />Cordialement,<br />L'équipe de suivi des candidatures"
+                                    
+                                ]
+
+                                mailRequest.httpBody = try? JSONSerialization.data(withJSONObject: mailBody)
+
+                                URLSession.shared.dataTask(with: mailRequest) { data, response, error in
+
+                                    DispatchQueue.main.async {
+
+                                        if let error = error {
+                                            print("MAIL ERROR:", error.localizedDescription)
+                                            return
+                                        }
+
+                                        print("Mail envoyé ✔️")
+                                    }
+
+                                }.resume()
                             } else {
                                 self.message_result.text = "Aucun compte trouvé"
                                 self.message_result.textColor = .red

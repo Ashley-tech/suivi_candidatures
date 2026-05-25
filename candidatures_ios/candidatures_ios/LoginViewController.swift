@@ -93,6 +93,19 @@ class LoginViewController: UIViewController {
                             if decoded.success == true {
                                 self.message_result.text = "Connexion réussie"
                                 self.message_result.textColor = .green
+                                
+                                if let compte = decoded.compte{
+                                    UserDefaults.standard.set(compte.email, forKey: "userEmail")
+                                    //UserDefaults.standard.set(compte.id, forKey: "userId")
+                                    
+                                    print(UserDefaults.standard.string(forKey: "userEmail") ?? "")
+                                    
+                                    let vc = self.storyboard?.instantiateViewController(
+                                        withIdentifier: "MenuViewController"
+                                    ) as! MenuViewController
+                                    self.navigationController?.pushViewController(vc, animated: true)
+                                }
+                                
                             } else {
                                 self.message_result.text = "L'adresse et le mot de passe ne correspondent à aucun compte"
                                 self.message_result.textColor = .red
