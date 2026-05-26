@@ -20,4 +20,5 @@ struct Compte: Codable {
     let pays: String?
     let numero: String?
     let website: String?
+    let mdp: String?
 }

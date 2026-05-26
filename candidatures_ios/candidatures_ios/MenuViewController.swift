@@ -16,7 +16,8 @@ class MenuViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        print(mail)
+        //print(mail)
+        navigationItem.hidesBackButton = true
         
         var url = URL(string: baseURL+"/api/compte/find-by-email")!
 
