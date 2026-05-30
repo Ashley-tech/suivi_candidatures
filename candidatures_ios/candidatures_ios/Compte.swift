@@ -16,6 +16,8 @@ struct Compte: Codable {
     let nationalite: String?
     let titre: String?
     let adresse: String?
+    let adresse_comp: String?
+    let cp : String?
     let ville: String?
     let pays: String?
     let numero: String?
