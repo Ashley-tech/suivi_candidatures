@@ -153,7 +153,7 @@ class ProfileViewController: UIViewController {
                         )
                         for i in 0..<decoded.count {
                             let idt = decoded[i].id
-                            let urlt = URL(string:self.baseURL+"/api/candidature/\(idt)")
+                            var urlt = URL(string:self.baseURL+"/api/candidature/\(idt)")
                             var rt = URLRequest(url:urlt!)
                             rt.httpMethod = "DELETE"
                             rt.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -169,20 +169,116 @@ class ProfileViewController: UIViewController {
                                         print("Aucune réponse serveur")
                                         return
                                     }
+                                    
                                     do {
-                                        //A compléter
+                                        let decoded2 = try JSONDecoder().decode(
+                                                DeleteResponse.self,
+                                                from: data
+                                            )
                                     }catch{
-                                        print("Erreur de suppression de la candidature : "+error.localizedDescription)
+                                        print("Erreur de suppression de la candidature n°\(idt): "+error.localizedDescription)
                                         return
                                     }
-                                    //A compléter
                                 }
                             }.resume()
                             
                         }
-                        //A compléter
                     }catch {
                         print("Erreur JSON : "+error.localizedDescription)
+                        return
+                    }
+                }
+            }.resume()
+            
+            self.url = URL(string:self.baseURL+"/api/compte/\(self.id)/cvs")!
+            
+            self.request = URLRequest(url: self.url)
+
+            self.request.httpMethod = "GET"
+
+            self.request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            
+            URLSession.shared.dataTask(with: self.request) { data, response, error in
+                DispatchQueue.main.async {
+                    if let error = error {
+                        print(error.localizedDescription)
+                        return
+                    }
+                    
+                    guard let data3 = data else {
+                        print("Aucune réponse serveur")
+                        return
+                    }
+                    
+                    do {
+                        let decoded3 = try JSONDecoder().decode(
+                            [CVResponse].self,
+                            from: data3
+                        )
+                        for i in 0..<decoded3.count {
+                            let idt0 = decoded3[i].id
+                            var urlt = URL(string:self.baseURL+"/api/cv/\(idt0)")
+                            var rt = URLRequest(url:urlt!)
+                            rt.httpMethod = "DELETE"
+                            rt.setValue("application/json", forHTTPHeaderField: "Content-Type")
+                            
+                            URLSession.shared.dataTask(with: rt) { data, response, error in
+                                DispatchQueue.main.async {
+                                    if let error = error {
+                                        print(error.localizedDescription)
+                                        return
+                                    }
+                                    
+                                    guard let data0 = data else {
+                                        print("Aucune réponse serveur")
+                                        return
+                                    }
+                                    do {
+                                        let decoded3 = try JSONDecoder().decode(
+                                                DeleteResponse.self,
+                                                from: data0
+                                            )
+                                    }catch{
+                                        print("Erreur de la suppression du CV n°\(idt0) : "+error.localizedDescription)
+                                        return
+                                    }
+                                }
+                            }
+                        }
+                    }catch {
+                        print("Erreur JSON : "+error.localizedDescription)
+                        return
+                    }
+                }
+            }.resume()
+            
+            self.url = URL(string:self.baseURL+"/api/compte/\(self.id)")!
+            
+            self.request = URLRequest(url: self.url)
+
+            self.request.httpMethod = "DELETE"
+
+            self.request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            
+            URLSession.shared.dataTask(with: self.request) { data, response, error in
+                DispatchQueue.main.async {
+                    if let error = error {
+                        print(error.localizedDescription)
+                        return
+                    }
+                    
+                    guard let data5 = data else {
+                        print("Aucune réponse serveur")
+                        return
+                    }
+                    
+                    do {
+                        let decoded5 = try JSONDecoder().decode(
+                                DeleteResponse.self,
+                                from: data5
+                            )
+                    }catch{
+                        print("Erreur de la suppression de votre compte : "+error.localizedDescription)
                         return
                     }
                 }
