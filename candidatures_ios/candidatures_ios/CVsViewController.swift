@@ -24,6 +24,13 @@ class CVsViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         chargerCVs()
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destination = segue.destination as! NewCVViewController
+        if (segue.identifier == "versNewCV") {
+            destination.compte = compte
+        }
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return cvs.count
     }
