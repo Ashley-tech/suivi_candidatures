@@ -9,14 +9,18 @@ import UIKit
 
 class CVCell: UITableViewCell {
 
-    @IBOutlet weak var filel: UILabel!
-    @IBOutlet weak var idl: UILabel!
+    @IBOutlet weak var uploadel: UILabel!
+    @IBOutlet weak var tilel: UILabel!
     
     var onDelete: (() -> Void)?
+    var onDownload : (() -> Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+    }
+    @IBAction func downloadClicked(_ sender: Any) {
+        onDownload?()
     }
     
     @IBAction func delClicked(_ sender: Any) {

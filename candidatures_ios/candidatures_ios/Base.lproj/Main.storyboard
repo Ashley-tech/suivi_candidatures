@@ -696,30 +696,26 @@
                                             <rect key="frame" x="0.0" y="0.0" width="374" height="93"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wue-VV-tNF">
-                                                    <rect key="frame" x="0.0" y="5" width="130" height="36"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Akr-mv-aoA">
-                                                    <rect key="frame" x="0.0" y="46" width="184" height="36"/>
+                                                    <rect key="frame" x="0.0" y="46" width="229" height="36"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DLa-jI-Fdc">
-                                                    <rect key="frame" x="204" y="5" width="170" height="35"/>
+                                                    <rect key="frame" x="252" y="4" width="114" height="35"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" title="Button"/>
-                                                    <buttonConfiguration key="configuration" style="filled" title="Plus d'informations">
+                                                    <buttonConfiguration key="configuration" style="filled" title="Télécharger">
                                                         <color key="baseBackgroundColor" systemColor="systemRedColor"/>
                                                     </buttonConfiguration>
+                                                    <connections>
+                                                        <action selector="downloadClicked:" destination="f8F-uf-vHk" eventType="touchUpInside" id="fv8-5e-lDh"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TXf-Ub-kcN">
-                                                    <rect key="frame" x="204" y="47" width="170" height="35"/>
+                                                    <rect key="frame" x="252" y="47" width="114" height="35"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" title="Button"/>
                                                     <buttonConfiguration key="configuration" style="filled" title="Supprimer">
@@ -729,11 +725,18 @@
                                                         <action selector="delClicked:" destination="f8F-uf-vHk" eventType="touchUpInside" id="dAB-c6-fjs"/>
                                                     </connections>
                                                 </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wue-VV-tNF">
+                                                    <rect key="frame" x="0.0" y="2" width="229" height="36"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="filel" destination="Akr-mv-aoA" id="PQI-QN-s5A"/>
-                                            <outlet property="idl" destination="Wue-VV-tNF" id="vwj-11-qjl"/>
+                                            <outlet property="tilel" destination="Wue-VV-tNF" id="n97-aN-aTs"/>
+                                            <outlet property="uploadel" destination="Akr-mv-aoA" id="UPj-2O-BZN"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
