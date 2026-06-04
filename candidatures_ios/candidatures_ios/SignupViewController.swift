@@ -131,7 +131,7 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         }
         let regexMail = #"^[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$"#
         guard regexCheck(regexMail, mailF.text ?? "") else {
-            message_result.text = "Votre mail que vous avez saisine respecte pas la norme classique"
+            message_result.text = "Votre mail que vous avez saisi ne respecte pas la norme classique"
             message_result.textColor = .red
             return
         }
@@ -340,7 +340,6 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UIPickerView
 
                                                         print("Mail envoyé ✔️")
                                                     }
-
                                                 }.resume()
                                                 
                                                 

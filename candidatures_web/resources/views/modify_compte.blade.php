@@ -211,7 +211,8 @@
                         $("#error-message").css("color", "green");
 			if (user != email) {
                             $("#error-message").text("Compte modifié avec succès ! Comme vous avez modifié votre adresse mail, vous allez recevoir un mail à cette nouvelle adresse mail.");
-                            sessionStorage.setItem("login", email);
+                            //sessionStorage.setItem("login", email);
+                            Cookies.set("login", email);
 			    const response1 = fetch("/api/test-mail", {
                                 method: "POST",
                                 headers: {
