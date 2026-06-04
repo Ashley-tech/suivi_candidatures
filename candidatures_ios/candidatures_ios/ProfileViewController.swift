@@ -359,7 +359,9 @@ class ProfileViewController: UIViewController {
             destination.dateNaissance = self.dateNaissance
             destination.oldPassword = self.mdp
             destination.id = self.id
-        } else{
+        } else if segue.identifier == "versCVs"{
+            let destination = segue.destination as! CVsViewController
+            destination.compte = self.id
         }
     }
     

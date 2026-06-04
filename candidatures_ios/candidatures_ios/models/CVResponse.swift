@@ -13,5 +13,5 @@ struct CVResponse: Decodable {
         download_url: String,
         mime_type:String,
         date_upload: String,
-        visible: Bool
+        visible: Int
 }

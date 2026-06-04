@@ -30,3 +30,6 @@ Attention, les CV en PDF se modifient légèrement en les insérant via l'applic
 
 Possibilité de jouer avec sessionStorage ou Cookies (js-cookie). Il faudra commenter un des 2 pour jouer avec l'autre.
 L'inconvénient est que le cookie est vide lors de l'ouverture d'un nouvel onglet
+
+Attention pour iOS, vous devez modifier l'hote dans Config/API_BASE_URL en fonction de votre connexion Internet
+Pour cela, aller dans Paramètres -> Réseau -> Wi-Fi/Ethernet -> Détails du réseau connecté -> Adresse IP (à copier)
