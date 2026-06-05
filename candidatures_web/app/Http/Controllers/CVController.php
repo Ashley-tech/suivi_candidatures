@@ -142,6 +142,9 @@ try{
             'compte' => 'required|integer|exists:compte,id',
         ]);
 
+        // debug safe (optionnel)
+        \Log::info($request->all());
+
         $file = $request->file('cv');
 
         // Enregistrement
