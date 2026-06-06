@@ -26,6 +26,4 @@ struct OffreResponse : Decodable {
     let salaire_min: Double?
     let salaire_max: Double?
     let date_publication: String?
-    let created_at: String
-    let updated_at: String
 }

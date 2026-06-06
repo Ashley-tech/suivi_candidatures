@@ -75,14 +75,12 @@ class CVsViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         request.httpMethod = "GET"
 
         URLSession.shared.downloadTask(with: request) { localURL, response, error in
-
             guard let localURL = localURL else {
                 print("Erreur téléchargement")
                 return
             }
 
             do {
-
                 let documentsURL = FileManager.default.urls(
                     for: .documentDirectory,
                     in: .userDomainMask
@@ -104,7 +102,6 @@ class CVsViewController: UIViewController, UITableViewDelegate, UITableViewDataS
                 )
 
                 DispatchQueue.main.async {
-
                     self.downloadedFileURL = destinationURL
 
                     let picker = UIDocumentPickerViewController(
@@ -141,7 +138,6 @@ class CVsViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         _ cv: CVResponse,
         indexPath: IndexPath
     ) {
-
         let alert = UIAlertController(
             title: "Suppression",
             message: "Voulez-vous supprimer le CV \(cv.nom) ?",
@@ -153,7 +149,6 @@ class CVsViewController: UIViewController, UITableViewDelegate, UITableViewDataS
                 title: "Oui",
                 style: .destructive
             ) { _ in
-
                 let url = URL(
                     string: "\(self.baseURL)/api/cv/\(cv.id)"
                 )!
@@ -193,7 +188,6 @@ class CVsViewController: UIViewController, UITableViewDelegate, UITableViewDataS
     }
     
     func chargerCVs() {
-
         let url = URL(string: "\(baseURL)/api/compte/\(compte)/cvs")!
 
         var request = URLRequest(url: url)

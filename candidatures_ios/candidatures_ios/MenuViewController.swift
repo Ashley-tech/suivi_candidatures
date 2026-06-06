@@ -19,12 +19,19 @@ class MenuViewController: UIViewController {
         //print(mail)
         navigationItem.hidesBackButton = true
         
+        chargerMenu()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        chargerMenu()
+    }
+    
+    func chargerMenu() {
         var url = URL(string: baseURL+"/api/compte/find-by-email")!
 
         var request = URLRequest(url: url)
-
         request.httpMethod = "POST"
-
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
         // Corps JSON
@@ -35,9 +42,7 @@ class MenuViewController: UIViewController {
         request.httpBody = try? JSONSerialization.data(withJSONObject: body)
 
         URLSession.shared.dataTask(with: request) { data, response, error in
-
             DispatchQueue.main.async {
-
                 if let error = error {
                     print(error.localizedDescription)
                     return
@@ -49,12 +54,10 @@ class MenuViewController: UIViewController {
                 }
 
                 do {
-
                     let decoded = try JSONDecoder().decode(
                         CompteForgotResponse.self,
                         from: data
                     )
-
                     print(decoded)
 
                     if decoded.found {
@@ -62,11 +65,8 @@ class MenuViewController: UIViewController {
                         self.id = decoded.compte?.id ?? 0
                         
                         url = URL(string: self.baseURL+"/api/compte/\(self.id)/candidatures")!
-
                         request = URLRequest(url: url)
-
                         request.httpMethod = "GET"
-
                         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
                         
                         URLSession.shared.dataTask(with: request) { data, response, error in
@@ -89,7 +89,7 @@ class MenuViewController: UIViewController {
 
                                     print(decoded2)
                                     for i in 0..<decoded2.count {
-                                        if decoded2[i].statut.lowercased().contains("contrat signé") {
+                                        if decoded2[i].statut!.lowercased().contains("contrat signé") {
                                             self.messager.text = "Vous avez au moins une candidature, dont vous avez signé le contrat ! Félicitations ! Vous pouvez peut-être supprimer votre compte si vous n'en avez plus besoin, ou continuer à suivre vos autres candidatures."
                                             break;
                                         }
@@ -100,9 +100,7 @@ class MenuViewController: UIViewController {
                             }
                         }.resume()
                     }
-
                 } catch {
-
                     print("Erreur JSON :", error.localizedDescription)
                 }
             }

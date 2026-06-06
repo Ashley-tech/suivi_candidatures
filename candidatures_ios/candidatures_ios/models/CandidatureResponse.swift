@@ -12,7 +12,7 @@ struct CandidatureResponse: Decodable {
 compte: Int,
 offre:Int,
         cv: Int,
-        statut: String,
+        statut: String?,
         date_candidature: String,
-score_matching: Double
+score_matching: Double?
 }
