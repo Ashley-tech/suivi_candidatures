@@ -8,8 +8,8 @@
 import UIKit
 
 struct CandidatureAvecOffre {
-    let candidature: CandidatureResponse
-    let offre: OffreResponse
+    let candidature: Candidature
+    let offre: Offre
 }
 
 class CandidaturesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIDocumentPickerDelegate {
@@ -21,7 +21,7 @@ class CandidaturesViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func supprimerCandidature(
-        _ candidature: CandidatureResponse,
+        _ candidature: Candidature,
         indexPath: IndexPath
     ) {
         let alert = UIAlertController(
@@ -66,6 +66,13 @@ class CandidaturesViewController: UIViewController, UITableViewDelegate, UITable
             )
         )
         present(alert, animated: true)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "versNouvelleCandidature" {
+            let destination = segue.destination as! NewCandidatureViewController
+            destination.compte = compte
+        }
     }
     
     func tableView(
@@ -126,7 +133,7 @@ class CandidaturesViewController: UIViewController, UITableViewDelegate, UITable
 
             do {
                 let candidaturesRecues = try JSONDecoder().decode(
-                    [CandidatureResponse].self,
+                    [Candidature].self,
                     from: data
                 )
 
@@ -160,7 +167,7 @@ class CandidaturesViewController: UIViewController, UITableViewDelegate, UITable
                         }
                         do {
                             let offre = try JSONDecoder().decode(
-                                OffreResponse.self,
+                                Offre.self,
                                 from: data
                             )
 

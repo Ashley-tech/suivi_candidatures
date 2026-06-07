@@ -106,7 +106,6 @@ class NewCVViewController: UIViewController, UIDocumentPickerDelegate {
             // ==========================
 
             body.append("--\(boundary)\r\n".data(using: .utf8)!)
-
             body.append(
                 "Content-Disposition: form-data; name=\"cv\"; filename=\"\(fileURL.lastPathComponent)\"\r\n"
                     .data(using: .utf8)!
@@ -125,20 +124,15 @@ class NewCVViewController: UIViewController, UIDocumentPickerDelegate {
             // ==========================
 
             body.append("--\(boundary)--\r\n".data(using: .utf8)!)
-
         } catch {
-
             print("Erreur lecture fichier :", error)
-
             return
         }
 
         request.httpBody = body
 
         URLSession.shared.dataTask(with: request) { data, response, error in
-
             if let error = error {
-
                 DispatchQueue.main.async {
                     self.message_result.text = error.localizedDescription
                     self.message_result.textColor = .red
@@ -165,31 +159,25 @@ class NewCVViewController: UIViewController, UIDocumentPickerDelegate {
             print(String(data: data, encoding: .utf8) ?? "Réponse illisible")
 
             DispatchQueue.main.async {
-
                 do {
-
                     let decoded = try JSONDecoder().decode(
                         AddCVR.self,
                         from: data
                     )
 
                     if decoded.success {
-
                         self.message_result.text = "CV envoyé avec succès"
                         self.message_result.textColor = .systemGreen
 
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                             self.navigationController?.popViewController(animated: true)
                         }
-
                     } else {
-
                         self.message_result.text = "Erreur lors de l'envoi"
                         self.message_result.textColor = .red
                     }
 
                 } catch {
-
                     self.message_result.text = "Réponse serveur invalide"
                     self.message_result.textColor = .red
 

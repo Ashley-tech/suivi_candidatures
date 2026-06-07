@@ -8,11 +8,9 @@
 import Foundation
 
 struct CandidatureResponse: Decodable {
-    var id: Int,
-compte: Int,
-offre:Int,
-        cv: Int,
-        statut: String?,
-        date_candidature: String,
-score_matching: Double?
+    var message: String,
+        candidature: Candidature,
+        id: Int,
+        success: Bool,
+        code: Int
 }

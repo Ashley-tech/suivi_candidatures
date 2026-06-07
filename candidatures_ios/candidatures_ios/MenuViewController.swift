@@ -22,6 +22,13 @@ class MenuViewController: UIViewController {
         chargerMenu()
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "versCandidatures" {
+            let destination = segue.destination as! CandidaturesViewController
+            destination.compte = id
+        }
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         chargerMenu()
@@ -83,7 +90,7 @@ class MenuViewController: UIViewController {
                                 }
                                 do {
                                     let decoded2 = try JSONDecoder().decode(
-                                        [CandidatureResponse].self,
+                                        [Candidature].self,
                                         from: data
                                     )
 
