@@ -13,6 +13,7 @@ class CandidatureCell: UITableViewCell {
     @IBOutlet weak var titreLabel: UILabel!
     @IBOutlet weak var statutLabel: UILabel!
     var onDelete: (() -> Void)?
+    var onDetails: (() -> Void)?
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -25,6 +26,9 @@ class CandidatureCell: UITableViewCell {
     }
     @IBAction func delClicked(_ sender: Any) {
         onDelete?()
+    }
+    @IBAction func infoClicked(_ sender: Any) {
+        onDetails?()
     }
     
 }

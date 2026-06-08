@@ -16,6 +16,7 @@ class CandidaturesViewController: UIViewController, UITableViewDelegate, UITable
     let baseURL = Bundle.main.object(forInfoDictionaryKey: "API_BASE_URL") as? String ?? ""
     var compte = 0
     var candidatures : [CandidatureAvecOffre] = []
+    var candidatureSelectionnee: CandidatureAvecOffre?
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return candidatures.count
     }
@@ -73,6 +74,12 @@ class CandidaturesViewController: UIViewController, UITableViewDelegate, UITable
             let destination = segue.destination as! NewCandidatureViewController
             destination.compte = compte
         }
+        
+        if segue.identifier == "versDetailsCandidature" {
+                let destination = segue.destination as! DetailsCandidatureViewController
+            destination.compte = compte
+                destination.candidatureAvecOffre = candidatureSelectionnee
+        }
     }
     
     func tableView(
@@ -93,6 +100,14 @@ class CandidaturesViewController: UIViewController, UITableViewDelegate, UITable
         
         cell.onDelete = { [weak self] in
             self?.supprimerCandidature(item.candidature, indexPath: indexPath)
+        }
+        
+        cell.onDetails = { [weak self] in
+            self?.candidatureSelectionnee = item
+            self?.performSegue(
+                withIdentifier: "versDetailsCandidature",
+                sender: nil
+            )
         }
 
         return cell

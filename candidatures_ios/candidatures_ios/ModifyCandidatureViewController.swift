@@ -7,7 +7,21 @@
 
 import UIKit
 
-class ModifyCandidatureViewController: UIViewController {
+class ModifyCandidatureViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 0
+        //A compléter
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return 0
+        //A compléter
+    }
+    
+    var type_selected = ""
+    var titre = ""
+    var descrip = ""
+    var e = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -16,14 +30,5 @@ class ModifyCandidatureViewController: UIViewController {
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
