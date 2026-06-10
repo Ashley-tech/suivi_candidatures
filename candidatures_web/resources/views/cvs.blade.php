@@ -70,7 +70,7 @@
                         }
                         const cvElement = $(`
                             <div style="border: 1px solid #ccc; padding: 10px; border-radius: 5px;">
-                                <p><img src="/images/${iconName}.webp" alt="${iconName.toUpperCase()} icon" style="width: 23px; height: 30px; vertical-align: middle; margin-right: 10px;"> ${cv.nom}</p>
+                                <p><img src="/images/${iconName}.webp" alt="${iconName.toUpperCase()} icon" style="width: 23px; height: 30px; vertical-align: middle; margin-right: 10px;"> ${cv.id}. ${cv.nom}</p>
                                 <p><strong>Date d'upload :</strong> ${new Date(cv.date_upload).toLocaleDateString()}</p>
                                 <a href="${cv.download_url}" target="_blank">Télécharger</a>
                                 <button type="button" class="delete-cv" data-cv-id="${cv.id}" style="margin-left: 20px; color: white;font-size: 16px;">Supprimer</button>
@@ -99,8 +99,18 @@
             location.href = "/dashboard";
         });
         async function deleteCV(cv){
-            var confirmation = confirm("Êtes-vous sûr de vouloir supprimer le CV \"" + cv.nom + "\" ?");
+            var confirmation = confirm("Êtes-vous sûr de vouloir supprimer le CV \"" + cv.id + ". " + cv.nom + "\" ?");
             if (confirmation){
+                const resp = await fetch("/api/cv/" + cv.id + "/candidatures");
+                const c = await resp.json();
+                for (let i = 0; i < c.length; i++) {
+                    await fetch("/api/candidature/" + c[i].id, {
+                        method: "DELETE",
+                        headers: {
+                            "Content-Type": "application/json"
+                        }
+                    });
+                }
                 const response = await fetch("/api/cv/" + cv.id, {
                     method: "DELETE",
                     headers: {
