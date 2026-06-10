@@ -79,6 +79,7 @@ class CandidaturesViewController: UIViewController, UITableViewDelegate, UITable
                 let destination = segue.destination as! DetailsCandidatureViewController
             destination.compte = compte
                 destination.candidatureAvecOffre = candidatureSelectionnee
+            destination.offre = candidatureSelectionnee?.offre.id ?? 0
         }
     }
     

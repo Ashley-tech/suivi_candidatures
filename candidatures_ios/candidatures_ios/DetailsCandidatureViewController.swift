@@ -22,11 +22,12 @@ class DetailsCandidatureViewController: UIViewController {
     @IBOutlet weak var villet: UILabel!
     @IBOutlet weak var cpt: UILabel!
     @IBOutlet weak var adresseT: UILabel!
+    @IBOutlet weak var descript: UITextView!
     @IBOutlet weak var entreprise: UILabel!
-    @IBOutlet weak var descript: UILabel!
     @IBOutlet weak var titleInter: UILabel!
     @IBOutlet weak var typeO: UILabel!
     @IBOutlet weak var smBtn: UIButton!
+    var idCV = 0
     var candidatureAvecOffre: CandidatureAvecOffre?
     var compte = 0
     let baseURL = Bundle.main.object(forInfoDictionaryKey: "API_BASE_URL") as? String ?? ""
@@ -53,8 +54,57 @@ class DetailsCandidatureViewController: UIViewController {
     var offre = 0
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        descript.isEditable = false
+        descript.isScrollEnabled = true
+        
         chargerCandidature()
-
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        chargerCandidature()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "versModifCandidature" {
+            let destination = segue.destination as! ModifyCandidatureViewController
+            destination.descrip = d
+            destination.titre = titre
+            destination.type_selected = type
+            destination.dateCandidature = dateCandidature
+            destination.statut = st
+            destination.datePublication = datePublication
+            destination.idCVselected = idCV
+            if pays != "" {
+                destination.e = "\(ne)/\(adresse)/\(cadresse)/\(cp)/\(ville)/\(pays)"
+            } else if ville != "" {
+                destination.e = "\(ne)/\(adresse)/\(cadresse)/\(cp)/\(ville)"
+            } else if cp != "" {
+                destination.e = "\(ne)/\(adresse)/\(cadresse)/\(cp)"
+            } else if cadresse != "" {
+                destination.e = "\(ne)/\(adresse)/\(cadresse)"
+            } else if adresse != "" {
+                destination.e = "\(ne)/\(adresse)"
+            } else if ne != "" {
+                destination.e = ne
+            }
+            destination.periode = p
+            if tr != "" {
+                destination.r = "\(nr)/\(pr)/\(er)/\(tr)"
+            } else if er != "" {
+                destination.r = "\(nr)/\(pr)/\(er)"
+            } else if pr != "" {
+                destination.r = "\(nr)/\(pr)"
+            } else if nr != "" {
+                destination.r = nr
+            }
+            destination.sma = salaireMax != nil ? String(salaireMax!) : ""
+            destination.smi = salaireMin != nil ? String(salaireMin!) : ""
+            destination.compte = compte
+            destination.offre = offre
+            destination.id = candidatureAvecOffre?.candidature.id ?? 0
+        }
     }
     
     func chargerCandidature() {
@@ -83,6 +133,7 @@ class DetailsCandidatureViewController: UIViewController {
                     self.st = decoded.statut!
                     self.score = decoded.score_matching ?? 0.0
                     self.dateCandidature = decoded.date_candidature
+                    self.idCV = decoded.cv
                     
                     self.statut.text = "Statut : \(self.st)"
                     self.score_matched.text = "Score : \(self.score ?? 0.0)"

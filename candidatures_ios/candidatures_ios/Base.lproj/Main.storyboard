@@ -1177,18 +1177,11 @@
                                     <color key="baseBackgroundColor" systemColor="systemRedColor"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <segue destination="W4N-yS-f35" kind="show" identifier="versModifOffre" id="HcX-z6-aFk"/>
+                                    <segue destination="W4N-yS-f35" kind="show" identifier="versModifCandidature" id="HcX-z6-aFk"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Type de l'offre :" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lbY-2J-pNQ">
                                 <rect key="frame" x="20" y="169" width="374" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0MV-9J-7u3">
-                                <rect key="frame" x="20" y="198" width="374" height="111"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -1264,6 +1257,13 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Date de publication :" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NpD-mw-goM">
+                                <rect key="frame" x="20" y="607" width="374" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Score :" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aGE-ah-VZy">
                                 <rect key="frame" x="20" y="690" width="374" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1296,13 +1296,14 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Date de publication :" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NpD-mw-goM">
-                                <rect key="frame" x="20" y="607" width="374" height="21"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Uz0-6q-12K">
+                                <rect key="frame" x="20" y="198" width="374" height="111"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="cMk-OX-0Kt"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -1312,7 +1313,7 @@
                         <outlet property="adresseT" destination="YKc-Q2-nz3" id="WtC-Yj-kMG"/>
                         <outlet property="cpt" destination="uMA-yh-CDo" id="OJT-dr-j6C"/>
                         <outlet property="dc" destination="ocv-A8-m6I" id="hsy-pW-Q3T"/>
-                        <outlet property="descript" destination="0MV-9J-7u3" id="PFE-ce-B2h"/>
+                        <outlet property="descript" destination="Uz0-6q-12K" id="JqD-hZ-gAm"/>
                         <outlet property="dp" destination="NpD-mw-goM" id="B69-rn-xAf"/>
                         <outlet property="email_recruteur" destination="1Jt-h5-Nx4" id="Vj3-b4-8c7"/>
                         <outlet property="entreprise" destination="Tvl-pq-SrA" id="e2w-xb-hBT"/>
@@ -1591,7 +1592,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Statut (En attente par défaut) :" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FtF-j4-W02">
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Statut :" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FtF-j4-W02">
                                 <rect key="frame" x="31" y="541" width="340" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -1664,12 +1665,30 @@
                                 <buttonConfiguration key="configuration" style="filled" title="Modifier la candidature">
                                     <color key="baseBackgroundColor" systemColor="systemRedColor"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="modifierCandidature:" destination="W4N-yS-f35" eventType="touchUpInside" id="ZJW-xk-lQe"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="BBC-z1-Khs"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="8P9-S1-YcZ"/>
+                    <connections>
+                        <outlet property="cvs" destination="ajG-2F-wRt" id="rcz-Eu-Zeb"/>
+                        <outlet property="dcm" destination="7nc-wM-ISN" id="c7g-6X-P8B"/>
+                        <outlet property="descriptionm" destination="VJH-Zy-xAD" id="Lnh-9v-i3n"/>
+                        <outlet property="dpm" destination="FKG-si-eRb" id="hrX-wJ-CG8"/>
+                        <outlet property="em" destination="aYJ-HS-xlq" id="5JT-19-fcA"/>
+                        <outlet property="message_result" destination="CB2-tD-CRn" id="8s3-ic-dzm"/>
+                        <outlet property="periodem" destination="XdG-vK-pAb" id="8KP-q0-BG1"/>
+                        <outlet property="recruteur" destination="Beg-l4-6Kg" id="Lqm-uw-ePW"/>
+                        <outlet property="salaireMax" destination="rTe-Hi-7kC" id="KVn-hV-FGO"/>
+                        <outlet property="salaireMin" destination="zEY-r3-zKc" id="RyX-Cs-r4u"/>
+                        <outlet property="statutm" destination="FtF-j4-W02" id="YHh-G3-AFL"/>
+                        <outlet property="titlem" destination="wEC-i6-snT" id="je2-cw-Tmf"/>
+                        <outlet property="typem" destination="EnK-H3-y6U" id="vMj-lg-PaM"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cSA-pQ-PDy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

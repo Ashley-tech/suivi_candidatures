@@ -23,7 +23,7 @@ class NewCandidatureViewController: UIViewController, UIPickerViewDelegate, UIPi
     @IBOutlet weak var titre: UITextField!
     
     let types = ["(Pas de type défini)","Alternance","Stage","CDI","CDD","Freelance","Autre"]
-
+    
         var listeCVs: [CVResponse] = []
     
     var compte = 0
@@ -41,6 +41,12 @@ class NewCandidatureViewController: UIViewController, UIPickerViewDelegate, UIPi
         
         salaireMin.keyboardType = .numberPad
         salaireMax.keyboardType = .numberPad
+        
+        dateCandidature.datePickerMode = .date
+        dateCandidature.preferredDatePickerStyle = .compact
+        
+        datePublic.datePickerMode = .date
+        datePublic.preferredDatePickerStyle = .compact
         
         let url = URL(string: "\(baseURL)/api/compte/\(compte)/cvs")!
 
