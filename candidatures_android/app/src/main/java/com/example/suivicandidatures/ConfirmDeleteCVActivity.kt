@@ -35,7 +35,7 @@ class ConfirmDeleteCVActivity : AppCompatActivity(), View.OnClickListener {
         extras = intent.extras!!
         id = extras.getInt("id_cv")
         nom = extras.getString("nom_cv").toString()
-        question.setText("Êtes-vous sûr de vouloir supprimer le CV \"" + nom + "\" ?")
+        question.setText("Êtes-vous sûr de vouloir supprimer le CV \""+ id + ". " + nom + "\" ?")
     }
 
     override fun onClick(v: View) {
@@ -64,9 +64,54 @@ class ConfirmDeleteCVActivity : AppCompatActivity(), View.OnClickListener {
 
         override fun doInBackground(vararg params: Void?): String {
             try {
-                var url = URL("http://10.0.2.2:8000/api/cv/"+id)
+                /*
+                 * =========================
+                 * Récupération candidatures
+                 * =========================
+                 */
 
+                var url = URL("http://10.0.2.2:8000/api/cv/"+id+"/candidatures")
                 var co = url.openConnection() as HttpURLConnection
+                co.requestMethod = "GET"
+                co.setRequestProperty("Content-Type", "application/json")
+                val candidaturesResponse = if (co.responseCode == HttpURLConnection.HTTP_OK) {
+                    val reader = BufferedReader(InputStreamReader(co.inputStream))
+                    val result = StringBuilder()
+                    var line: String?
+                    while (reader.readLine().also { line = it } != null) {
+                        result.append(line)
+                    }
+                    result.toString()
+                } else {
+                    return "Erreur récupération candidatures"
+                }
+
+                co.disconnect()
+
+                val candidaturesArray = JSONObject("{\"data\":$candidaturesResponse}")
+                    .getJSONArray("data")
+
+                /*
+                 * =========================
+                 * Suppression candidatures
+                 * =========================
+                 */
+
+                for (i in 0 until candidaturesArray.length()) {
+                    val candidature = candidaturesArray.getJSONObject(i)
+                    val candidatureId = candidature.getInt("id")
+                    url = URL("http://10.0.2.2:8000/api/candidature/$candidatureId")
+                    co = url.openConnection() as HttpURLConnection
+                    co.requestMethod = "DELETE"
+                    co.setRequestProperty("Content-Type", "application/json")
+                    co.responseCode
+                    co.disconnect()
+                }
+
+
+                url = URL("http://10.0.2.2:8000/api/cv/"+id)
+
+                co = url.openConnection() as HttpURLConnection
 
                 co.requestMethod = "DELETE"
                 co.setRequestProperty("Content-Type", "application/json")

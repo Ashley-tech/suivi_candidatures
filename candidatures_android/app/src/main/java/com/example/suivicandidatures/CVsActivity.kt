@@ -193,7 +193,7 @@ class CVsActivity : AppCompatActivity(), View.OnClickListener {
 
             val idCV = item["id"].toString()
 
-            itemcv01.text = item["nom"]
+            itemcv01.text = idCV + ". " + item["nom"]
             itemcv02.text = item["date"]
 
             /*
