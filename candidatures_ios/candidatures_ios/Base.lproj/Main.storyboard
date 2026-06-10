@@ -209,12 +209,17 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="gTW-b3-mtW">
+                                <rect key="frame" x="189" y="660" width="37" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="WK7-yj-7YY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="imK-9K-WUO"/>
                     <connections>
+                        <outlet property="loadingIcon" destination="gTW-b3-mtW" id="xqc-Hn-sQ8"/>
                         <outlet property="login" destination="E1d-Om-HIc" id="2L9-B0-C2P"/>
                         <outlet property="message_result" destination="n44-4s-LCW" id="vpa-3X-gcu"/>
                         <outlet property="pwdField" destination="KdE-1j-MFZ" id="rLl-Zj-npG"/>

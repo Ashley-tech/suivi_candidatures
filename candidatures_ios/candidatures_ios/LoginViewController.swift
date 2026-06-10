@@ -18,6 +18,7 @@ struct LoginResponse: Codable {
 
 class LoginViewController: UIViewController {
 
+    @IBOutlet weak var loadingIcon: UIActivityIndicatorView!
     @IBOutlet weak var message_result: UILabel!
     @IBOutlet weak var pwdField: UITextField!
     @IBOutlet weak var login: UITextField!
@@ -27,6 +28,7 @@ class LoginViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         pwdField.isSecureTextEntry = true
+        loadingIcon.isHidden = true
 
         print(baseURL)
     }
@@ -52,6 +54,8 @@ class LoginViewController: UIViewController {
             message_result.textColor = .red
             return
         }
+        loadingIcon.isHidden = false
+        loadingIcon.startAnimating()
             // ⚠️ Remplace par ton IP locale
             let url = URL(string: baseURL+"/api/login")!
 
@@ -74,12 +78,16 @@ class LoginViewController: UIViewController {
                 DispatchQueue.main.async {
 
                     if let error = error {
+                        self.loadingIcon.isHidden = true
+                        self.loadingIcon.stopAnimating()
                         self.message_result.text = error.localizedDescription
                         self.message_result.textColor = .red
                         return
                     }
 
                     guard let data = data else {
+                        self.loadingIcon.isHidden = true
+                        self.loadingIcon.stopAnimating()
                         self.message_result.text = "Aucune réponse serveur"
                         self.message_result.textColor = .red
                         return
@@ -91,6 +99,9 @@ class LoginViewController: UIViewController {
 
                         DispatchQueue.main.async {
                             if decoded.success == true {
+                                self.loadingIcon.isHidden = true
+                                self.loadingIcon.stopAnimating()
+                                
                                 self.message_result.text = "Connexion réussie"
                                 self.message_result.textColor = .green
                                 
@@ -107,12 +118,16 @@ class LoginViewController: UIViewController {
                                 }
                                 
                             } else {
+                                self.loadingIcon.isHidden = true
+                                self.loadingIcon.stopAnimating()
                                 self.message_result.text = "L'adresse et le mot de passe ne correspondent à aucun compte"
                                 self.message_result.textColor = .red
                             }
                         }
 
                     } catch {
+                        self.loadingIcon.isHidden = true
+                        self.loadingIcon.stopAnimating()
                         DispatchQueue.main.async {
                             self.message_result.text = "Erreur parsing JSON"
                             self.message_result.textColor = .red
