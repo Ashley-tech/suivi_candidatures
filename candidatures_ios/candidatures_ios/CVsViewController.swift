@@ -149,26 +149,99 @@ class CVsViewController: UIViewController, UITableViewDelegate, UITableViewDataS
                 title: "Oui",
                 style: .destructive
             ) { _ in
-                let url = URL(
-                    string: "\(self.baseURL)/api/cv/\(cv.id)"
-                )!
-
+                
+                var url = URL(string:self.baseURL+"/api/cv/\(cv.id)/candidatures")!
+                
                 var request = URLRequest(url: url)
 
-                request.httpMethod = "DELETE"
+                request.httpMethod = "GET"
 
-                URLSession.shared.dataTask(
-                    with: request
-                ) { data, response, error in
-
+                request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+                
+                URLSession.shared.dataTask(with: request) { data, response, error in
                     DispatchQueue.main.async {
-                        self.cvs.remove(at: indexPath.row)
-                        self.cvlist.deleteRows(
-                            at: [indexPath],
-                            with: .automatic
-                        )
-                    }
+                        if let error = error {
+                            print(error.localizedDescription)
+                            return
+                        }
+                        
+                        guard let data3 = data else {
+                            print("Aucune réponse serveur")
+                            return
+                        }
+                        
+                        do {
+                            let decoded3 = try JSONDecoder().decode(
+                                [Candidature].self,
+                                from: data3
+                            )
+                            for i in 0..<decoded3.count {
+                                let idt0 = decoded3[i].id
+                                print("idt0:\(idt0)")
+                                let urlt = URL(string:self.baseURL+"/api/candidature/\(idt0)")
+                                var rt = URLRequest(url:urlt!)
+                                rt.httpMethod = "DELETE"
+                                rt.setValue("application/json", forHTTPHeaderField: "Content-Type")
+                                
+                                URLSession.shared.dataTask(with: rt) { data, response, error in
+                                    DispatchQueue.main.async {
+                                        if let error = error {
+                                            print(error.localizedDescription)
+                                            return
+                                        }
+                                        
+                                        if let httpResponse = response as? HTTPURLResponse {
 
+                                            print("Code HTTP :", httpResponse.statusCode)
+
+                                        }
+
+                                        print("URL :", rt.url!.absoluteString)
+                                        
+                                        guard let data = data else {
+                                            print("Aucune réponse serveur")
+                                            return
+                                        }
+                                        print("Suppression candidature :", idt0)
+                                        print("URL appelée :", rt.url!)
+                                        print(String(data: data, encoding: .utf8) ?? "")
+                                        do {
+                                            let decoded3 = try JSONDecoder().decode(
+                                                    DeleteResponse.self,
+                                                    from: data
+                                                )
+                                        }catch{
+                                            print("Erreur de la suppression de la candidature n°\(idt0) : "+error.localizedDescription)
+                                            return
+                                        }
+                                    }
+                                    url = URL(
+                                        string: "\(self.baseURL)/api/cv/\(cv.id)"
+                                    )!
+
+                                    request = URLRequest(url: url)
+
+                                    request.httpMethod = "DELETE"
+
+                                    URLSession.shared.dataTask(
+                                        with: request
+                                    ) { data, response, error in
+
+                                        DispatchQueue.main.async {
+                                            self.cvs.remove(at: indexPath.row)
+                                            self.cvlist.deleteRows(
+                                                at: [indexPath],
+                                                with: .automatic
+                                            )
+                                        }
+                                    }.resume()
+                                }.resume()
+                            }
+                        }catch {
+                            print("Erreur JSON : "+error.localizedDescription)
+                            return
+                        }
+                    }
                 }.resume()
             }
         )
