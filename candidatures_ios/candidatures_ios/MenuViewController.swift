@@ -7,6 +7,10 @@
 
 import UIKit
 
+struct CandidaturesResponse: Decodable {
+    let candidatures: [Candidature]
+}
+
 class MenuViewController: UIViewController {
     @IBOutlet weak var welcomet: UILabel!
     @IBOutlet weak var messager: UILabel!
@@ -76,7 +80,7 @@ class MenuViewController: UIViewController {
                         request.httpMethod = "GET"
                         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
                         
-                        URLSession.shared.dataTask(with: request) { data, response, error in
+                        URLSession.shared.dataTask(with: url) { data, response, error in
                             
                             DispatchQueue.main.async {
                                 if let error = error {

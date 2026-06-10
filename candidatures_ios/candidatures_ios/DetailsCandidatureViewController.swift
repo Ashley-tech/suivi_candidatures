@@ -31,7 +31,7 @@ class DetailsCandidatureViewController: UIViewController {
     var candidatureAvecOffre: CandidatureAvecOffre?
     var compte = 0
     let baseURL = Bundle.main.object(forInfoDictionaryKey: "API_BASE_URL") as? String ?? ""
-    var score : Double?
+    var score = ""
     var type = ""
     var titre = ""
     var d = ""
@@ -131,13 +131,13 @@ class DetailsCandidatureViewController: UIViewController {
                 )
                 DispatchQueue.main.async {
                     self.st = decoded.statut!
-                    self.score = decoded.score_matching ?? 0.0
+                    self.score = decoded.score_matching ?? ""
                     self.dateCandidature = decoded.date_candidature
                     self.idCV = decoded.cv
                     
                     self.statut.text = "Statut : \(self.st)"
-                    self.score_matched.text = "Score : \(self.score ?? 0.0)"
-                    if self.score! != 0.0 {
+                    self.score_matched.text = "Score : \(self.score ?? "")"
+                    if self.score != "" {
                         self.smBtn.setTitle("Recalculer le score de matching", for: .normal)
                     } else {
                         self.smBtn.setTitle("Calculer le score de matching", for: .normal)
@@ -276,5 +276,81 @@ class DetailsCandidatureViewController: UIViewController {
         
     }
     @IBAction func calculerScoreMatching(_ sender: Any) {
+        if score == nil || score == "" {
+            let url = URL(
+                string: "\(baseURL)/api/candidature/\(candidatureAvecOffre?.candidature.id ?? 0)/save-score")
+            var request = URLRequest(url: url!)
+                request.httpMethod = "PATCH"
+                request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+            URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    print(error.localizedDescription)
+                    return
+                }
+                
+                guard let data = data else {
+                    return
+                }
+                
+                do {
+                    let decoded = try JSONDecoder().decode(NewScore.self, from: data)
+                    DispatchQueue.main.async {
+                        self.score_matched.text = "Score : \(decoded.score)"
+                        self.smBtn.setTitle("Recalculer le score de matching", for: .normal)
+                    }
+                }catch{
+                    print(error)
+                }
+            }.resume()
+        } else {
+            let alert = UIAlertController(
+                title: "Calcul du score matching",
+                message: "Êtes-vous sûr de vouloir recommencer le matching score ?",
+                preferredStyle: .alert
+            )
+
+            alert.addAction(
+                UIAlertAction(
+                    title: "Oui",
+                    style: .destructive
+                ) { _ in
+                    let url = URL(
+                        string: "\(self.baseURL)/api/candidature/\(self.candidatureAvecOffre?.candidature.id ?? 0)/save-score")
+                    var request = URLRequest(url: url!)
+                        request.httpMethod = "PATCH"
+                        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+                    URLSession.shared.dataTask(with: request) { data, response, error in
+                        if let error = error {
+                            print(error.localizedDescription)
+                            return
+                        }
+                        
+                        guard let data = data else {
+                            return
+                        }
+                        
+                        do {
+                            let decoded = try JSONDecoder().decode(NewScore.self, from: data)
+                            DispatchQueue.main.async {
+                                self.score_matched.text = "Score : \(decoded.score)"
+                                self.smBtn.setTitle("Recalculer le score de matching", for: .normal)
+                            }
+                        }catch{
+                            print(error)
+                        }
+                    }.resume()
+                }
+            )
+            
+            alert.addAction(
+                UIAlertAction(
+                    title: "Non",
+                    style: .default
+                )
+            )
+            present(alert, animated: true)
+        }
     }
 }

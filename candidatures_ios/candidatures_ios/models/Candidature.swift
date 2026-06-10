@@ -14,5 +14,5 @@ offre:Int,
         cv: Int,
         statut: String?,
         date_candidature: String,
-score_matching: Double?
+        score_matching: String?
 }
