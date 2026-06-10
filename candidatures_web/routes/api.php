@@ -77,6 +77,10 @@ Route::get("/compte/{compte}/candidatures", function ($compte) {
     return Candidature::where('compte', $compte)->get();
 });
 
+Route::get("/cv/{cv}/candidatures", function ($cv) {
+    return Candidature::where('cv', $cv)->get();
+});
+
 Route::get("/offres", function () {
     return Offre::all();
 });
@@ -95,7 +99,7 @@ Route::post("/offres", [OffreController::class, 'ajouterOffre']);
 
 Route::patch("/offres/{id}", [OffreController::class, 'updateOffre']);
 
-Route::delete("/offres/{id}", [OffreController::class, 'deleteOffre']);           
+Route::delete("/offres/{id}", [OffreController::class, 'deleteOffre']);
 
 Route::post("/candidatures", [CandidatureController::class, 'enregistrerCandidature']);
 
