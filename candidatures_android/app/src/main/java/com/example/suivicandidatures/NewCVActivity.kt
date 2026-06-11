@@ -122,7 +122,8 @@ class NewCVActivity : AppCompatActivity(), View.OnClickListener {
                 val client = OkHttpClient()
 
                 val fileName = getFileName(uri)
-                val mimeType = contentResolver.getType(uri) ?: "application/octet-stream"
+                //val mimeType = contentResolver.getType(uri) ?: "application/octet-stream"
+                val mimeType = contentResolver.getType(uri) ?: "application/json"
 
                 // Convert URI -> temp file (IMPORTANT pour stabilité)
                 val tempFile = createTempFileFromUri(uri)
