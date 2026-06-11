@@ -39,6 +39,8 @@ class NewCandidatureViewController: UIViewController, UIPickerViewDelegate, UIPi
         cvs.delegate = self
         cvs.dataSource = self
         
+        navigationItem.hidesBackButton = true
+        
         salaireMin.keyboardType = .numberPad
         salaireMax.keyboardType = .numberPad
         

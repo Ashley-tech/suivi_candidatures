@@ -41,12 +41,17 @@ class ProfileViewController: UIViewController {
     var dateNaissance: String = ""
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.hidesBackButton = true
         chargerProfil()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         chargerProfil()
+    }
+    
+    @IBAction func profileReturned(segue: UIStoryboardSegue){
+        
     }
     
     func chargerProfil() {

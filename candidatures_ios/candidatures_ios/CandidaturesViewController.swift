@@ -121,12 +121,18 @@ class CandidaturesViewController: UIViewController, UITableViewDelegate, UITable
         candidaturesList.delegate = self
         candidaturesList.dataSource = self
         candidaturesList.rowHeight = 100
+        candidaturesList.isScrollEnabled = true
+        
+        navigationItem.hidesBackButton = true
         
         chargerCandidatures()
     }
     
+    @IBAction func candidaturesReturned(segue: UIStoryboardSegue){}
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationItem.hidesBackButton = true
         chargerCandidatures()
     }
     

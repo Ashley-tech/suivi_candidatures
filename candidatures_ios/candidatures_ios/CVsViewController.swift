@@ -20,13 +20,20 @@ class CVsViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         cvlist.delegate = self
         cvlist.dataSource = self
         cvlist.rowHeight = 90
+        cvlist.isScrollEnabled = true
+        
+        navigationItem.hidesBackButton = true
 
         chargerCVs()
     }
     
+    @IBAction func CVReturned(segue: UIStoryboardSegue){
+        
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let destination = segue.destination as! NewCVViewController
         if (segue.identifier == "versNewCV") {
+            let destination = segue.destination as! NewCVViewController
             destination.compte = compte
         }
     }

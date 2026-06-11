@@ -9,6 +9,7 @@ import UIKit
 import UniformTypeIdentifiers
 
 class NewCVViewController: UIViewController, UIDocumentPickerDelegate {
+    @IBOutlet weak var loadingIcon: UIActivityIndicatorView!
     @IBOutlet weak var message_result: UILabel!
     var selectedFileURL: URL?
     var compte = 0
@@ -35,6 +36,8 @@ class NewCVViewController: UIViewController, UIDocumentPickerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         file_selected.text = "Aucun fichier sélectionné"
+        navigationItem.hidesBackButton = true
+        loadingIcon.isHidden = true
     }
     
     func documentPicker(
@@ -58,6 +61,8 @@ class NewCVViewController: UIViewController, UIDocumentPickerDelegate {
             return
         }
         print(fileURL)
+        loadingIcon.startAnimating()
+        loadingIcon.isHidden = false
         envoyerCV(fileURL)
     }
     
@@ -88,6 +93,8 @@ class NewCVViewController: UIViewController, UIDocumentPickerDelegate {
 
         do {
             guard fileURL.startAccessingSecurityScopedResource() else {
+                self.loadingIcon.stopAnimating()
+                self.loadingIcon.isHidden = true
                 return
             }
 
@@ -124,7 +131,8 @@ class NewCVViewController: UIViewController, UIDocumentPickerDelegate {
             // ==========================
 
             body.append("--\(boundary)--\r\n".data(using: .utf8)!)
-        } catch {
+        } catch {self.loadingIcon.stopAnimating()
+            self.loadingIcon.isHidden = true
             print("Erreur lecture fichier :", error)
             return
         }
@@ -137,6 +145,8 @@ class NewCVViewController: UIViewController, UIDocumentPickerDelegate {
                     self.message_result.text = error.localizedDescription
                     self.message_result.textColor = .red
                 }
+                self.loadingIcon.stopAnimating()
+                self.loadingIcon.isHidden = true
 
                 return
             }
@@ -153,6 +163,8 @@ class NewCVViewController: UIViewController, UIDocumentPickerDelegate {
             }
 
             guard let data = data else {
+                self.loadingIcon.stopAnimating()
+                self.loadingIcon.isHidden = true
                 return
             }
 
@@ -164,6 +176,8 @@ class NewCVViewController: UIViewController, UIDocumentPickerDelegate {
                         AddCVR.self,
                         from: data
                     )
+                    self.loadingIcon.stopAnimating()
+                    self.loadingIcon.isHidden = true
 
                     if decoded.success {
                         self.message_result.text = "CV envoyé avec succès"
@@ -178,6 +192,8 @@ class NewCVViewController: UIViewController, UIDocumentPickerDelegate {
                     }
 
                 } catch {
+                    self.loadingIcon.stopAnimating()
+                    self.loadingIcon.isHidden = true
                     self.message_result.text = "Réponse serveur invalide"
                     self.message_result.textColor = .red
 

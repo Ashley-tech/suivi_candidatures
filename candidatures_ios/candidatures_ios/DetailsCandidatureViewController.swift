@@ -58,12 +58,19 @@ class DetailsCandidatureViewController: UIViewController {
         descript.isEditable = false
         descript.isScrollEnabled = true
         
+        navigationItem.hidesBackButton = true
+        
         chargerCandidature()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationItem.hidesBackButton = true
         chargerCandidature()
+    }
+    
+    @IBAction func candidatureReturned(segue: UIStoryboardSegue){
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

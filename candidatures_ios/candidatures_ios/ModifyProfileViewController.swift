@@ -12,6 +12,8 @@ class ModifyProfileViewController: UIViewController, UIPickerViewDelegate, UIPic
     @IBOutlet weak var message_result: UILabel!
     @IBOutlet weak var maim: UITextField!
     var sex_selected: String = ""
+    @IBOutlet weak var displayPwdBtn: UIButton!
+    @IBOutlet weak var displayPwdBtn2: UIButton!
     @IBOutlet weak var mdpr: UITextField!
     @IBOutlet weak var mdp: UITextField!
     @IBOutlet weak var lnM: UITextField!
@@ -42,6 +44,8 @@ class ModifyProfileViewController: UIViewController, UIPickerViewDelegate, UIPic
     var mail : String = UserDefaults.standard.string(forKey: "userEmail") ?? ""
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationItem.hidesBackButton = true
 
         sexe_picker.delegate = self
         sexe_picker.dataSource = self
@@ -114,6 +118,11 @@ class ModifyProfileViewController: UIViewController, UIPickerViewDelegate, UIPic
         if let text = existingText {
             mdp.text = ""
             mdp.insertText(text)
+        }
+        if isSecure {
+            displayPwdBtn.setTitle("Afficher le mot de passe", for: .normal)
+        } else {
+            displayPwdBtn.setTitle("Masquer le mot de passe", for: .normal)
         }
     }
     
@@ -398,6 +407,11 @@ class ModifyProfileViewController: UIViewController, UIPickerViewDelegate, UIPic
         if let text = existingText {
             mdpr.text = ""
             mdpr.insertText(text)
+        }
+        if isSecure {
+            displayPwdBtn2.setTitle("Afficher le mot de passe", for: .normal)
+        } else {
+            displayPwdBtn2.setTitle("Masquer le mot de passe", for: .normal)
         }
     }
 

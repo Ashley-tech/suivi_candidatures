@@ -18,6 +18,7 @@ struct LoginResponse: Codable {
 
 class LoginViewController: UIViewController {
 
+    @IBOutlet weak var displayPwdBtn: UIButton!
     @IBOutlet weak var loadingIcon: UIActivityIndicatorView!
     @IBOutlet weak var message_result: UILabel!
     @IBOutlet weak var pwdField: UITextField!
@@ -29,12 +30,17 @@ class LoginViewController: UIViewController {
         // Do any additional setup after loading the view.
         pwdField.isSecureTextEntry = true
         loadingIcon.isHidden = true
+        navigationItem.hidesBackButton = true
 
         print(baseURL)
     }
     
     func regexCheck(_ regex: String, _ str: String) -> Bool {
         return str.range(of: regex, options: .regularExpression) != nil
+    }
+    
+    @IBAction func loginReturned(segue: UIStoryboardSegue){
+        
     }
     
     @IBAction func tenterConnexion(_ sender: Any) {
@@ -154,6 +160,11 @@ class LoginViewController: UIViewController {
         if let text = existingText {
             pwdField.text = ""
             pwdField.insertText(text)
+        }
+        if isSecure {
+            displayPwdBtn.setTitle("Afficher le mot de passe", for: .normal)
+        } else {
+            displayPwdBtn.setTitle("Masquer le mot de passe", for: .normal)
         }
 
         print("TEXT:", pwdField.text ?? "nil")

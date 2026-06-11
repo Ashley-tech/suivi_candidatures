@@ -8,6 +8,8 @@
 import UIKit
 
 class SignupViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource{
+    @IBOutlet weak var displayPwdBtn2: UIButton!
+    @IBOutlet weak var displayPwdBtn: UIButton!
     @IBOutlet weak var mailRec: UITextField!
     @IBOutlet weak var mailF: UITextField!
     
@@ -29,6 +31,8 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     var sex_selected: String = ""
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationItem.hidesBackButton = true
 
         // Do any additional setup after loading the view.
         sexe_picker.delegate = self
@@ -60,6 +64,11 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UIPickerView
             mdp.text = ""
             mdp.insertText(text)
         }
+        if isSecure {
+            displayPwdBtn.setTitle("Afficher le mot de passe", for: .normal)
+        } else {
+            displayPwdBtn.setTitle("Masquer le mot de passe", for: .normal)
+        }
     }
     
     @IBAction func displayPwdReconf(_ sender: Any) {
@@ -77,6 +86,11 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         if let text = existingText {
             mdpr.text = ""
             mdpr.insertText(text)
+        }
+        if isSecure {
+            displayPwdBtn2.setTitle("Afficher le mot de passe", for: .normal)
+        } else {
+            displayPwdBtn2.setTitle("Masquer le mot de passe", for: .normal)
         }
     }
     func numberOfComponents(in pickerView: UIPickerView) -> Int {

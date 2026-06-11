@@ -26,6 +26,10 @@ class MenuViewController: UIViewController {
         chargerMenu()
     }
     
+    @IBAction func menuReturned(segue: UIStoryboardSegue){
+        
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "versCandidatures" {
             let destination = segue.destination as! CandidaturesViewController
